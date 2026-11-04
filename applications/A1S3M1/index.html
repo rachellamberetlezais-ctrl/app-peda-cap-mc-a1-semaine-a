@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Mathématiques CAP Coiffure — Proportionnalité : Tableau & Coefficient</title>
+
+  <!-- MathJax v3 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --cma-bordeaux: #A50F23;
+      --cma-corail: #EE3C3D;
+      --cma-fond: #F8FAFC;
+      --cma-texte: #1E293B;
+      --cma-card: #FFFFFF;
+      --cma-border: #E2E8F0;
+      --cma-success: #16A34A;
+      --cma-warning: #D97706;
+      --cma-radius: 12px;
+      --cma-shadow: 0 4px 12px rgba(30, 41, 59, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--cma-fond);
+      color: var(--cma-texte);
+      line-height: 1.5;
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #app-container {
+      width: 100%;
+      max-width: 900px;
+      min-height: 100vh;
+      background-color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    /* HEADER OFFICIEL CMA */
+    .app-header {
+      position: relative;
+      overflow: hidden;
+      padding: 16px 16px 20px 16px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--cma-border);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .app-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 1.05rem;
+      color: var(--cma-bordeaux);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .header-text p {
+      font-size: 0.78rem;
+      color: #64748B;
+      margin-top: 2px;
+    }
+
+    .cma-wave-border {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: 14px;
+      margin: 0;
+      border: 0;
+      background-image: url("ruban_vague.png");
+      background-repeat: repeat-x;
+      background-size: 102.941176px 102.941176px;
+      background-position: left -46.941176px;
+    }
+
+    /* BARRE DE PROGRESSION DU SOCLE CAP (8px) */
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: #E2E8F0;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cma-corail), var(--cma-bordeaux));
+      transition: width 0.4s ease;
+    }
+
+    /* NAVIGATION 4 ÉTAPES */
+    .nav-tabs-wrapper {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--cma-border);
+      padding: 8px 12px;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 22px;
+      border: 1px solid var(--cma-border);
+      background-color: #FFFFFF;
+      color: var(--cma-texte);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn.active {
+      background-color: var(--cma-bordeaux);
+      color: #FFFFFF;
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 2px 6px rgba(165, 15, 35, 0.3);
+    }
+
+    .nav-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 0.7rem;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .nav-btn:not(.active) .nav-badge {
+      background-color: #F1F5F9;
+      color: #64748B;
+    }
+
+    /* CONTENUS D'ÉTAPES */
+    .tab-content {
+      display: none;
+      padding: 16px;
+      flex: 1;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* TITRES ET PUCES OFFICIELLES */
+    .icon-bullet {
+      height: 18px;
+      width: 18px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      color: var(--cma-bordeaux);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1rem;
+      color: var(--cma-bordeaux);
+      margin: 14px 0 8px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    /* CARTES & ENCARTS */
+    .card {
+      background: var(--cma-card);
+      border: 1px solid var(--cma-border);
+      border-radius: var(--cma-radius);
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--cma-shadow);
+    }
+
+    .context-box {
+      border-left: 4px solid var(--cma-corail);
+      background-color: #FFF5F5;
+      padding: 12px;
+      border-radius: 0 var(--cma-radius) var(--cma-radius) 0;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+    }
+
+    /* FORMULAIRES & SAISIES (MOBILE-FIRST) */
+    .input-group {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--cma-texte);
+    }
+
+    input[type="text"],
+    select {
+      min-height: 44px;
+      font-size: 16px;
+      padding: 8px 12px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      font-family: inherit;
+      width: 100%;
+      max-width: 320px;
+      background: #FFFFFF;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--cma-bordeaux);
+    }
+
+    .unit-tag {
+      font-size: 0.88rem;
+      font-weight: bold;
+      color: #64748B;
+    }
+
+    /* BOUTONS D'ACTION */
+    .btn-action {
+      min-height: 44px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--cma-bordeaux);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 6px;
+    }
+
+    .btn-action:active {
+      transform: scale(0.98);
+    }
+
+    /* FEEDBACKS */
+    .feedback-box {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.correct {
+      background-color: #DCFCE7;
+      color: #15803D;
+      border: 1px solid #86EFAC;
+    }
+
+    .feedback-box.incorrect {
+      background-color: #FEE2E2;
+      color: #B91C1C;
+      border: 1px solid #FCA5A5;
+    }
+
+    /* TABLEAUX RESPONSIVES */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 10px 0;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 520px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid var(--cma-border);
+      text-align: left;
+    }
+
+    th {
+      background-color: #F1F5F9;
+      color: var(--cma-bordeaux);
+      font-weight: 700;
+    }
+
+    /* SIMULATEUR DOSAGE & BOL (ÉTAPE 2) */
+    .sim-card {
+      background: #FFFFFF;
+      border: 2px solid var(--cma-bordeaux);
+      border-radius: var(--cma-radius);
+      padding: 16px;
+      margin: 14px 0;
+    }
+
+    .bol-visualizer {
+      background: #F8FAFC;
+      border: 2px dashed var(--cma-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 14px 0;
+      text-align: center;
+    }
+
+    .bol-graphic {
+      width: 180px;
+      height: 110px;
+      margin: 0 auto 10px auto;
+      border: 4px solid #475569;
+      border-top: none;
+      border-radius: 0 0 90px 90px;
+      position: relative;
+      overflow: hidden;
+      background: #F1F5F9;
+    }
+
+    .bol-fill-creme {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #FBBF24;
+      transition: height 0.3s ease;
+    }
+
+    .bol-fill-oxydant {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(56, 189, 248, 0.75);
+      transition: height 0.3s ease, bottom 0.3s ease;
+    }
+
+    .sim-readout {
+      background: #0F172A;
+      color: #38BDF8;
+      font-family: 'Courier New', monospace;
+      font-size: 1.15rem;
+      font-weight: bold;
+      padding: 10px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* ENTRAÎNEMENT GAMIFIÉ */
+    .level-container {
+      margin-bottom: 16px;
+      border: 1px solid var(--cma-border);
+      border-radius: var(--cma-radius);
+      overflow: hidden;
+    }
+
+    .level-header {
+      padding: 12px 14px;
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--cma-border);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .level-header.lvl-1 { border-left: 6px solid var(--cma-success); }
+    .level-header.lvl-2 { border-left: 6px solid var(--cma-warning); }
+    .level-header.lvl-3 { border-left: 6px solid var(--cma-bordeaux); }
+
+    .level-body {
+      padding: 14px;
+      background: #FFFFFF;
+    }
+
+    .locked-overlay {
+      background: #F1F5F9;
+      padding: 24px 16px;
+      text-align: center;
+      color: #64748B;
+      font-weight: 600;
+    }
+
+    .sub-question {
+      padding: 12px 0;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+    .sub-question:last-child {
+      border-bottom: none;
+    }
+
+    /* ACCORDÉONS ÉTAPE 2 */
+    .accordion-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      font-weight: bold;
+      color: var(--cma-bordeaux);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 12px;
+      border: 1px solid var(--cma-border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      background: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .accordion-content.open {
+      display: block;
+    }
+
+    /* ATTESTATION NUMÉRIQUE & BADGES */
+    .attestation-box {
+      border: 3px double var(--cma-bordeaux);
+      border-radius: 12px;
+      padding: 20px;
+      background: #FFFFFF;
+      position: relative;
+      margin-top: 14px;
+    }
+
+    .attestation-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--cma-bordeaux);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .attestation-title {
+      color: var(--cma-bordeaux);
+      font-size: 1.15rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .badge-grid {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .badge-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      text-align: center;
+    }
+
+    .badge-icon {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+    }
+
+    .badge-name {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--cma-texte);
+    }
+
+    .badge-status {
+      font-size: 0.75rem;
+      color: #64748B;
+    }
+
+    /* IMPRESSION & PDF */
+    @media print {
+      body {
+        background: #FFFFFF;
+      }
+      #app-container {
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .app-header, .progress-bar-container, .nav-tabs-wrapper, .btn-action, .no-print {
+        display: none !important;
+      }
+      .tab-content {
+        display: none !important;
+      }
+      #tab4 {
+        display: block !important;
+      }
+      .attestation-box {
+        border: 2px solid #000;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="../../assets/aides.css">
+</head>
+<body>
+
+<div id="app-container">
+  <!-- HEADER OFFICIEL CMA -->
+  <header class="app-header">
+    <div class="header-content">
+      <img src="logo.png" alt="Logo CMA Formation" class="app-logo">
+      <div class="header-text">
+        <h1>CMA FORMATION SAINTE-CLOTILDE</h1>
+        <p>CAP Métiers de la Coiffure | Mathématiques — Module Algèbre (S3 M1)</p>
+      </div>
+    </div>
+    <div class="cma-wave-border"></div>
+  </header>
+
+  <!-- BARRE DE PROGRESSION DU SOCLE CAP (8px) -->
+  <div class="progress-bar-container" title="Progression du Socle CAP">
+    <div class="progress-bar-fill" id="global-progress"></div>
+  </div>
+
+  <!-- NAVIGATION 4 ÉTAPES -->
+  <nav class="nav-tabs-wrapper">
+    <div class="nav-tabs">
+      <button class="nav-btn active" onclick="switchTab(1)" id="btn-tab1">
+        <span>Étape 1</span>
+        <span class="nav-badge">Découverte</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab(2)" id="btn-tab2">
+        <span>Étape 2</span>
+        <span class="nav-badge">Cours & Simulateur</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab(3)" id="btn-tab3">
+        <span>Étape 3</span>
+        <span class="nav-badge" id="badge-ex-count">Entraînement (0/9)</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab(4)" id="btn-tab4">
+        <span>Étape 4</span>
+        <span class="nav-badge">Bilan & Attestation</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= ÉTAPE 1 : DÉCOUVERTE ================= -->
+  <main class="tab-content active" id="tab1">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Situation Professionnelle : Dosage des Colorations au Salon</h2>
+
+    <div class="context-box">
+      <strong>Mise en situation au salon « Tendance Kréol » à Sainte-Clotilde :</strong><br>
+      Au salon « Tendance Kréol » à Sainte-Clotilde, Sarah prépare les formulations de coloration permanente d'oxydation pour sa clientèle.<br>
+      Le protocole technique du fabricant impose un ratio strict de dilution dit « 1 pour 1,5 » (noté $1 : 1,5$) pour garantir la couverture des cheveux blancs et l'adhérence des pigments sous le climat chaud et humide de l'île :<br>
+      <em>« Pour 1 g de crème colorante, il faut incorporer exactement 1,5 g d'oxydant crème 20 ou 30 volumes. »</em><br><br>
+      Ce matin, Sarah doit préparer les mélanges pour trois clientes aux longueurs de cheveux différentes :
+      <ul style="margin: 6px 0 6px 20px;">
+        <li><strong>Cliente 1 (Racines seules / cheveux courts) :</strong> $40\text{ g}$ de crème colorante.</li>
+        <li><strong>Cliente 2 (Cheveux mi-longs) :</strong> $60\text{ g}$ de crème colorante.</li>
+        <li><strong>Cliente 3 (Cheveux longs et épais) :</strong> $90\text{ g}$ de crème colorante.</li>
+      </ul>
+      <em>Problématique :</em> Comment organiser ces données dans un tableau de proportionnalité, calculer le coefficient multiplicateur associé et déterminer la masse exacte d'oxydant nécessaire pour chaque cliente sans fausser la réaction chimique ?
+    </div>
+
+    <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Tableau de Dosage Technique</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Grandeur / Cliente</th>
+            <th>Ratio de base</th>
+            <th>Cliente 1 (Courts)</th>
+            <th>Cliente 2 (Mi-longs)</th>
+            <th>Cliente 3 (Longs)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Masse de crème colorante (en g)</strong></td>
+            <td>1</td>
+            <td>40</td>
+            <td>60</td>
+            <td>90</td>
+          </tr>
+          <tr>
+            <td><strong>Masse d'oxydant crème (en g)</strong></td>
+            <td>1,5</td>
+            <td>
+              <input type="text" inputmode="decimal" id="inv-ox-1" placeholder="Votre résultat..." style="max-width: 130px;">
+            </td>
+            <td>
+              <input type="text" inputmode="decimal" id="inv-ox-2" placeholder="Votre résultat..." style="max-width: 130px;">
+            </td>
+            <td>
+              <input type="text" inputmode="decimal" id="inv-ox-3" placeholder="Votre résultat..." style="max-width: 130px;">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Questions d'Investigation</h3>
+
+    <div class="card">
+      <p><strong>1. [C1 - S'informer]</strong> Relever les deux grandeurs physiques étudiées dans cette situation et leurs unités de mesure :</p>
+      <div class="input-group">
+        <label>Grandeurs et unités identifiées :</label>
+        <select id="inv-q1">
+          <option value="">Sélectionner les grandeurs du protocole...</option>
+          <option value="correct">Masse de crème colorante (en g) et masse d'oxydant crème (en g)</option>
+          <option value="faux1">Volume de shampoing (en mL) et durée de pause (en min)</option>
+          <option value="faux2">Longueur de la fibre (en cm) et température de séchage (en °C)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>2. [C2 - Exécuter]</strong> Calculer le coefficient de proportionnalité $k$ permettant de passer de la masse de crème colorante à la masse d'oxydant : $k = \frac{1,5}{1}$</p>
+      <div class="input-group">
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q2-k" placeholder="Votre résultat...">
+          <span class="unit-tag">(sans unité)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>3. [C2 - Exécuter]</strong> Reporter les masses d'oxydant calculées pour chaque cliente directement dans le tableau ci-dessus.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>4. [C3 - Appliquer]</strong> Calculer la masse totale de produit prêt à l'emploi préparé dans le bol pour la Cliente 3 ($m_{\text{total}} = m_{\text{crème}} + m_{\text{oxydant}}$) :</p>
+      <div class="input-group">
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q4-total" placeholder="Votre résultat...">
+          <span class="unit-tag">g</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>5. [C4 - Communiquer]</strong> Sarah dispose d'un flacon d'oxydant de $200\text{ g}$. Indiquer si ce flacon est suffisant pour réaliser les trois préparations de la matinée. Justifier par un calcul :</p>
+      <div class="input-group">
+        <label>Masse totale d'oxydant consommée pour les 3 clientes :</label>
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q5-oxsomme" placeholder="Votre résultat...">
+          <span class="unit-tag">g</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Le flacon de 200 g est-il suffisant ?</label>
+        <select id="inv-q5-avis">
+          <option value="">Sélectionner votre conclusion...</option>
+          <option value="non">Non, car 285 g nécessaires &gt; 200 g (il manque 85 g, Sarah doit ouvrir un second flacon)</option>
+          <option value="oui">Oui, 200 g suffisent amplement pour les trois mélanges</option>
+        </select>
+      </div>
+      <button class="btn-action" onclick="verifierEtape1()">Valider les observations de découverte</button>
+      <div class="feedback-box" id="feedback-etape1"></div>
+    </div>
+  </main>
+
+  <!-- ================= ÉTAPE 2 : COURS & SIMULATEUR ================= -->
+  <main class="tab-content" id="tab2">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Synthèse de Cours : Proportionnalité & Coefficient</h2>
+
+    <button class="accordion-btn" onclick="toggleAccordion('acc1')">
+      <span>1. Définition de la proportionnalité</span>
+      <span>▼</span>
+    </button>
+    <div class="accordion-content open" id="acc1">
+      <p>Deux grandeurs sont proportionnelles si l'on peut passer des valeurs de la première ligne aux valeurs correspondantes de la seconde ligne en multipliant toujours par un même nombre non nul $k$.</p>
+      <p style="margin-top: 6px;">Ce nombre $k$ est appelé le <strong>coefficient de proportionnalité</strong> :</p>
+      <p style="text-align: center; margin: 8px 0; font-weight: bold;">$$k = \frac{y}{x}$$</p>
+    </div>
+
+    <button class="accordion-btn" onclick="toggleAccordion('acc2')">
+      <span>2. Tableau de proportionnalité</span>
+      <span>▼</span>
+    </button>
+    <div class="accordion-content" id="acc2">
+      <p>Dans un tableau de proportionnalité, les quotients de chaque colonne sont égaux :</p>
+      <p style="text-align: center; margin: 8px 0;">$$\frac{y_1}{x_1} = \frac{y_2}{x_2} = \dots = \frac{y_n}{x_n} = k$$</p>
+      <ul style="margin-left: 20px;">
+        <li>Pour calculer une valeur de la 2e ligne ($y$) : on multiplie par $k$ ($y = k \times x$).</li>
+        <li>Pour calculer une valeur de la 1re ligne ($x$) : on divise par $k$ ($x = \frac{y}{k}$).</li>
+      </ul>
+    </div>
+
+    <button class="accordion-btn" onclick="toggleAccordion('acc3')">
+      <span>3. La quatrième proportionnelle (Règle de trois / Produit en croix)</span>
+      <span>▼</span>
+    </button>
+    <div class="accordion-content" id="acc3">
+      <p>Si quatre nombres $a$, $b$, $c$ et $d$ forment un tableau de proportionnalité :</p>
+      <p style="text-align: center; margin: 8px 0;">$$\frac{a}{c} = \frac{b}{d} \iff a \times d = b \times c \implies d = \frac{b \times c}{a}$$</p>
+      <p><strong>Applications professionnelles en coiffure :</strong></p>
+      <ul style="margin-left: 20px;">
+        <li>Ratios de mélanges techniques : $1 : 1$ (oxydant = crème), $1 : 1,5$ (oxydant = $1,5 \times$ crème), $1 : 2$ (oxydant = $2 \times$ crème pour les super-éclaircissants).</li>
+        <li>Sur tableur : Formule pour calculer la masse en cellule B3 à partir de B2 : <code>=B2*1,5</code>.</li>
+      </ul>
+    </div>
+
+    <!-- SIMULATEUR INTERACTIF DE DOSAGE -->
+    <div class="sim-card">
+      <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Simulateur Interactif : Balance de Coloration & Bol Technique</h3>
+      <p style="font-size: 0.85rem; color: #64748B;">Ajustez la masse de crème colorante et le ratio technique appliqué pour observer en temps réel la masse d'oxydant calculée et le remplissage du bol.</p>
+
+      <div class="input-group" style="margin-top: 10px;">
+        <label for="sim-creme">Masse de crème colorante : <span id="sim-creme-val">50</span> g</label>
+        <input type="range" id="sim-creme" min="10" max="100" step="5" value="50" style="width: 100%; min-height: 44px;" oninput="updateSim()">
+      </div>
+
+      <div class="input-group">
+        <label for="sim-ratio">Ratio technique appliqué :</label>
+        <select id="sim-ratio" onchange="updateSim()">
+          <option value="1">Ratio 1 : 1 (k = 1,0 — Couvrance renforcée cheveux blancs)</option>
+          <option value="1.5" selected>Ratio 1 : 1,5 (k = 1,5 — Permanente standard)</option>
+          <option value="2">Ratio 1 : 2 (k = 2,0 — Super-éclaircissant / Balayage)</option>
+        </select>
+      </div>
+
+      <div class="bol-visualizer">
+        <div class="bol-graphic">
+          <div class="bol-fill-creme" id="sim-bar-creme" style="height: 25%;"></div>
+          <div class="bol-fill-oxydant" id="sim-bar-oxydant" style="height: 37.5%; bottom: 25%;"></div>
+        </div>
+        <div class="sim-readout" id="sim-readout-txt">Bol : 125,0 g (Crème : 50 g | Oxydant : 75,0 g)</div>
+        <div id="sim-alerte" style="font-size: 0.85rem; font-weight: bold; color: var(--cma-success);">
+          Contenance OK (Bol adapté ≤ 150 g)
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= ÉTAPE 3 : ENTRAÎNEMENT GAMIFIÉ ================= -->
+  <main class="tab-content" id="tab3">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Parcours d'Entraînement Progressif</h2>
+    <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 12px;">
+      La validation de l'intégralité du <strong>Niveau 1</strong> valide à 100 % le socle CAP et débloque votre attestation officielle. Les Niveaux 2 et 3 sont des défis bonus d'excellence.
+    </p>
+
+    <!-- NIVEAU 1 : SOCLE CAP -->
+    <div class="level-container">
+      <div class="level-header lvl-1">
+        <span>🟢 Niveau 1 — Débutant (Socle CAP : Application directe & Guidage)</span>
+        <span id="badge-n1-status">0 / 4 validés</span>
+      </div>
+      <div class="level-body">
+
+        <!-- EXERCICE 1.1 -->
+        <div class="sub-question" id="ex1_1_container">
+          <p><strong>Exercice 1.1 : Vérification d'un tableau de proportionnalité</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Masse de crème ($x$ en g) : 20 ; 30 ; 50 ; 80. Masse d'oxydant ($y$ en g) : 30 ; 45 ; 75 ; 120.</p>
+          <div class="input-group">
+            <label>1. Valeur commune calculée des quotients $\frac{y}{x}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_1_quot" placeholder="Votre résultat...">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>2. Ce tableau est-il un tableau de proportionnalité ?</label>
+            <select id="q1_1_prop">
+              <option value="">Sélectionner...</option>
+              <option value="oui">Oui, car tous les quotients y/x sont égaux à k = 1,5</option>
+              <option value="non">Non, les quotients sont distincts</option>
+            </select>
+          </div>
+          <button class="btn-action" onclick="checkEx1_1()">Valider l'exercice 1.1</button>
+          <div class="feedback-box" id="fb_ex1_1"></div>
+        </div>
+
+        <!-- EXERCICE 1.2 -->
+        <div class="sub-question" id="ex1_2_container">
+          <p><strong>Exercice 1.2 : Dosage au ratio 1 pour 1 (Super-couvrance, $k = 1$)</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Pour une couverture renforcée des cheveux blancs, compléter les masses d'oxydant nécessaires :</p>
+          <div class="input-group">
+            <label>a) Pour $35\text{ g}$ de crème :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_2_a" placeholder="Votre résultat...">
+              <span class="unit-tag">g d'oxydant</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>b) Pour $55\text{ g}$ de crème :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_2_b" placeholder="Votre résultat...">
+              <span class="unit-tag">g d'oxydant</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>c) Pour $75\text{ g}$ de crème :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_2_c" placeholder="Votre résultat...">
+              <span class="unit-tag">g d'oxydant</span>
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_2()">Valider l'exercice 1.2</button>
+          <div class="feedback-box" id="fb_ex1_2"></div>
+        </div>
+
+        <!-- EXERCICE 1.3 -->
+        <div class="sub-question" id="ex1_3_container">
+          <p><strong>Exercice 1.3 : Calcul d'une quatrième proportionnelle simple</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Sachant que $50\text{ g}$ de crème colorante nécessitent $75\text{ g}$ d'oxydant, calculer la masse d'oxydant $x$ nécessaire pour $70\text{ g}$ de crème en utilisant le produit en croix : $x = \frac{75 \times 70}{50}$</p>
+          <div class="input-group">
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_3_x" placeholder="Votre résultat...">
+              <span class="unit-tag">g d'oxydant</span>
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_3()">Valider l'exercice 1.3</button>
+          <div class="feedback-box" id="fb_ex1_3"></div>
+        </div>
+
+        <!-- EXERCICE 1.4 -->
+        <div class="sub-question" id="ex1_4_container">
+          <p><strong>Exercice 1.4 : Dosage de poudre décolorante (Ratio 1 : 2, $k = 2$)</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Pour 1 dose de poudre, on ajoute 2 doses d'oxydant :</p>
+          <div class="input-group">
+            <label>1. Masse d'oxydant pour $30\text{ g}$ de poudre décolorante :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_4_1" placeholder="Votre résultat...">
+              <span class="unit-tag">g d'oxydant</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>2. Masse de poudre incorporée pour $80\text{ g}$ d'oxydant :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_4_2" placeholder="Votre résultat...">
+              <span class="unit-tag">g de poudre</span>
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_4()">Valider l'exercice 1.4</button>
+          <div class="feedback-box" id="fb_ex1_4"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NIVEAU 2 : AVANCÉ -->
+    <div class="level-container">
+      <div class="level-header lvl-2">
+        <span>🟡 Niveau 2 — Avancé (Autonomie & Résolution de problème standard)</span>
+        <span id="badge-n2-status">Verrouillé 🔒</span>
+      </div>
+      <div class="level-body" id="body-lvl2">
+        <div class="locked-overlay" id="overlay-lvl2">
+          Complétez et validez l'ensemble des exercices du Niveau 1 pour déverrouiller le Niveau 2.
+        </div>
+
+        <div id="content-lvl2" style="display: none;">
+          <!-- EXERCICE 2.1 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.1 : Préparation de doses multiples pour salon dionysien</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Un salon situé rue Maréchal Leclerc à Saint-Denis réalise 6 colorations identiques. Chaque cliente nécessite $45\text{ g}$ de crème au ratio $1 : 1,5$.</p>
+            <div class="input-group">
+              <label>1. Masse d'oxydant nécessaire pour une cliente :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_1" placeholder="Votre résultat...">
+                <span class="unit-tag">g d'oxydant</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2a. Masse totale de crème colorante consommée pour les 6 clientes :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_2a" placeholder="Votre résultat...">
+                <span class="unit-tag">g de crème</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2b. Masse totale d'oxydant consommée pour les 6 clientes :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_2b" placeholder="Votre résultat...">
+                <span class="unit-tag">g d'oxydant</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3. Les flacons ont une contenance de $500\text{ g}$. Masse restante dans le flacon en fin de journée :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_3" placeholder="Votre résultat...">
+                <span class="unit-tag">g restant</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx2_1()">Valider l'exercice 2.1</button>
+            <div class="feedback-box" id="fb_ex2_1"></div>
+          </div>
+
+          <!-- EXERCICE 2.2 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.2 : Nuance super-éclaircissante pour mèches blondes en été austral</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Crème super-éclaircissante avec un ratio $1 : 2$ ($1\text{ g}$ de crème pour $2\text{ g}$ d'oxydant à 40 volumes). Une apprentie pèse $35\text{ g}$ de crème.</p>
+            <div class="input-group">
+              <label>1. Masse d'oxydant à ajouter :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_2_1" placeholder="Votre résultat...">
+                <span class="unit-tag">g d'oxydant</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Masse totale du mélange préparé :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_2_2" placeholder="Votre résultat...">
+                <span class="unit-tag">g au total</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3. Sachant que le bol applicateur a une capacité maximale de $120\text{ g}$, le bol est-il adapté ?</label>
+              <select id="q2_2_3">
+                <option value="">Sélectionner...</option>
+                <option value="oui">Oui, car 105 g &lt; 120 g (le bol est parfaitement adapté et ne débordera pas)</option>
+                <option value="non">Non, le bol va déborder</option>
+              </select>
+            </div>
+            <button class="btn-action" onclick="checkEx2_2()">Valider l'exercice 2.2</button>
+            <div class="feedback-box" id="fb_ex2_2"></div>
+          </div>
+
+          <!-- EXERCICE 2.3 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.3 : Tableau de proportionnalité incomplet et recherche d'inconnues</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Bains neutralisants au bac : Shampoing $x$ (mL) : 15 ; 25 ; $a$ ; 60. Eau tiède $y$ (mL) : 60 ; 100 ; 160 ; $b$.</p>
+            <div class="input-group">
+              <label>1. Coefficient de proportionnalité $k$ ($y/x$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_3_k" placeholder="Votre résultat...">
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2a. Valeur inconnue $a$ ($x = \frac{y}{k}$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_3_a" placeholder="Votre résultat...">
+                <span class="unit-tag">mL de shampoing</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2b. Valeur inconnue $b$ ($y = k \times x$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_3_b" placeholder="Votre résultat...">
+                <span class="unit-tag">mL d'eau tiède</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx2_3()">Valider l'exercice 2.3</button>
+            <div class="feedback-box" id="fb_ex2_3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NIVEAU 3 : EXPERT -->
+    <div class="level-container">
+      <div class="level-header lvl-3">
+        <span>🔴 Niveau 3 — Expert (Situation complexe & Analyse critique)</span>
+        <span id="badge-n3-status">Verrouillé 🔒</span>
+      </div>
+      <div class="level-body" id="body-lvl3">
+        <div class="locked-overlay" id="overlay-lvl3">
+          Complétez et validez l'ensemble des exercices du Niveau 2 pour déverrouiller le Niveau Expert.
+        </div>
+
+        <div id="content-lvl3" style="display: none;">
+          <!-- EXERCICE 3.1 -->
+          <div class="sub-question">
+            <p><strong>Exercice 3.1 : Audit des coûts de formulation et optimisation des stocks en salon</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">120 clientes sur un mois : 50 courts ($30\text{ g}$ de crème), 45 mi-longs ($50\text{ g}$ de crème), 25 longs ($80\text{ g}$ de crème). Ratio $1 : 1,5$. Tube de crème $60\text{ g} = 7,50\text{ €}$ ; Bidon d'oxydant $1\ 000\text{ g} = 9,00\text{ €}$.</p>
+            <div class="input-group">
+              <label>1. Masse totale de crème colorante consommée dans le mois (en g) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_1_1" placeholder="Votre résultat...">
+                <span class="unit-tag">g</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Masse totale d'oxydant consommée dans le mois (en g) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_1_2" placeholder="Votre résultat...">
+                <span class="unit-tag">g</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3a. Nombre entier de tubes de crème ($60\text{ g}$) à commander :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_1_3a" placeholder="Votre résultat...">
+                <span class="unit-tag">tubes</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3b. Nombre entier de bidons d'oxydant ($1\ 000\text{ g}$) à commander :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_1_3b" placeholder="Votre résultat...">
+                <span class="unit-tag">bidons</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>4. Coût moyen en produit (crème + oxydant) par cliente (en €) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_1_4" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx3_1()">Valider l'exercice 3.1</button>
+            <div class="feedback-box" id="fb_ex3_1"></div>
+          </div>
+
+          <!-- EXERCICE 3.2 -->
+          <div class="sub-question">
+            <p><strong>Exercice 3.2 : Conception d'un simulateur de dosage sur tableur</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">B2 : masse de crème ($x$) ; B3 : ratio d'oxydant ; B4 : masse d'oxydant ; B5 : masse totale bol ; alerte si bol &gt; $150\text{ g}$.</p>
+            <div class="input-group">
+              <label>1. Formule de la cellule B4 :</label>
+              <select id="q3_2_1">
+                <option value="">Sélectionner la formule...</option>
+                <option value="correct">=B2*B3</option>
+                <option value="faux1">=B2+B3</option>
+                <option value="faux2">=B2/B3</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>2. Formule de la cellule B5 :</label>
+              <select id="q3_2_2">
+                <option value="">Sélectionner la formule...</option>
+                <option value="correct">=B2+B4</option>
+                <option value="faux1">=B2*B4</option>
+                <option value="faux2">=SOMME(B2;B3)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>3. Formule conditionnelle de la cellule B6 utilisant la fonction SI :</label>
+              <select id="q3_2_3">
+                <option value="">Sélectionner la formule conditionnelle...</option>
+                <option value="correct">=SI(B5&gt;150;"ALERTE : Débordement, utiliser un bol plus grand";"Contenance OK")</option>
+                <option value="faux1">=SI(B5&lt;150;"ALERTE";"OK")</option>
+                <option value="faux2">=B5&gt;150</option>
+              </select>
+            </div>
+            <button class="btn-action" onclick="checkEx3_2()">Valider l'exercice 3.2</button>
+            <div class="feedback-box" id="fb_ex3_2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= ÉTAPE 4 : BILAN & ATTESTATION ================= -->
+  <main class="tab-content" id="tab4">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Bilan & Validation des Compétences</h2>
+
+    <!-- BLOC D'IDENTITÉ APPRENANT -->
+    <div class="card no-print">
+      <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Identification de l'Apprenant</h3>
+      <div class="input-group">
+        <label for="learner-name">Nom et Prénom de l'apprenant :</label>
+        <input type="text" id="learner-name" placeholder="Votre nom complet..." oninput="updateLearnerName(this.value)">
+      </div>
+    </div>
+
+    <!-- ATTESTATION NUMÉRIQUE PÉDAGOGIQUE -->
+    <div id="attestation-lock-msg" class="context-box">
+      ⚠️ <strong>Attestation verrouillée :</strong> Complétez et validez les 4 exercices du <strong>Niveau 1</strong> pour débloquer votre attestation pédagogique de réussite.
+    </div>
+
+    <div class="attestation-box" id="attestation-card" style="display: none;">
+      <div class="attestation-header">
+        <div>
+          <div class="attestation-title">Attestation Pédagogique de Réussite</div>
+          <p style="font-size: 0.85rem; color: #64748B;">CMA Formation Sainte-Clotilde • Île de La Réunion</p>
+        </div>
+        <img src="logo.png" alt="CMA Formation Logo" class="app-logo">
+      </div>
+
+      <p style="margin: 10px 0;">Il est attesté que l'apprenant(e) :</p>
+      <h3 style="color: var(--cma-bordeaux); font-size: 1.3rem; margin: 4px 0;" id="attest-name">Apprenant Non Renseigné</h3>
+
+      <p style="font-size: 0.9rem; margin-top: 10px;">
+        a validé avec succès les compétences du module de Mathématiques appliquées :<br>
+        <strong>« Proportionnalité : Tableau de proportionnalité & coefficient »</strong><br>
+        <span style="font-size: 0.82rem; color: #64748B;">Discipline : Mathématiques | CAP Métiers de la Coiffure (Groupement 1) | Session S3 M1</span>
+      </p>
+
+      <div class="badge-grid">
+        <div class="badge-item">
+          <div class="badge-icon">⚖️</div>
+          <div class="badge-name">Socle CAP Dosage</div>
+          <div class="badge-status" id="badge-socle-status">100% Acquis</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-icon">📊</div>
+          <div class="badge-name">Proportionnalité</div>
+          <div class="badge-status" id="badge-prop-status">Validé</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-icon">⭐</div>
+          <div class="badge-name">Bonus Élite / Bac Pro</div>
+          <div class="badge-status" id="badge-bonus-status">En cours (0 / 5)</div>
+        </div>
+      </div>
+
+      <div style="font-size: 0.82rem; border-top: 1px solid var(--cma-border); padding-top: 10px; margin-top: 10px;">
+        <p><strong>Compétences évaluées (Norme Qualiopi) :</strong></p>
+        <p>• C1 (S'informer) : Identifier les grandeurs d'un ratio technique et extraire le coefficient.</p>
+        <p>• C2 (Exécuter) : Calculer une quatrième proportionnelle et compléter un tableau de proportionnalité.</p>
+        <p>• C3 (Appliquer) : Calculer des sommes de masses et vérifier la suffisance d'un stock en salon.</p>
+        <p>• C4 (Communiquer) : Formuler une conclusion professionnelle argumentée et chiffrée.</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 16px; font-size: 0.85rem;">
+        <div>
+          <span>Date : </span><strong id="attest-date">--/--/----</strong><br>
+          <span>Formateur : </span><strong>Rachel Lamberet-Lezais</strong>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 0.75rem; color: #64748B;">Signature Pédagogique</div>
+          <div style="font-family: cursive; font-size: 1.1rem; color: var(--cma-bordeaux);">R. Lamberet-Lezais</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center;" class="no-print">
+        <button class="btn-action" onclick="window.print()">
+          🖨️ Imprimer l'Attestation / Exporter en PDF
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  /* ÉTAT GLOBAL DE L'APPLICATION */
+  const state = {
+    currentTab: 1,
+    learnerName: "",
+    etape1Done: false,
+    scoreN1: 0,
+    scoreBonus: 0,
+    evalDone: false,
+    n1Validated: { ex1: false, ex2: false, ex3: false, ex4: false },
+    n2Validated: { ex1: false, ex2: false, ex3: false },
+    n3Validated: { ex1: false, ex2: false }
+  };
+
+  /* NAVIGATION ENTRE ÉTAPES */
+  function switchTab(tabIndex) {
+    for (let i = 1; i <= 4; i++) {
+      const content = document.getElementById('tab' + i);
+      const btn = document.getElementById('btn-tab' + i);
+      if (content) content.classList.remove('active');
+      if (btn) btn.classList.remove('active');
+    }
+    const targetContent = document.getElementById('tab' + tabIndex);
+    const targetBtn = document.getElementById('btn-tab' + tabIndex);
+    if (targetContent) targetContent.classList.add('active');
+    if (targetBtn) targetBtn.classList.add('active');
+    state.currentTab = tabIndex;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      MathJax.typesetPromise().catch(function(){});
+    }
+  }
+
+  function toggleAccordion(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('open');
+  }
+
+  /* CONVERSION ET VALIDATION NUMÉRIQUE ROBUSTE */
+  function parseFrenchNumber(str) {
+    if (!str) return null;
+    const clean = str.trim().replace(/\s+/g, '').replace(',', '.');
+    if (clean === "") return null;
+    const val = Number(clean);
+    return isFinite(val) ? val : null;
+  }
+
+  /* IDENTITÉ & DATE */
+  function updateLearnerName(val) {
+    state.learnerName = val.trim();
+    const target = document.getElementById('attest-name');
+    if (target) {
+      target.textContent = state.learnerName ? state.learnerName : "Apprenant Non Renseigné";
+    }
+  }
+
+  function initDate() {
+    const d = new Date();
+    const dateStr = String(d.getDate()).padStart(2, '0') + '/' +
+                    String(d.getMonth() + 1).padStart(2, '0') + '/' +
+                    d.getFullYear();
+    const el = document.getElementById('attest-date');
+    if (el) el.textContent = dateStr;
+  }
+
+  /* SIMULATEUR INTERACTIF (ÉTAPE 2) */
+  function updateSim() {
+    const creme = parseFloat(document.getElementById('sim-creme').value);
+    const ratio = parseFloat(document.getElementById('sim-ratio').value);
+    const oxydant = creme * ratio;
+    const total = creme + oxydant;
+
+    document.getElementById('sim-creme-val').textContent = creme;
+    document.getElementById('sim-readout-txt').textContent =
+      "Bol : " + total.toFixed(1).replace('.', ',') + " g (Crème : " + creme + " g | Oxydant : " + oxydant.toFixed(1).replace('.', ',') + " g)";
+
+    const cremeHeight = Math.min(50, (creme / 200) * 100);
+    const oxyHeight = Math.min(50, (oxydant / 200) * 100);
+    const barCreme = document.getElementById('sim-bar-creme');
+    const barOxy = document.getElementById('sim-bar-oxydant');
+    const alerte = document.getElementById('sim-alerte');
+
+    if (barCreme) barCreme.style.height = cremeHeight + "%";
+    if (barOxy) {
+      barOxy.style.bottom = cremeHeight + "%";
+      barOxy.style.height = oxyHeight + "%";
+    }
+
+    if (total > 150) {
+      alerte.textContent = "ALERTE : Débordement, utiliser un bol plus grand (> 150 g)";
+      alerte.style.color = "var(--cma-corail)";
+    } else {
+      alerte.textContent = "Contenance OK (Bol adapté ≤ 150 g)";
+      alerte.style.color = "var(--cma-success)";
+    }
+  }
+
+  /* ÉTAPE 1 : INVESTIGATION */
+  function verifierEtape1() {
+    const ox1 = parseFrenchNumber(document.getElementById('inv-ox-1').value);
+    const ox2 = parseFrenchNumber(document.getElementById('inv-ox-2').value);
+    const ox3 = parseFrenchNumber(document.getElementById('inv-ox-3').value);
+    const q1 = document.getElementById('inv-q1').value;
+    const q2k = parseFrenchNumber(document.getElementById('inv-q2-k').value);
+    const q4t = parseFrenchNumber(document.getElementById('inv-q4-total').value);
+    const q5ox = parseFrenchNumber(document.getElementById('inv-q5-oxsomme').value);
+    const q5avis = document.getElementById('inv-q5-avis').value;
+    const fb = document.getElementById('feedback-etape1');
+
+    if (ox1 === null || ox2 === null || ox3 === null || !q1 || q2k === null || q4t === null || q5ox === null || !q5avis) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Veuillez renseigner toutes les valeurs du tableau et répondre à l'ensemble des questions d'investigation.";
+      return;
+    }
+
+    const cTable = (Math.abs(ox1 - 60) < 0.1) && (Math.abs(ox2 - 90) < 0.1) && (Math.abs(ox3 - 135) < 0.1);
+    const cQ1 = (q1 === "correct");
+    const cQ2 = (Math.abs(q2k - 1.5) < 0.1);
+    const cQ4 = (Math.abs(q4t - 225) < 0.1);
+    const cQ5 = (Math.abs(q5ox - 285) < 0.1) && (q5avis === "non");
+
+    if (cTable && cQ1 && cQ2 && cQ4 && cQ5) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Parfait !</strong> Vos calculs sont validés : k = 1,5 ; masses d'oxydant requises : 60 g, 90 g et 135 g ; mélange bol Cliente 3 = 225 g ; consommation totale d'oxydant = 285 g &gt; 200 g (le flacon est insuffisant, il manque 85 g).";
+      state.etape1Done = true;
+      updateGlobalProgress();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Certaines valeurs sont inexactes. Vérifiez les multiplications par 1,5 et la somme des masses d'oxydant (40 × 1,5 = 60 g ; 60 × 1,5 = 90 g ; 90 × 1,5 = 135 g).";
+    }
+  }
+
+  /* NIVEAU 1 */
+  function checkEx1_1() {
+    const quot = parseFrenchNumber(document.getElementById('q1_1_quot').value);
+    const prop = document.getElementById('q1_1_prop').value;
+    const fb = document.getElementById('fb_ex1_1');
+
+    if (quot === null || !prop) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Veuillez renseigner le quotient et indiquer si le tableau est proportionnel.";
+      return;
+    }
+
+    if (Math.abs(quot - 1.5) < 0.1 && prop === 'oui') {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Correct !</strong> 30/20 = 45/30 = 75/50 = 120/80 = 1,5. Tous les quotients y/x sont égaux : il s'agit d'un tableau de proportionnalité avec k = 1,5.";
+      state.n1Validated.ex1 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Calculez 30 divisé par 20 (ou 45/30). Tous les résultats sont identiques.";
+    }
+  }
+
+  function checkEx1_2() {
+    const a = parseFrenchNumber(document.getElementById('q1_2_a').value);
+    const b = parseFrenchNumber(document.getElementById('q1_2_b').value);
+    const c = parseFrenchNumber(document.getElementById('q1_2_c').value);
+    const fb = document.getElementById('fb_ex1_2');
+
+    if (a === null || b === null || c === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez les trois masses demandées.";
+      return;
+    }
+
+    if (Math.abs(a - 35) < 0.1 && Math.abs(b - 55) < 0.1 && Math.abs(c - 75) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Exact !</strong> Au ratio 1 : 1 (k = 1), la masse d'oxydant est égale à la masse de crème (35 g, 55 g et 75 g).";
+      state.n1Validated.ex2 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Au ratio 1 : 1, on ajoute exactement 1 g d'oxydant pour 1 g de crème.";
+    }
+  }
+
+  function checkEx1_3() {
+    const x = parseFrenchNumber(document.getElementById('q1_3_x').value);
+    const fb = document.getElementById('fb_ex1_3');
+
+    if (x === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Saisissez le résultat de votre calcul.";
+      return;
+    }
+
+    if (Math.abs(x - 105) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Parfait !</strong> x = (75 × 70) / 50 = 5 250 / 50 = 105 g d'oxydant.";
+      state.n1Validated.ex3 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Effectuez le produit en croix : (75 × 70) puis divisez par 50.";
+    }
+  }
+
+  function checkEx1_4() {
+    const v1 = parseFrenchNumber(document.getElementById('q1_4_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q1_4_2').value);
+    const fb = document.getElementById('fb_ex1_4');
+
+    if (v1 === null || v2 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Remplissez les deux questions de l'exercice 1.4.";
+      return;
+    }
+
+    if (Math.abs(v1 - 60) < 0.1 && Math.abs(v2 - 40) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Exact !</strong> 1. m(oxydant) = 30 × 2 = 60 g. 2. m(poudre) = 80 / 2 = 40 g de poudre.";
+      state.n1Validated.ex4 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Au ratio 1 : 2, on multiplie la poudre par 2 pour trouver l'oxydant, ou on divise l'oxydant par 2 pour trouver la poudre.";
+    }
+  }
+
+  function calcNiveau1() {
+    let count = 0;
+    if (state.n1Validated.ex1) count++;
+    if (state.n1Validated.ex2) count++;
+    if (state.n1Validated.ex3) count++;
+    if (state.n1Validated.ex4) count++;
+    state.scoreN1 = count;
+
+    document.getElementById('badge-n1-status').textContent = count + " / 4 validés";
+    updateGlobalProgress();
+
+    if (count === 4) {
+      const overlay2 = document.getElementById('overlay-lvl2');
+      const content2 = document.getElementById('content-lvl2');
+      const badge2Status = document.getElementById('badge-n2-status');
+      if (overlay2) overlay2.style.display = 'none';
+      if (content2) content2.style.display = 'block';
+      if (badge2Status) badge2Status.textContent = "0 / 3 validés";
+
+      const lockMsg = document.getElementById('attestation-lock-msg');
+      const card = document.getElementById('attestation-card');
+      if (lockMsg) lockMsg.style.display = 'none';
+      if (card) card.style.display = 'block';
+    }
+  }
+
+  /* NIVEAU 2 */
+  function checkEx2_1() {
+    const v1 = parseFrenchNumber(document.getElementById('q2_1_1').value);
+    const v2a = parseFrenchNumber(document.getElementById('q2_1_2a').value);
+    const v2b = parseFrenchNumber(document.getElementById('q2_1_2b').value);
+    const v3 = parseFrenchNumber(document.getElementById('q2_1_3').value);
+    const fb = document.getElementById('fb_ex2_1');
+
+    if (v1 === null || v2a === null || v2b === null || v3 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Remplissez l'ensemble des champs demandés.";
+      return;
+    }
+
+    if (Math.abs(v1 - 67.5) < 0.1 && Math.abs(v2a - 270) < 0.1 && Math.abs(v2b - 405) < 0.1 && Math.abs(v3 - 95) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> Oxydant 1 cliente = 45 × 1,5 = 67,5 g ; 6 clientes : crème = 6 × 45 = 270 g et oxydant = 6 × 67,5 = 405 g ; Reste en stock = 500 − 405 = 95 g.";
+      state.n2Validated.ex1 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Vérifiez : 1 cliente = 45 × 1,5 = 67,5 g ; 6 clientes = 6 × 45 = 270 g de crème et 6 × 67,5 = 405 g d'oxydant ; 500 − 405 = 95 g.";
+    }
+  }
+
+  function checkEx2_2() {
+    const v1 = parseFrenchNumber(document.getElementById('q2_2_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q2_2_2').value);
+    const v3 = document.getElementById('q2_2_3').value;
+    const fb = document.getElementById('fb_ex2_2');
+
+    if (v1 === null || v2 === null || !v3) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Remplissez toutes les questions de l'exercice 2.2.";
+      return;
+    }
+
+    if (Math.abs(v1 - 70) < 0.1 && Math.abs(v2 - 105) < 0.1 && v3 === 'oui') {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> Oxydant = 35 × 2 = 70 g ; Masse totale = 35 + 70 = 105 g &lt; 120 g (le bol est parfaitement adapté et ne débordera pas).";
+      state.n2Validated.ex2 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Multipliez la crème par 2 pour trouver l'oxydant, additionnez les deux masses, puis comparez à 120 g.";
+    }
+  }
+
+  function checkEx2_3() {
+    const k = parseFrenchNumber(document.getElementById('q2_3_k').value);
+    const a = parseFrenchNumber(document.getElementById('q2_3_a').value);
+    const b = parseFrenchNumber(document.getElementById('q2_3_b').value);
+    const fb = document.getElementById('fb_ex2_3');
+
+    if (k === null || a === null || b === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Renseignez les valeurs de k, a et b.";
+      return;
+    }
+
+    if (Math.abs(k - 4) < 0.1 && Math.abs(a - 40) < 0.1 && Math.abs(b - 240) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> k = 60/15 = 4 ; a = 160 / 4 = 40 mL de shampoing ; b = 60 × 4 = 240 mL d'eau.";
+      state.n2Validated.ex3 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Calculez k = 60/15 = 4, puis déduisez a = 160/4 et b = 60 × 4.";
+    }
+  }
+
+  /* NIVEAU 3 */
+  function checkEx3_1() {
+    const v1 = parseFrenchNumber(document.getElementById('q3_1_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q3_1_2').value);
+    const v3a = parseFrenchNumber(document.getElementById('q3_1_3a').value);
+    const v3b = parseFrenchNumber(document.getElementById('q3_1_3b').value);
+    const v4 = parseFrenchNumber(document.getElementById('q3_1_4').value);
+    const fb = document.getElementById('fb_ex3_1');
+
+    if (v1 === null || v2 === null || v3a === null || v3b === null || v4 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Remplissez toutes les questions de gestion des stocks.";
+      return;
+    }
+
+    const c1 = Math.abs(v1 - 5750) < 1;
+    const c2 = Math.abs(v2 - 8625) < 1;
+    const c3a = Math.abs(v3a - 96) < 0.1;
+    const c3b = Math.abs(v3b - 9) < 0.1;
+    const c4 = Math.abs(v4 - 6.68) < 0.1;
+
+    if (c1 && c2 && c3a && c3b && c4) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Remarquable !</strong> Crème consommée = 5 750 g (5,75 kg) ; Oxydant consommé = 8 625 g (8,625 kg) ; Commandes : 96 tubes et 9 bidons ; Coût total = 801 € soit 6,68 € par cliente.";
+      state.n3Validated.ex1 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Vérifiez : Crème = (50×30) + (45×50) + (25×80) = 5 750 g ; 5 750 / 60 ≈ 95,83 =&gt; 96 tubes ; Oxydant = 5 750 × 1,5 = 8 625 g =&gt; 9 bidons.";
+    }
+  }
+
+  function checkEx3_2() {
+    const v1 = document.getElementById('q3_2_1').value;
+    const v2 = document.getElementById('q3_2_2').value;
+    const v3 = document.getElementById('q3_2_3').value;
+    const fb = document.getElementById('fb_ex3_2');
+
+    if (!v1 || !v2 || !v3) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Sélectionnez les formules du tableur.";
+      return;
+    }
+
+    if (v1 === 'correct' && v2 === 'correct' && v3 === 'correct') {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Félicitations !</strong> Formules exactes : B4 = =B2*B3 ; B5 = =B2+B4 ; B6 = =SI(B5&gt;150;\"ALERTE : Débordement, utiliser un bol plus grand\";\"Contenance OK\").";
+      state.n3Validated.ex2 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Révisez les règles de syntaxe tableur : le produit s'écrit avec *, la somme avec +, et la condition SI respecte les 3 arguments.";
+    }
+  }
+
+  /* CALCUL DES BONUS ET DÉBLOCAGE */
+  function calcBonus() {
+    let countN2 = 0;
+    if (state.n2Validated.ex1) countN2++;
+    if (state.n2Validated.ex2) countN2++;
+    if (state.n2Validated.ex3) countN2++;
+
+    document.getElementById('badge-n2-status').textContent = countN2 + " / 3 validés";
+
+    if (countN2 === 3) {
+      const overlay3 = document.getElementById('overlay-lvl3');
+      const content3 = document.getElementById('content-lvl3');
+      const badge3Status = document.getElementById('badge-n3-status');
+      if (overlay3) overlay3.style.display = 'none';
+      if (content3) content3.style.display = 'block';
+      if (badge3Status && badge3Status.textContent.includes("Verrouillé")) {
+        badge3Status.textContent = "0 / 2 validés";
+      }
+    }
+
+    let countN3 = 0;
+    if (state.n3Validated.ex1) countN3++;
+    if (state.n3Validated.ex2) countN3++;
+
+    const badge3El = document.getElementById('badge-n3-status');
+    if (badge3El && !badge3El.textContent.includes("Verrouillé")) {
+      badge3El.textContent = countN3 + " / 2 validés";
+    }
+
+    state.scoreBonus = countN2 + countN3;
+    const bStatus = document.getElementById('badge-bonus-status');
+    if (bStatus) {
+      bStatus.textContent = state.scoreBonus === 5 ? "Excellence 100% (5 / 5)" : state.scoreBonus + " / 5 validés";
+    }
+
+    updateGlobalProgress();
+  }
+
+  /* ÉVALUATION FORMELLE FINALE */
+  function checkEvaluation() {
+    const q1 = parseFrenchNumber(document.getElementById('eval_q1').value);
+    const q2 = parseFrenchNumber(document.getElementById('eval_q2').value);
+    const q3 = parseFrenchNumber(document.getElementById('eval_q3').value);
+    const q4 = parseFrenchNumber(document.getElementById('eval_q4').value);
+    const q5 = document.getElementById('eval_q5').value;
+    const fb = document.getElementById('fb_eval');
+
+    if (q1 === null || q2 === null || q3 === null || q4 === null || !q5) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Veuillez répondre à l'ensemble des 5 questions de l'évaluation formelle.";
+      return;
+    }
+
+    const c1 = Math.abs(q1 - 1.5) < 0.1;
+    const c2 = Math.abs(q2 - 60) < 0.1;
+    const c3 = Math.abs(q3 - 105) < 0.1;
+    const c4 = Math.abs(q4 - 175) < 0.1;
+    const c5 = (q5 === "non");
+
+    if (c1 && c2 && c3 && c4 && c5) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Évaluation formelle validée !</strong> Note : 8 / 8 points (Compétences C1, C2, C3 et C4 acquises selon la grille Qualiopi).";
+      state.evalDone = true;
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Certaines réponses sont inexactes. Vérifiez : k = 1,5 ; Cliente A = 40 × 1,5 = 60 g ; Cliente B = 70 × 1,5 = 105 g ; total bol B = 70 + 105 = 175 g ; total oxydant = 60 + 105 = 165 g &gt; 150 g.";
+    }
+  }
+
+  /* BARRE DE PROGRESSION GLOBALE DU SOCLE */
+  function updateGlobalProgress() {
+    // Le Niveau 1 valide à 100% le socle CAP
+    const percent = Math.min(100, Math.round((state.scoreN1 / 4) * 100));
+    const bar = document.getElementById('global-progress');
+    if (bar) bar.style.width = percent + "%";
+
+    const totalValid = state.scoreN1 + state.scoreBonus;
+    const badgeExCount = document.getElementById('badge-ex-count');
+    if (badgeExCount) {
+      badgeExCount.textContent = "Entraînement (" + totalValid + "/9)";
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initDate();
+    updateSim();
+  });
+</script>
+
+<script src="../../assets/aides.js"></script>
+</body>
+</html>

@@ -1,0 +1,2635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S1/S2 P1 - EPI & Risques Chimiques en Salon | CAP Métiers de la Coiffure - CMA Sainte-Clotilde</title>
+
+  <!-- MathJax v3 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        enableMenu: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    /* Charte graphique officielle CMA Formation */
+    :root {
+      --cma-bordeaux: #A50F23;
+      --cma-bordeaux-dark: #7F0B1A;
+      --cma-corail: #EE3C3D;
+      --cma-corail-light: #FEE2E2;
+      --cma-bg: #F8FAFC;
+      --cma-card-bg: #FFFFFF;
+      --cma-text: #1E293B;
+      --cma-text-muted: #64748B;
+      --cma-border: #E2E8F0;
+      --cma-success: #16A34A;
+      --cma-success-bg: #DCFCE7;
+      --cma-warning: #D97706;
+      --cma-warning-bg: #FEF3C7;
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 14px rgba(165, 15, 35, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--cma-bg);
+      color: var(--cma-text);
+      line-height: 1.5;
+      font-size: 15px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Puces officielles CMA */
+    .icon-bullet {
+      height: 18px;
+      width: 18px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+
+    /* Header principal conforme au cahier des charges */
+    .app-header {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 20px;
+      padding-top: 14px;
+      padding-left: 16px;
+      padding-right: 16px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 100%);
+      border-bottom: 1px solid var(--cma-border);
+    }
+
+    .header-content {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .app-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .header-titles {
+      flex: 1;
+    }
+
+    .header-titles h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      line-height: 1.25;
+    }
+
+    .header-titles p {
+      font-size: 0.82rem;
+      color: var(--cma-text-muted);
+      margin-top: 3px;
+    }
+
+    /* Ruban officiel répété au bord inférieur du header */
+    .cma-wave-border {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: 14px;
+      margin: 0;
+      border: 0;
+      background-image: url("ruban_vague.png");
+      background-repeat: repeat-x;
+      background-size: 102.941176px 102.941176px;
+      background-position: left -46.941176px;
+    }
+
+    /* Barre de progression compacte de 8px */
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background-color: #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cma-corail) 0%, var(--cma-bordeaux) 100%);
+      transition: width 0.4s ease;
+    }
+
+    /* Onglets de navigation tactiles Mobile-First */
+    .nav-container {
+      max-width: 960px;
+      margin: 12px auto 6px auto;
+      padding: 0 12px;
+      width: 100%;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-btn {
+      flex: 1 0 auto;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1.5px solid var(--cma-border);
+      background: #FFFFFF;
+      color: var(--cma-text);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--cma-corail);
+      color: var(--cma-bordeaux);
+    }
+
+    .nav-btn.active {
+      background: var(--cma-bordeaux);
+      color: #FFFFFF;
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 2px 8px rgba(165, 15, 35, 0.3);
+    }
+
+    /* Conteneur principal */
+    .main-container {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 12px 14px 40px 14px;
+      flex: 1;
+    }
+
+    .step-section {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .step-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cartes & Éléments */
+    .card {
+      background: var(--cma-card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--cma-border);
+      padding: 18px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-callout {
+      background: #F1F5F9;
+      border-left: 4px solid var(--cma-corail);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 14px;
+      font-size: 0.93rem;
+    }
+
+    .info-callout strong {
+      color: var(--cma-bordeaux);
+    }
+
+    /* Grille des pictogrammes SGH */
+    .sgh-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    @media (max-width: 480px) {
+      .sgh-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .sgh-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .sgh-card:hover {
+      border-color: var(--cma-corail);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sgh-diamond {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 6px auto;
+      border: 3.5px solid #EE3C3D;
+      transform: rotate(45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+    }
+
+    .sgh-symbol {
+      transform: rotate(-45deg);
+      font-size: 1.5rem;
+    }
+
+    .sgh-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-top: 8px;
+    }
+
+    .sgh-code {
+      font-size: 0.7rem;
+      color: var(--cma-text-muted);
+    }
+
+    /* Champs et commandes Mobile-First */
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .cma-input {
+      font-size: 16px;
+      height: 44px;
+      padding: 8px 12px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      color: var(--cma-text);
+      background: #FFFFFF;
+      min-width: 140px;
+      flex: 1;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .cma-input:focus {
+      outline: none;
+      border-color: var(--cma-corail);
+      box-shadow: 0 0 0 3px rgba(238, 60, 61, 0.15);
+    }
+
+    .cma-input-table {
+      width: 100px;
+      height: 38px;
+      font-size: 15px;
+      padding: 4px 8px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .cma-input-table:focus {
+      outline: none;
+      border-color: var(--cma-corail);
+    }
+
+    .input-unit {
+      font-weight: 600;
+      color: var(--cma-text-muted);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--cma-bordeaux);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--cma-bordeaux-dark);
+    }
+
+    .btn-corail {
+      background: var(--cma-corail);
+      color: #FFFFFF;
+    }
+
+    .btn-corail:hover {
+      background: #D92B2C;
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: 6px 14px;
+      font-size: 0.88rem;
+    }
+
+    /* Retours pédagogiques */
+    .feedback-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background: var(--cma-success-bg);
+      border: 1px solid var(--cma-success);
+      color: #065F46;
+    }
+
+    .feedback-box.incorrect {
+      display: block;
+      background: #FEE2E2;
+      border: 1px solid #EF4444;
+      color: #991B1B;
+    }
+
+    .feedback-box.hint {
+      display: block;
+      background: var(--cma-warning-bg);
+      border: 1px solid var(--cma-warning);
+      color: #92400E;
+    }
+
+    /* Accordéons pour le cours */
+    .accordion-item {
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .accordion-header {
+      padding: 14px 16px;
+      min-height: 48px;
+      background: #FFFFFF;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .accordion-header::after {
+      content: '+';
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--cma-corail);
+    }
+
+    .accordion-item.open .accordion-header::after {
+      content: '−';
+    }
+
+    .accordion-body {
+      padding: 14px 16px;
+      border-top: 1px solid var(--cma-border);
+      background: #FDFDFE;
+      display: none;
+      font-size: 0.93rem;
+    }
+
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* Simulateur interactif */
+    .sim-wrapper {
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid var(--cma-border);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .sim-controls-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .sim-controls-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .sim-control-item {
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .sim-control-item label {
+      display: block;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+    }
+
+    .sim-select {
+      width: 100%;
+      height: 44px;
+      font-size: 16px;
+      padding: 6px 10px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      background: #FFFFFF;
+      color: var(--cma-text);
+    }
+
+    .sim-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sim-slider {
+      flex: 1;
+      height: 8px;
+      accent-color: var(--cma-bordeaux);
+    }
+
+    .sim-slider-val {
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      min-width: 48px;
+      text-align: right;
+    }
+
+    /* Cases à cocher interactives EPI */
+    .epi-checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .epi-checkbox-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .epi-choice-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      user-select: none;
+      transition: all 0.15s;
+    }
+
+    .epi-choice-btn.selected {
+      border-color: var(--cma-bordeaux);
+      background: #FFF5F5;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+    }
+
+    /* Panneau de jauge et résultat simulateur */
+    .gauge-container {
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 14px;
+      border: 1px solid var(--cma-border);
+      margin-top: 12px;
+    }
+
+    .gauge-track {
+      width: 100%;
+      height: 16px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .gauge-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #16A34A 0%, #F59E0B 50%, #EF4444 100%);
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+
+    .sim-summary-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    /* Entraînement gamifié */
+    .level-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .level-card.active-lvl {
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 0 0 2px rgba(165, 15, 35, 0.1);
+    }
+
+    .level-card.locked {
+      background: #F1F5F9;
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
+
+    .level-pill {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .pill-l1 { background: #DCFCE7; color: #15803D; }
+    .pill-l2 { background: #FEF3C7; color: #B45309; }
+    .pill-l3 { background: #EDE9FE; color: #6D28D9; }
+    .pill-eval { background: #FFE4E6; color: #BE123C; }
+
+    .exercise-box {
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exercise-box.locked-exercise {
+      display: none;
+    }
+
+    .exercise-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--cma-text-muted);
+    }
+
+    .badge-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .tag-cap { background: var(--cma-corail-light); color: var(--cma-bordeaux); }
+    .tag-bonus { background: #FEF3C7; color: #B45309; }
+    .tag-expert { background: #EDE9FE; color: #6D28D9; }
+
+    .q-item {
+      padding: 12px;
+      border-radius: 8px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      margin-bottom: 12px;
+    }
+
+    .q-item.completed {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+    }
+
+    .q-title {
+      font-weight: 600;
+      font-size: 0.94rem;
+      margin-bottom: 8px;
+      color: var(--cma-text);
+    }
+
+    /* Score banner */
+    .score-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .score-card {
+      background: #FFFFFF;
+      border: 1px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .score-card.cap-highlight {
+      border-color: #86EFAC;
+      background: #F0FDF4;
+    }
+
+    .score-card-title {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--cma-text-muted);
+    }
+
+    .score-card-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      margin-top: 2px;
+    }
+
+    /* Badges */
+    .badge-shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .cma-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .cma-badge.unlocked {
+      border-color: #F59E0B;
+      background: #FFFBEB;
+      color: #92400E;
+    }
+
+    .cma-badge.locked {
+      opacity: 0.5;
+      background: #F1F5F9;
+      color: #94A3B8;
+    }
+
+    /* Attestation officielle */
+    .attestation-sheet {
+      background: #FFFFFF;
+      border: 3px double var(--cma-bordeaux);
+      border-radius: 14px;
+      padding: 24px 20px;
+      margin: 16px 0;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .att-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-bottom: 2px solid var(--cma-corail);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      gap: 10px;
+    }
+
+    .att-logo {
+      max-height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .att-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .att-sub {
+      font-size: 0.88rem;
+      color: var(--cma-text-muted);
+      font-weight: 600;
+    }
+
+    .att-learner {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .att-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 16px 0;
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid var(--cma-border);
+    }
+
+    @media (min-width: 600px) {
+      .att-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .att-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--cma-border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .att-sig-block {
+      text-align: right;
+      font-size: 0.85rem;
+    }
+
+    .att-sig-name {
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-top: 4px;
+    }
+
+    /* Tableaux adaptatifs */
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: 1px solid var(--cma-border);
+    }
+
+    .cma-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+      min-width: 480px;
+    }
+
+    .cma-table th {
+      background: #F8FAFC;
+      color: var(--cma-bordeaux);
+      font-weight: 700;
+      padding: 10px;
+      border-bottom: 2px solid var(--cma-border);
+    }
+
+    .cma-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--cma-border);
+      background: #FFFFFF;
+    }
+
+    /* Impression / Export PDF */
+    @media print {
+      body {
+        background: #FFFFFF;
+        color: #000000;
+      }
+      .app-header, .progress-track, .nav-container, .step-section:not(#step-4), .no-print, .btn, .input-row, input, select {
+        display: none !important;
+      }
+      #step-4 {
+        display: block !important;
+      }
+      .main-container {
+        padding: 0;
+        max-width: 100%;
+      }
+      .attestation-sheet {
+        border: 2px solid #A50F23;
+        box-shadow: none;
+        page-break-inside: avoid;
+        margin: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="../../assets/aides.css">
+</head>
+<body>
+
+  <!-- En-tête principal officiel CMA Formation -->
+  <header class="app-header">
+    <div class="header-content">
+      <img src="logo.png" alt="Logo CMA Formation" class="app-logo" onerror="this.src='https://placehold.co/120x48/A50F23/ffffff?text=CMA+Formation'">
+      <div class="header-titles">
+        <h1>Équipements de Protection Individuelle (EPI) & Risques chimiques</h1>
+        <p>Physique-Chimie | CAP Métiers de la Coiffure | Année 1 - S1/S2 P1 | CMA Formation Sainte-Clotilde (Rachel Lamberet-Lezais)</p>
+      </div>
+    </div>
+    <!-- Ruban officiel répété sur toute la largeur -->
+    <div class="cma-wave-border"></div>
+  </header>
+
+  <!-- Barre de progression générale compacte (8px) -->
+  <div class="progress-track" aria-label="Progression de la séance">
+    <div class="progress-bar-fill" id="globalProgressBar"></div>
+  </div>
+
+  <!-- Barre d'onglets tactiles Mobile-First -->
+  <div class="nav-container">
+    <nav class="nav-tabs" role="tablist">
+      <button class="nav-btn active" onclick="switchStep(1)" id="tab-step-1" role="tab" aria-selected="true">
+        <span>1.</span> Découverte
+      </button>
+      <button class="nav-btn" onclick="switchStep(2)" id="tab-step-2" role="tab" aria-selected="false">
+        <span>2.</span> Cours & Simulateur
+      </button>
+      <button class="nav-btn" onclick="switchStep(3)" id="tab-step-3" role="tab" aria-selected="false">
+        <span>3.</span> Entraînement
+      </button>
+      <button class="nav-btn" onclick="switchStep(4)" id="tab-step-4" role="tab" aria-selected="false">
+        <span>4.</span> Bilan & Attestation
+      </button>
+    </nav>
+  </div>
+
+  <!-- Conteneur principal SPA -->
+  <main class="main-container">
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 1 — DÉCOUVERTE                      -->
+    <!-- ========================================== -->
+    <section id="step-1" class="step-section active">
+      <div class="card">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Mise en situation : Préparation d'une décoloration au salon de Saint-Denis
+        </h2>
+        <div class="info-callout">
+          <strong>Contexte professionnel réunionnais :</strong> Nora, apprentie coiffeuse au salon « Lagon Beauté » situé rue de Paris à Saint-Denis, prépare un mélange de décoloration intense comprenant de la poudre décolorante (sels de persulfates), de la crème oxydante enrichie en <strong>peroxyde d'hydrogène ($H_2O_2$) à 30 volumes (9%)</strong> et une solution <strong>ammoniacale ($NH_4OH$)</strong>.<br><br>
+          En raison du climat tropical chaud et humide de La Réunion ($30^\circ\text{C}$ en atelier), la transpiration sous les gants accentue la macération cutanée et l'évaporation de l'<strong>ammoniac gazeux ($NH_3$)</strong> provoque rapidement des picotements oculaires et une gêne respiratoire.<br>
+          Le tuteur demande à Nora de consulter impérativement les <strong>Fiches de Données de Sécurité (FDS)</strong> et fiches techniques du laboratoire avant toute manipulation.
+        </div>
+        <p style="font-weight: 600; color: var(--cma-bordeaux); margin-bottom: 8px;">
+          Problématique professionnelle :
+        </p>
+        <p style="font-size: 0.93rem; color: var(--cma-text); margin-bottom: 14px;">
+          Quels sont les EPI indispensables lors de la manipulation de réactifs corrosifs ou irritants en salon de coiffure, et pourquoi le choix du matériau des gants (Nitrile vs Vinyle) est-il capital face aux peroxydes et à l'ammoniaque ?
+        </p>
+      </div>
+
+      <!-- CENTRE DE RESSOURCES DOCUMENTAIRES FDS & FEBEA -->
+      <div class="card" style="border: 2px solid var(--cma-corail); background: #FFFDFD;">
+        <h3 class="card-title" style="color: var(--cma-bordeaux);">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Centre documentaire : Fiches de Données de Sécurité (FDS) & Fiche Tox INRS
+        </h3>
+        <p style="font-size: 0.88rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Consultez les 3 fiches de référence officielles pour répondre aux questions d'investigation :
+        </p>
+
+        <!-- Onglets du classeur documentaire (3 onglets actifs) -->
+        <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;">
+          <button type="button" class="btn btn-sm btn-primary" id="btn-doc-ammoniaque" onclick="showDocTab('ammoniaque')">📄 FDS Ammoniaque 13%</button>
+          <button type="button" class="btn btn-sm" id="btn-doc-h2o2" style="background:#E2E8F0; color:#1E293B;" onclick="showDocTab('h2o2')">📄 FDS Eau Oxygénée 12%</button>
+          <button type="button" class="btn btn-sm" id="btn-doc-inrs" style="background:#E2E8F0; color:#1E293B;" onclick="showDocTab('inrs')">📑 Fiche Tox INRS n°16</button>
+        </div>
+
+        <!-- Document 1 : FDS Ammoniaque 13% -->
+        <div id="doc-panel-ammoniaque" style="display: block; background: white; border: 1px solid var(--cma-border); border-radius: 8px; padding: 14px; font-size: 0.88rem; line-height: 1.55;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--cma-bordeaux); padding-bottom: 6px; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+            <strong style="color: var(--cma-bordeaux); font-size: 0.98rem;">EXTRAIT FDS N° SSN015 — AMMONIAQUE 13.0% (REACH)</strong>
+            <span style="background: #FEE2E2; color: #991B1B; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem;">RUBRIQUES 2, 4, 8, 9, 10</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #EE3C3D;">
+              <strong>Rubrique 2 : Identification des dangers</strong><br>
+              • <strong>Pictogrammes :</strong> <span style="color:#A50F23; font-weight:bold;">GHS05 (Corrosion)</span> et <span style="color:#A50F23; font-weight:bold;">GHS07 (Nocif / Irritant)</span>.<br>
+              • <strong>Mention d'avertissement :</strong> DANGER.<br>
+              • <strong>Mentions de danger (H) :</strong><br>
+              - <strong>H314 :</strong> Provoque de graves brûlures de la peau et de graves lésions des yeux.<br>
+              - <strong>H335 :</strong> Peut irriter les voies respiratoires.<br>
+              - <strong>H412 :</strong> Nocif pour les organismes aquatiques, entraîne des effets néfastes à long terme.<br>
+              • <strong>Conseils de prudence (P) :</strong><br>
+              - <strong>P260 :</strong> Ne pas respirer les poussières/fumées/gaz/vapeurs.<br>
+              - <strong>P280 :</strong> Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage.
+            </div>
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #D97706;">
+              <strong>Rubrique 4 : Premiers secours</strong><br>
+              • <strong>P301+P330+P331 :</strong> EN CAS D'INGESTION : Rincer la bouche. NE PAS faire vomir.<br>
+              • <strong>P303+P361+P353 :</strong> EN CAS DE CONTACT AVEC LA PEAU : Enlever immédiatement les vêtements souillés. Rincer la peau à grande eau.<br>
+              • <strong>P305+P351+P338 :</strong> EN CAS DE CONTACT AVEC LES YEUX : Rincer abondamment à l'eau <strong>pendant au moins 15 minutes</strong> en écartant bien les paupières.
+            </div>
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #0284C7;">
+              <strong>Rubrique 8 : Contrôle de l'exposition & Équipements de Protection Individuelle (EPI)</strong><br>
+              • <strong>Protection des mains :</strong> Gants de protection en <strong>Caoutchouc Nitrile</strong> (NBR) conformes à la norme <strong>EN ISO 374-1</strong>. Délai de rupture : $\mathbf{\ge 8\text{ h}}$. Épaisseur minimale : $0,5\text{ mm}$.<br>
+              • <strong>Protection des yeux :</strong> Lunettes à protection latérale conformes à la norme <strong>NF EN166</strong>.<br>
+              • <strong>Protection respiratoire :</strong> En cas de vapeurs d'ammoniac en espace confiné, filtre de <strong>type K</strong>.
+            </div>
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #16A34A;">
+              <strong>Rubrique 9 & 10 : Propriétés physico-chimiques & Incompatibilités</strong><br>
+              • <strong>pH :</strong> $\mathbf{> 12}$ (Base forte très corrosive).<br>
+              • <strong>Incompatibilité stricte avec les métaux :</strong> Réaction vive au contact du cuivre, zinc, aluminium ou fer, provoquant un dégagement de gaz toxique et corrosif. Utiliser exclusivement des bols en plastique ou en verre.
+            </div>
+          </div>
+        </div>
+
+        <!-- Document 2 : FDS Eau Oxygénée 12% -->
+        <div id="doc-panel-h2o2" style="display: none; background: white; border: 1px solid var(--cma-border); border-radius: 8px; padding: 14px; font-size: 0.88rem; line-height: 1.55;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--cma-bordeaux); padding-bottom: 6px; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+            <strong style="color: var(--cma-bordeaux); font-size: 0.98rem;">EXTRAIT FDS N° 2217 — EAU OXYGÉNÉE 12% (PEROXYDE D'HYDROGÈNE)</strong>
+            <span style="background: #FEE2E2; color: #991B1B; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem;">RUBRIQUES 2, 4, 8, 10</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #EE3C3D;">
+              <strong>Rubrique 2 : Identification des dangers</strong><br>
+              • <strong>Pictogrammes :</strong> <span style="color:#A50F23; font-weight:bold;">GHS05 (Corrosion)</span>. Comburant à forte concentration ($C \ge 50\%$).<br>
+              • <strong>Mention :</strong> DANGER — <strong>H318 :</strong> Provoque de graves lésions des yeux.<br>
+              • <strong>Conseils :</strong> <strong>P280 :</strong> Porter des gants de protection / un équipement de protection des yeux.
+            </div>
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #0284C7;">
+              <strong>Rubrique 4 & 8 : Premiers secours et Protection</strong><br>
+              • <strong>Contact oculaire :</strong> Rincer les yeux immédiatement <strong>pendant 15 minutes</strong> sous l'eau courante en écartant les paupières. Consulter sans délai un ophtalmologiste.<br>
+              • <strong>Gants et yeux :</strong> Gants conformes <strong>EN 374</strong> (recommandation Nitrile) et lunettes hermétiques de sécurité (NF EN166).
+            </div>
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #D97706;">
+              <strong>Rubrique 10 : Stabilité et réactivité</strong><br>
+              • Incompatible avec les métaux, substances réductrices et bases fortes. Dégagement violent de dioxygène ($O_2$) favorisant l'inflammation. Ne pas exposer à des températures supérieures à $35^\circ\text{C}$.
+            </div>
+          </div>
+        </div>
+
+        <!-- Document 3 : Fiche Tox INRS 16 -->
+        <div id="doc-panel-inrs" style="display: none; background: white; border: 1px solid var(--cma-border); border-radius: 8px; padding: 14px; font-size: 0.88rem; line-height: 1.55;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--cma-bordeaux); padding-bottom: 6px; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+            <strong style="color: var(--cma-bordeaux); font-size: 0.98rem;">INRS — FICHE TOXICOLOGIQUE N° 16 (AMMONIAC ET SOLUTIONS AQUEUSES)</strong>
+            <span style="background: #FEE2E2; color: #991B1B; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem;">ÉDITION JUIN 2021</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #A50F23;">
+              <strong>Valeurs Limites d'Exposition Professionnelle (VLEP - France réglementaires) :</strong><br>
+              • <strong>VLEP 8h (journée de travail) :</strong> $10\text{ ppm}$ soit $7\text{ mg/m}^3$.<br>
+              • <strong>VLEP Court Terme (CT 15 min) :</strong> $20\text{ ppm}$ soit $14\text{ mg/m}^3$.
+            </div>
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #EE3C3D;">
+              <strong>Pathologie & Toxicologie en salon de coiffure :</strong><br>
+              • <strong>Action caustique locale :</strong> L'ammoniac réagit immédiatement avec l'eau de la sueur cutanée ou des muqueuses pour former de l'hydroxyde d'ammonium caustique (nécrose de liquéfaction tissulaire).<br>
+              • <strong>Atteintes respiratoires :</strong> Toux, irritation laryngée, bronchospasmes. L'inhalation répétée est une cause majeure d'asthme professionnel chez les coiffeurs.
+            </div>
+            <div style="background: #F8FAFC; padding: 10px; border-radius: 6px; border-left: 3px solid #16A34A;">
+              <strong>Recommandations techniques INRS :</strong><br>
+              • Gants préconisés : <strong>Nitrile, néoprène ou butyle</strong>. Proscrire le vinyle en contact avec des produits agressifs.<br>
+              • En cas de contact cutané ou oculaire : <strong>rinçage immédiat et ininterrompu à grande eau pendant au moins 15 minutes</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questions d'investigation -->
+      <div class="card">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Questions d'investigation
+        </h3>
+
+        <!-- Q1 -->
+        <div class="q-item" id="block-disc-1">
+          <div class="q-title">1. [C1 - S'informer] En lisant la Rubrique 2 de la FDS Ammoniaque et de l'Eau Oxygénée ci-dessus, relever le code SGH et le danger du pictogramme commun aux deux réactifs concentrés :</div>
+          <div class="input-row">
+            <span class="input-unit">Code SGH ou Danger :</span>
+            <input type="text" class="cma-input" id="disc_q1" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc1()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-1"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-item" id="block-disc-2">
+          <div class="q-title">2. [C1 - S'informer] D'après les mentions H314 et H335 de la FDS Ammoniaque, identifier les 3 zones du corps menacées d'irritation ou de brûlure grave (peau, yeux, voies respiratoires) :</div>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="disc_q2" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc2()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-2"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-item" id="block-disc-3">
+          <div class="q-title">3. [C2 - Exécuter] En vous référant à la Rubrique 8 de la FDS (conseil P280) et à la Fiche n°5 FEBEA, lister les 3 EPI indispensables pour effectuer le mélange décolorant en toute sécurité :</div>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="disc_q3" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc3()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-3"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-item" id="block-disc-4">
+          <div class="q-title">4. [C3 - Appliquer] D'après la rubrique 8 de la FDS Ammoniaque et la fiche INRS 16, quel matériau de gant garantit une étanchéité supérieure à 8h contre les produits agressifs (Vinyle, Latex ou Nitrile) ?</div>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="disc_q4" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc4()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-4"></div>
+        </div>
+
+        <div style="text-align: right; margin-top: 14px;">
+          <button class="btn btn-corail" onclick="switchStep(2)">Passer au Cours & Simulateur d'Exposition →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 2 — COURS ET SIMULATEUR INTERACTIF   -->
+    <!-- ========================================== -->
+    <section id="step-2" class="step-section">
+      <div class="card">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Synthèse de cours : Risques chimiques et Équipements de Protection (EPI)
+        </h2>
+
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            1. Les Risques Chimiques Majeurs en Salon de Coiffure
+          </div>
+          <div class="accordion-body">
+            <ul style="padding-left: 20px; margin: 8px 0;">
+              <li><strong>L'ammoniac ($NH_3$) / Ammoniaque ($NH_4OH$) :</strong> Gaz volatil incolore à odeur très piquante. Base forte corrosive pour la peau et les yeux, très irritante pour les voies respiratoires (toux, gêne respiratoire, asthme).</li>
+              <li><strong>Le peroxyde d'hydrogène ($H_2O_2$) :</strong> Agent oxydant (comburant SGH03) et corrosif (SGH05 dès 30 volumes / 12%). Provoque de graves brûlures cutanées blanches et des lésions cornéennes irréversibles.</li>
+              <li><strong>Les persulfates (poudres décolorantes) :</strong> Poudres très fines hautement sensibilisantes. Responsables d'allergies respiratoires, rhinites et d'asthme professionnel chez les coiffeurs.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            2. Les Équipements de Protection Individuelle (EPI) obligatoires
+          </div>
+          <div class="accordion-body">
+            <ul style="padding-left: 20px;">
+              <li><strong>Protection des mains (Gants à usage unique) :</strong>
+                <br>• <strong>Nitrile (Recommandé - Norme EN ISO 374-1) :</strong> Excellente étanchéité chimique (> 60 min face aux peroxydes), grande résistance mécanique et hypoallergénique.
+                <br>• <strong>Vinyle (À proscrire pour produits agressifs) :</strong> Poreux, perméable en moins de 10 min, cassant.
+                <br>• <strong>Latex :</strong> Bon pouvoir étanche mais fort risque d'allergie cutanée (dermatite allergique).
+              </li>
+              <li style="margin-top: 8px;"><strong>Protection oculaire (Lunettes de sécurité - NF EN166) :</strong> Obligatoires contre les projections d'oxydant ou de solution alcaline lors du transvasement et du mélange.</li>
+              <li style="margin-top: 8px;"><strong>Protection respiratoire (Masque FFP2) :</strong> Indispensable lors du dosage et versement des poudres décolorantes volatiles.</li>
+              <li style="margin-top: 8px;"><strong>Protection des vêtements :</strong> Tablier imperméable ou blouse à manches longues en matière synthétique inerte.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            3. Bonnes pratiques d'hygiène sous climat tropical réunionnais
+          </div>
+          <div class="accordion-body">
+            <ul style="padding-left: 20px;">
+              <li><strong>Chaleur et Pression de vapeur :</strong> À $30^\circ\text{C}$, l'ammoniac s'évapore 2 à 3 fois plus vite dans l'air de l'atelier qu'en métropole. Une ventilation permanente ou une hotte aspirante au laboratoire est obligatoire.</li>
+              <li><strong>Séchage impératif des mains :</strong> Toujours sécher méticuleusement les mains avant d'enfiler des gants pour stopper la macération due à la transpiration.</li>
+              <li><strong>Changement régulier des gants :</strong> Remplacer les gants immédiatement en cas d'humidité interne excessive ou après chaque technique agressive.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            4. Répertoire officiel des 9 Pictogrammes de Danger SGH
+          </div>
+          <div class="accordion-body">
+            <div class="sgh-grid">
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">💥</span></div>
+                <div class="sgh-name">Explosif</div>
+                <div class="sgh-code">SGH01</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">🔥</span></div>
+                <div class="sgh-name">Inflammable</div>
+                <div class="sgh-code">SGH02</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">⭕</span></div>
+                <div class="sgh-name">Comburant</div>
+                <div class="sgh-code">SGH03 ($H_2O_2$)</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">🧪</span></div>
+                <div class="sgh-name">Gaz sous pression</div>
+                <div class="sgh-code">SGH04 (Aérosols)</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">⚗️</span></div>
+                <div class="sgh-name">Corrosif</div>
+                <div class="sgh-code">SGH05 ($NH_4OH, H_2O_2$)</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">☠️</span></div>
+                <div class="sgh-name">Toxicité aiguë</div>
+                <div class="sgh-code">SGH06</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">❗</span></div>
+                <div class="sgh-name">Nocif / Irritant</div>
+                <div class="sgh-code">SGH07</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">👤</span></div>
+                <div class="sgh-name">Danger santé CMR</div>
+                <div class="sgh-code">SGH08 (Persulfates)</div>
+              </div>
+              <div class="sgh-card">
+                <div class="sgh-diamond"><span class="sgh-symbol">🐟</span></div>
+                <div class="sgh-name">Environnement</div>
+                <div class="sgh-code">SGH09</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulateur interactif d'exposition chimique et choix des EPI -->
+      <div class="card">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Simulateur d'exposition chimique et choix des EPI en atelier
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Configurez l'opération technique, la température ambiante de l'atelier à La Réunion et cochez les protections portées par l'apprenti(e). Observez le niveau de risque résiduel en direct.
+        </p>
+
+        <div class="sim-wrapper">
+          <div class="sim-controls-grid">
+            <!-- Choix de la manipulation -->
+            <div class="sim-control-item">
+              <label for="sim-product-select">1. Préparation technique en atelier :</label>
+              <select id="sim-product-select" class="sim-select" onchange="runSimulation()">
+                <option value="deco">Décoloration intense ($H_2O_2$ 30V + Persulfates + $NH_4OH$)</option>
+                <option value="perm">Permanente alcaline (Thioglycolate d'ammonium, pH 9)</option>
+                <option value="colo">Coloration permanente d'oxydation (ammoniaque)</option>
+                <option value="spray">Laque aérosol et spray coiffant (solvants / alcool)</option>
+                <option value="shamp">Shampooing technique aux bacs de lavage</option>
+              </select>
+            </div>
+
+            <!-- Température ambiante -->
+            <div class="sim-control-item">
+              <label for="sim-temp-range">2. Température ambiante à La Réunion :</label>
+              <div class="sim-slider-row">
+                <input type="range" id="sim-temp-range" class="sim-slider" min="20" max="36" value="30" step="1" oninput="document.getElementById('sim-temp-val').textContent = this.value + ' °C'; runSimulation();">
+                <span id="sim-temp-val" class="sim-slider-val">30 °C</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--cma-text-muted); margin-top: 4px;">
+                Note : À plus de 28 °C, la volatilité de l'ammoniac ($NH_3$) et la transpiration cutanée s'emballent.
+              </div>
+            </div>
+          </div>
+
+          <!-- Sélection des équipements de protection -->
+          <div class="sim-control-item" style="margin-bottom: 14px;">
+            <label>3. Équipements de protection portés par l'apprenti(e) :</label>
+            <div class="epi-checkbox-grid">
+              <div class="epi-choice-btn" id="btn-epi-gloves-vinyle" onclick="toggleGloveType('vinyle')">
+                <span>🧤</span> Gants Vinyle (poreux 10 min)
+              </div>
+              <div class="epi-choice-btn" id="btn-epi-gloves-latex" onclick="toggleGloveType('latex')">
+                <span>🧤</span> Gants Latex (allergisant)
+              </div>
+              <div class="epi-choice-btn selected" id="btn-epi-gloves-nitrile" onclick="toggleGloveType('nitrile')">
+                <span>🛡️</span> Gants Nitrile (norme EN 374-1)
+              </div>
+              <div class="epi-choice-btn" id="btn-epi-glasses" onclick="toggleEpiOption('glasses')">
+                <span>🥽</span> Lunettes de sécurité (EN 166)
+              </div>
+              <div class="epi-choice-btn" id="btn-epi-mask" onclick="toggleEpiOption('mask')">
+                <span>😷</span> Masque respiratoire FFP2
+              </div>
+              <div class="epi-choice-btn" id="btn-epi-vent" onclick="toggleEpiOption('vent')">
+                <span>🌀</span> Aspiration localisée / Hotte
+              </div>
+            </div>
+          </div>
+
+          <!-- Jauge de risque résiduel -->
+          <div class="gauge-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.92rem;">
+              <span>Indice de Risque Résiduel :</span>
+              <span id="gaugeValueText" style="color: var(--cma-bordeaux); font-size: 1.15rem;">-- %</span>
+            </div>
+            <div class="gauge-track">
+              <div class="gauge-fill" id="gaugeBarFill"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--cma-text-muted);">
+              <span>0% : Sécurité Maximale</span>
+              <span>50% : Vigilance requise</span>
+              <span>100% : Danger Critique / Arrêt</span>
+            </div>
+
+            <!-- Synthèse diagnostic -->
+            <div class="sim-summary-box" id="simSummaryBox"></div>
+          </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 14px;">
+          <button class="btn btn-corail" onclick="switchStep(3)">Accéder aux Entraînements Différenciés →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 3 — ENTRAÎNEMENT GAMIFIÉ             -->
+    <!-- ========================================== -->
+    <section id="step-3" class="step-section">
+
+      <!-- Barre de score -->
+      <div class="score-banner">
+        <div class="score-card cap-highlight">
+          <div class="score-card-title">Socle CAP (Niveau 1)</div>
+          <div class="score-card-val" id="capProgressTxt">0%</div>
+        </div>
+        <div class="score-card">
+          <div class="score-card-title">Bonus Élite / Dépassement</div>
+          <div class="score-card-val" id="bonusScoreTxt">+0 pts</div>
+        </div>
+      </div>
+
+      <!-- Sélecteurs de niveaux -->
+      <div class="level-card active-lvl" id="hdr-lvl-1" onclick="switchLvlTab(1)">
+        <div>
+          <span class="level-pill pill-l1">NIVEAU 1 🟢</span>
+          <div style="font-weight: 700; margin-top: 4px;">Débutant / Socle CAP (4 Exercices)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Valide 100% du socle CAP et débloque l'attestation officielle</div>
+        </div>
+        <span id="badge-status-1" style="font-weight: bold; color: var(--cma-bordeaux);">En cours</span>
+      </div>
+
+      <div class="level-card locked" id="hdr-lvl-2" onclick="switchLvlTab(2)">
+        <div>
+          <span class="level-pill pill-l2">NIVEAU 2 🟡</span>
+          <div style="font-weight: 700; margin-top: 4px;">Avancé / Dépassement (4 Exercices)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Nitrile vs Vinyle, analyse FDS ammoniac, climat 30°C, dermatite coiffeur</div>
+        </div>
+        <span id="badge-status-2" style="font-size: 0.82rem; color: var(--cma-text-muted);">🔒 Verrouillé</span>
+      </div>
+
+      <div class="level-card locked" id="hdr-lvl-3" onclick="switchLvlTab(3)">
+        <div>
+          <span class="level-pill pill-l3">NIVEAU 3 🔴</span>
+          <div style="font-weight: 700; margin-top: 4px;">Expert / Excellence (3 Situations)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Audit DUER réseau 3 salons, réaction bol métallique, filière déchets DASRI</div>
+        </div>
+        <span id="badge-status-3" style="font-size: 0.82rem; color: var(--cma-text-muted);">🔒 Verrouillé</span>
+      </div>
+
+      <div class="level-card" id="hdr-lvl-eval" onclick="switchLvlTab(4)">
+        <div>
+          <span class="level-pill pill-eval">ÉVALUATION 📝</span>
+          <div style="font-weight: 700; margin-top: 4px;">Évaluation Formelle Élève (/8 points)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Contrôle de sécurité en laboratoire à Sainte-Clotilde</div>
+        </div>
+        <span id="badge-status-eval" style="font-size: 0.82rem; color: var(--cma-bordeaux); font-weight: bold;">Autonome</span>
+      </div>
+
+      <!-- ================= NIVEAU 1 ================= -->
+      <div id="cnt-lvl-1">
+
+        <!-- Ex 1.1 -->
+        <div class="exercise-box" id="exbox-m1-1">
+          <div class="exercise-meta">
+            <span>Exercice 1.1 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Identification des pictogrammes sur le peroxyde d'hydrogène ($H_2O_2$)
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Un flacon de crème oxydante à 30 volumes porte les pictogrammes <strong>SGH05</strong> et <strong>SGH03</strong>.
+          </p>
+
+          <div class="q-item" id="q-m1-1-1">
+            <div class="q-title">1. Indiquer la signification exacte du pictogramme SGH05 :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_1_sgh05" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_sgh05()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-sgh05"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-1-2">
+            <div class="q-title">2. Citer les deux EPI immédiatement requis pour manipuler ce flacon en toute sécurité :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_1_epi" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_epi()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-epi"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-2">
+          <div class="exercise-meta">
+            <span>Exercice 1.2 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Choix des gants pour l'application d'un produit technique
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            L'apprenti effectue le rinçage d'une coloration et l'application d'un shampooing neutralisant.
+          </p>
+
+          <div class="q-item" id="q-m1-2-1">
+            <div class="q-title">1. Quel est le rôle principal du port de gants lors du rinçage de produits chimiques ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_2_role" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_2_role()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-2-role"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-2-2">
+            <div class="q-title">2. Quel matériau offre la protection chimique optimale (Vinyle, Latex ou Nitrile) ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_2_mat" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_2_mat()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-2-mat"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-3">
+          <div class="exercise-meta">
+            <span>Exercice 1.3 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Règles de sécurité lors du mélange de poudres décolorantes
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Les poudres décolorantes contiennent des sels de persulfates d'ammonium et de potassium.
+          </p>
+
+          <div class="q-item" id="q-m1-3-1">
+            <div class="q-title">1. Quel est le risque principal lors de l'ouverture et du dosage de la poudre volatile ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_3_risque" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_3_risque()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-3-risque"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-3-2">
+            <div class="q-title">2. Quel EPI protège spécifiquement les voies respiratoires contre ces poussières ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_3_epi" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_3_epi()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-3-epi"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.4 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-4">
+          <div class="exercise-meta">
+            <span>Exercice 1.4 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Conduite à tenir en cas de projection d'oxydant dans l'œil
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Une éclaboussure accidentelle d'eau oxygénée atteint la zone oculaire de la technicienne.
+          </p>
+
+          <div class="q-item" id="q-m1-4-1">
+            <div class="q-title">1. Citer l'équipement de secours d'urgence obligatoire présent au laboratoire :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_4_secours" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_4_secours()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-4-secours"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-4-2">
+            <div class="q-title">2. Indiquer la durée minimale de rinçage continu à l'eau claire :</div>
+            <div class="input-row">
+              <span class="input-unit">Durée =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex1_4_duree" placeholder="Votre résultat...">
+              <span class="input-unit">minutes</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_4_duree()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-4-duree"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= NIVEAU 2 ================= -->
+      <div id="cnt-lvl-2" style="display: none;">
+
+        <!-- Ex 2.1 -->
+        <div class="exercise-box" id="exbox-m2-1">
+          <div class="exercise-meta">
+            <span>Exercice 2.1 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Étude comparative d'étanchéité des gants (Nitrile vs Vinyle)
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Un test de perméabilité à l'eau oxygénée à 30 volumes montre que :<br>
+            • Les gants en Vinyle présentent des microporosités après <strong>10 minutes</strong>.<br>
+            • Les gants en Nitrile garantissent une étanchéité protectrice pendant <strong>60 minutes</strong>.
+          </p>
+
+          <div class="q-item" id="q-m2-1-1">
+            <div class="q-title">1. Calculer le rapport de résistance temporelle entre le Nitrile et le Vinyle ($\frac{60}{10}$) :</div>
+            <div class="input-row">
+              <span class="input-unit">Rapport =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_1_rapport" placeholder="Votre résultat...">
+              <span class="input-unit">fois plus résistant</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_1_rapport()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-1-rapport"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-1-2">
+            <div class="q-title">2. Justifier pourquoi la convention collective de la coiffure impose l'usage du Nitrile lors des techniques :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_1_just" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_1_just()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-1-just"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-2">
+          <div class="exercise-meta">
+            <span>Exercice 2.2 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Analyse d'une Fiche de Données de Sécurité (FDS) d'ammoniaque
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Extrait FDS : <strong>H314</strong> (Provoque de graves brûlures de la peau), <strong>H335</strong> (Peut irriter les voies respiratoires), <strong>P280</strong> (Porter des gants/vêtements de protection/équipement yeux).
+          </p>
+
+          <div class="q-item" id="q-m2-2-1">
+            <div class="q-title">1. Que signifient les lettres <strong>H</strong> et <strong>P</strong> sur une FDS ?</div>
+            <div class="input-row">
+              <span class="input-unit">H =</span>
+              <input type="text" class="cma-input" id="ex2_2_h" placeholder="Votre résultat..." style="max-width: 140px;">
+              <span class="input-unit">; P =</span>
+              <input type="text" class="cma-input" id="ex2_2_p" placeholder="Votre résultat..." style="max-width: 140px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_2_hp()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-2-hp"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-2-2">
+            <div class="q-title">2. Citer les 3 EPI requis par le conseil P280 pour l'opérateur :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_2_epi" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_2_epi()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-2-epi"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-3">
+          <div class="exercise-meta">
+            <span>Exercice 2.3 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Ventilation et climatisation du laboratoire en milieu tropical
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            À Sainte-Clotilde, la température moyenne en atelier atteint <strong>30 °C</strong> sans climatisation.
+          </p>
+
+          <div class="q-item" id="q-m2-3-1">
+            <div class="q-title">1. Comment l'élévation de température à 30 °C modifie-t-elle l'évaporation de l'ammoniaque ($NH_3$) ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_3_vapeur" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_3_vapeur()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-3-vapeur"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-3-2">
+            <div class="q-title">2. Proposer une mesure technique d'aménagement du poste combinant aération et protection :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_3_amenag" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_3_amenag()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-3-amenag"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.4 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-4">
+          <div class="exercise-meta">
+            <span>Exercice 2.4 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Prévention de la dermatite de contact chez les apprentis coiffeurs
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            80% des arrêts maladie liés aux dermatoses professionnelles chez les coiffeurs résultent de lavages répétés et de produits chimiques.
+          </p>
+
+          <div class="q-item" id="q-m2-4-1">
+            <div class="q-title">1. Différencier l'irritation mécanique (eau/savon) de l'allergie chimique (persulfates) :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_4_diff" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_4_diff()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-4-diff"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-4-2">
+            <div class="q-title">2. Quelle est la règle d'or d'hygiène des mains avant d'enfiler des gants ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_4_regle" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_4_regle()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-4-regle"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= NIVEAU 3 ================= -->
+      <div id="cnt-lvl-3" style="display: none;">
+
+        <!-- Ex 3.1 -->
+        <div class="exercise-box" id="exbox-m3-1">
+          <div class="exercise-meta">
+            <span>Exercice 3.1 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Audit du Document Unique d'Évaluation des Risques (DUER)
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Sur un effectif de 15 salariés d'un réseau réunionnais, 3 développent des rougeurs sous vinyle lors de décolorations. Le réseau utilise 20 boîtes de 100 gants par mois. Une boîte vinyle coûte 5,00 € contre 8,00 € pour le nitrile.
+          </p>
+
+          <div class="q-item" id="q-m3-1-1">
+            <div class="q-title">1. Calculer la proportion de salariés affectés ($\frac{3}{15}$) en pourcentage (%) :</div>
+            <div class="input-row">
+              <span class="input-unit">Proportion =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex3_1_prop" placeholder="Votre résultat...">
+              <span class="input-unit">%</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_1_prop()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-1-prop"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-1-2">
+            <div class="q-title">2. Calculer le surcoût mensuel du passage au Nitrile : $20 \times (8 - 5)$ € :</div>
+            <div class="input-row">
+              <span class="input-unit">Surcoût =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex3_1_cout" placeholder="Votre résultat...">
+              <span class="input-unit">€ / mois</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_1_cout()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-1-cout"></div>
+          </div>
+        </div>
+
+        <!-- Ex 3.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m3-2">
+          <div class="exercise-meta">
+            <span>Exercice 3.2 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Analyse physico-chimique d'un incident en bol métallique
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Lors de la préparation d'une pâte décolorante dans un bol métallique non conforme, une effervescence brutale avec dégagement de gaz $NH_3$ se produit.
+          </p>
+
+          <div class="q-item" id="q-m3-2-1">
+            <div class="q-title">1. Pourquoi les récipients pour peroxydes et ammoniaque doivent-ils être en plastique ou en verre ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_2_react" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_2_react()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-2-react"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-2-2">
+            <div class="q-title">2. Quels matériaux de bol sont autorisés en salon de coiffure ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_2_mat" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_2_mat()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-2-mat"></div>
+          </div>
+        </div>
+
+        <!-- Ex 3.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m3-3">
+          <div class="exercise-meta">
+            <span>Exercice 3.3 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Gestion des déchets chimiques et protection de l'environnement péi
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            À La Réunion, l'écosystème insulaire fragile impose un tri rigoureux des résidus chimiques du salon.
+          </p>
+
+          <div class="q-item" id="q-m3-3-1">
+            <div class="q-title">1. Peut-on jeter les restes de coloration ou les gants souillés avec les ordures ménagères ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_3_ordures" placeholder="oui ou non ?">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_3_ordures()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-3-ordures"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-3-2">
+            <div class="q-title">2. Nommer la filière de collecte des déchets chimiques dangereux du salon :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_3_filiere" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_3_filiere()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-3-filiere"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= ÉVALUATION FORMELLE SOMMATIVE ================= -->
+      <div id="cnt-lvl-eval" style="display: none;">
+        <div class="card" style="border-left: 5px solid var(--cma-bordeaux);">
+          <div class="exercise-meta">
+            <span style="font-size: 1rem; color: var(--cma-bordeaux);">Évaluation Formelle Élève (15 min)</span>
+            <span class="badge-tag tag-cap">Barème : /8 pts</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Contrôle de sécurité en laboratoire de coiffure à Sainte-Clotilde
+          </h4>
+          <div class="info-callout">
+            <strong>Situation d'évaluation :</strong> Un inspecteur observe une apprentie qui prépare un lissage et une coloration contenant du <strong>peroxyde d'hydrogène ($H_2O_2$)</strong> et de l'<strong>ammoniac ($NH_3$)</strong>. L'apprentie porte des <em>gants en vinyle troués</em>, travaille <em>sans lunettes de protection</em>, et le flacon d'oxydant porte le pictogramme 'Corrosif' (SGH05).
+          </div>
+
+          <!-- Eval Q1 -->
+          <div class="q-item" id="q-eval-1">
+            <div class="q-title">1. [C1 - 2 pts] Relever les deux fautes majeures de sécurité commises par l'apprentie :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="eval_q1" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEval1()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-1"></div>
+          </div>
+
+          <!-- Eval Q2 -->
+          <div class="q-item" id="q-eval-2">
+            <div class="q-title">2. [C2 - 2 pts] Indiquer le matériau de gants obligatoire et l'EPI oculaire manquant :</div>
+            <div class="input-row">
+              <span class="input-unit">Gants en :</span>
+              <input type="text" class="cma-input" id="eval_q2_gants" placeholder="Votre résultat..." style="max-width: 140px;">
+              <span class="input-unit">; EPI yeux :</span>
+              <input type="text" class="cma-input" id="eval_q2_yeux" placeholder="Votre résultat..." style="max-width: 140px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEval2()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-2"></div>
+          </div>
+
+          <!-- Eval Q3 -->
+          <div class="q-item" id="q-eval-3">
+            <div class="q-title">3. [C3 - 2 pts] Expliquer les risques encourus pour la peau et les yeux en cas de projection de peroxyde :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="eval_q3" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEval3()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-3"></div>
+          </div>
+
+          <!-- Eval Q4 -->
+          <div class="q-item" id="q-eval-4">
+            <div class="q-title">4. [C4 - 2 pts] Rédiger la consigne de sécurité à afficher au-dessus du plan de travail :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="eval_q4" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEval4()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-4"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 4 — BILAN ET ATTESTATION OFFICIELLE  -->
+    <!-- ========================================== -->
+    <section id="step-4" class="step-section">
+      <div class="card no-print">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Bilan de compétences & Attestation officielle CMA Formation
+        </h2>
+        <p style="font-size: 0.93rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Félicitations pour vos compétences en sécurité chimique et prévention en salon ! Renseignez votre nom ci-dessous pour actualiser et imprimer votre attestation officielle de compétences.
+        </p>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 6px;">
+            Nom et Prénom de l'apprenant(e) :
+          </label>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="studentNameInput" placeholder="Votre résultat..." oninput="updateStudentName(this.value)">
+            <button class="btn btn-corail" onclick="window.print()">
+              🖨️ Imprimer / Exporter en PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="badge-shelf">
+          <div class="cma-badge" id="badge-stat-cap">
+            <span>🛡️</span>
+            <span>Expert Prévention & EPI Coiffure (Socle CAP)</span>
+          </div>
+          <div class="cma-badge locked" id="badge-stat-bonus">
+            <span>⭐</span>
+            <span>Spécialiste FDS, Climat Tropical & Étanchéité Nitrile</span>
+          </div>
+          <div class="cma-badge locked" id="badge-stat-master">
+            <span>🏆</span>
+            <span>Auditeur DUER, Réactions Chimiques & Environnement Péi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attestation officielle imprimable -->
+      <div class="attestation-sheet" id="attestationPrintArea">
+        <div class="att-header">
+          <img src="logo.png" alt="Logo CMA Formation" class="att-logo" onerror="this.src='https://placehold.co/120x48/A50F23/ffffff?text=CMA+Formation'">
+          <div>
+            <h2 class="att-title">Attestation Pédagogique de Réussite</h2>
+            <div class="att-sub">CMA Formation de Sainte-Clotilde • Île de La Réunion</div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.95rem; line-height: 1.6; color: var(--cma-text);">
+          <p>La direction pédagogique et le pôle Sciences Appliquées attestent que l'apprenant(e) :</p>
+          <p style="text-align: center; margin: 12px 0;">
+            <span class="att-learner" id="attestationLearnerDisplay">APPRENANT(E) EN FORMATION</span>
+          </p>
+          <p>
+            a suivi et validé avec succès l'ensemble du protocole d'identification des risques chimiques en salon de coiffure, la maîtrise des pictogrammes de danger SGH, le choix rigoureux des Équipements de Protection Individuelle (EPI) et la gestion des risques sous climat tropical réunionnais.
+          </p>
+
+          <div class="att-grid">
+            <div>
+              <strong>Séance :</strong> S1/S2 P1 - EPI & Risques chimiques en salon<br>
+              <strong>Diplôme :</strong> CAP Métiers de la Coiffure (Gr. 1)<br>
+              <strong>Date d'évaluation :</strong> <span id="currentDateDisplay"></span>
+            </div>
+            <div>
+              <strong>Socle CAP validé :</strong> <span id="attSocleScore" style="color: var(--cma-bordeaux); font-weight: bold;">0%</span><br>
+              <strong>Points Bonus Dépassement :</strong> <span id="attBonusScore" style="color: var(--cma-corail); font-weight: bold;">0 pts</span><br>
+              <strong>Statut :</strong> <span id="attStatusBadge" style="font-weight: bold;">En cours d'acquisition</span>
+            </div>
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--cma-text-muted); margin-top: 10px;">
+            <strong>Compétences attestées :</strong> C1 (Identifier les pictogrammes SGH et les risques cutanés/oculaires/respiratoires), C2 (Sélectionner les EPI conformes aux normes EN ISO 374-1 et NF EN166), C3 (Expliquer les réactions d'incompatibilité matérielle et de perméabilité sous climat tropical), C4 (Rédiger des consignes de sécurité et appliquer les protocoles de secours d'urgence).
+          </p>
+        </div>
+
+        <div class="att-footer">
+          <div style="font-size: 0.8rem; color: var(--cma-text-muted);">
+            Attestation pédagogique de réussite de séance • Document numérique d'atelier
+          </div>
+          <div class="att-sig-block">
+            <div>Formatrice Référente Physique-Chimie :</div>
+            <div class="att-sig-name">Rachel Lamberet-Lezais</div>
+            <div style="font-size: 0.78rem; color: var(--cma-text-muted);">CMA Formation Sainte-Clotilde</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* État réactif de l'application */
+    const appState = {
+      currentStep: 1,
+      learnerName: "APPRENANT(E) EN FORMATION",
+      disc: { q1: false, q2: false, q3: false, q4: false },
+      lvl1: {
+        '1-1-1': false, '1-1-2': false,
+        '1-2-1': false, '1-2-2': false,
+        '1-3-1': false, '1-3-2': false,
+        '1-4-1': false, '1-4-2': false
+      },
+      lvl2: {
+        '2-1-1': false, '2-1-2': false,
+        '2-2-1': false, '2-2-2': false,
+        '2-3-1': false, '2-3-2': false,
+        '2-4-1': false, '2-4-2': false
+      },
+      lvl3: {
+        '3-1-1': false, '3-1-2': false,
+        '3-2-1': false, '3-2-2': false,
+        '3-3-1': false, '3-3-2': false
+      },
+      eval: { '1': false, '2': false, '3': false, '4': false },
+      unlockedLvl2: false,
+      unlockedLvl3: false,
+      sim: {
+        glove: 'nitrile', // 'vinyle', 'latex', 'nitrile'
+        glasses: false,
+        mask: false,
+        vent: false
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById('currentDateDisplay').textContent = today.toLocaleDateString('fr-FR', options);
+
+      runSimulation();
+      updateProgressBar();
+    });
+
+    function switchStep(stepNumber) {
+      appState.currentStep = stepNumber;
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById(`tab-step-${i}`);
+        const sec = document.getElementById(`step-${i}`);
+        if (tab && sec) {
+          if (i === stepNumber) {
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            sec.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
+            sec.classList.remove('active');
+          }
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+    }
+
+    function toggleAccordion(header) {
+      header.parentElement.classList.toggle('open');
+    }
+
+    function updateStudentName(val) {
+      const trimmed = val.trim();
+      const display = document.getElementById('attestationLearnerDisplay');
+      if (trimmed.length > 0) {
+        display.textContent = trimmed.toUpperCase();
+        appState.learnerName = trimmed;
+      } else {
+        display.textContent = "APPRENANT(E) EN FORMATION";
+        appState.learnerName = "APPRENANT(E) EN FORMATION";
+      }
+    }
+
+    function parseInputNumber(valStr) {
+      if (!valStr) return null;
+      const clean = valStr.toString().trim().replace(',', '.');
+      const num = parseFloat(clean);
+      return isNaN(num) ? null : num;
+    }
+
+    function setFeedback(elemId, type, message) {
+      const fb = document.getElementById(elemId);
+      if (!fb) return;
+      fb.className = `feedback-box ${type}`;
+      fb.innerHTML = message;
+    }
+
+    function showCustomModal(msg) {
+      const existing = document.getElementById('cma-dialog-box');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'cma-dialog-box';
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.width = '100vw';
+      modal.style.height = '100vh';
+      modal.style.backgroundColor = 'rgba(0, 0, 0, 0.45)';
+      modal.style.display = 'flex';
+      modal.style.alignItems = 'center';
+      modal.style.justifyContent = 'center';
+      modal.style.zIndex = '9999';
+      modal.style.padding = '16px';
+
+      modal.innerHTML = `
+        <div style="background: white; border-radius: 12px; max-width: 380px; width: 100%; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-left: 6px solid #A50F23;">
+          <h3 style="color: #A50F23; margin-bottom: 10px; font-size: 1.1rem;">Information CMA Formation</h3>
+          <p style="font-size: 0.95rem; color: #1E293B; line-height: 1.5; margin-bottom: 16px;">${msg}</p>
+          <div style="text-align: right;">
+            <button class="btn btn-primary btn-sm" onclick="document.getElementById('cma-dialog-box').remove()">Compris</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function updateProgressBar() {
+      const totalL1 = Object.keys(appState.lvl1).length;
+      let countL1 = 0;
+      for (const k in appState.lvl1) if (appState.lvl1[k]) countL1++;
+
+      const pctCap = Math.round((countL1 / totalL1) * 100);
+      document.getElementById('capProgressTxt').textContent = `${pctCap}%`;
+      document.getElementById('attSocleScore').textContent = `${pctCap}%`;
+
+      if (pctCap >= 100 && !appState.unlockedLvl2) {
+        appState.unlockedLvl2 = true;
+        document.getElementById('hdr-lvl-2').classList.remove('locked');
+        document.getElementById('badge-status-2').textContent = 'Disponible !';
+        document.getElementById('badge-status-1').textContent = '✅ Validé (100%)';
+        document.getElementById('badge-stat-cap').classList.add('unlocked');
+        document.getElementById('attStatusBadge').textContent = 'Socle CAP Validé avec Félicitations';
+        document.getElementById('attStatusBadge').style.color = 'var(--cma-success)';
+      }
+
+      let bonus = 0;
+      for (const k in appState.lvl2) if (appState.lvl2[k]) bonus += 10;
+      for (const k in appState.lvl3) if (appState.lvl3[k]) bonus += 20;
+
+      document.getElementById('bonusScoreTxt').textContent = `+${bonus} pts`;
+      document.getElementById('attBonusScore').textContent = `+${bonus} pts`;
+
+      const totalL2 = Object.keys(appState.lvl2).length;
+      let countL2 = 0;
+      for (const k in appState.lvl2) if (appState.lvl2[k]) countL2++;
+
+      if (countL2 === totalL2 && !appState.unlockedLvl3) {
+        appState.unlockedLvl3 = true;
+        document.getElementById('hdr-lvl-3').classList.remove('locked');
+        document.getElementById('badge-status-3').textContent = 'Disponible !';
+        document.getElementById('badge-status-2').textContent = '✅ Validé (Bonus max)';
+        document.getElementById('badge-stat-bonus').classList.remove('locked');
+        document.getElementById('badge-stat-bonus').classList.add('unlocked');
+      }
+
+      const totalL3 = Object.keys(appState.lvl3).length;
+      let countL3 = 0;
+      for (const k in appState.lvl3) if (appState.lvl3[k]) countL3++;
+
+      if (countL3 === totalL3) {
+        document.getElementById('badge-status-3').textContent = '✅ Maîtrise totale !';
+        document.getElementById('badge-stat-master').classList.remove('locked');
+        document.getElementById('badge-stat-master').classList.add('unlocked');
+      }
+
+      const globalPct = Math.min(100, Math.round((countL1 + countL2 + countL3) / (totalL1 + totalL2 + totalL3) * 100));
+      document.getElementById('globalProgressBar').style.width = `${globalPct}%`;
+    }
+
+    function switchLvlTab(lvl) {
+      if (lvl === 2 && !appState.unlockedLvl2) {
+        showCustomModal("Le Niveau 2 🟡 est verrouillé. Vous devez d'abord valider les 4 exercices du Niveau 1 🟢 (Socle CAP à 100%) !");
+        return;
+      }
+      if (lvl === 3 && !appState.unlockedLvl3) {
+        showCustomModal("Le Niveau 3 🔴 est verrouillé. Vous devez d'abord réussir l'ensemble des défis du Niveau 2 🟡 !");
+        return;
+      }
+
+      const tabs = [1, 2, 3, 4];
+      tabs.forEach(l => {
+        const key = l === 4 ? 'eval' : l;
+        const hdr = document.getElementById(`hdr-lvl-${key}`);
+        const cnt = document.getElementById(`cnt-lvl-${key}`);
+        if (hdr && cnt) {
+          if (l === lvl) {
+            hdr.classList.add('active-lvl');
+            cnt.style.display = 'block';
+          } else {
+            hdr.classList.remove('active-lvl');
+            cnt.style.display = 'none';
+          }
+        }
+      });
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+    }
+
+    function showDocTab(docId) {
+      const docs = ['ammoniaque', 'h2o2', 'inrs'];
+      docs.forEach(id => {
+        const panel = document.getElementById(`doc-panel-${id}`);
+        const btn = document.getElementById(`btn-doc-${id}`);
+        if (panel && btn) {
+          if (id === docId) {
+            panel.style.display = 'block';
+            btn.classList.add('btn-primary');
+            btn.style.background = 'var(--cma-bordeaux)';
+            btn.style.color = '#FFFFFF';
+          } else {
+            panel.style.display = 'none';
+            btn.classList.remove('btn-primary');
+            btn.style.background = '#E2E8F0';
+            btn.style.color = '#1E293B';
+          }
+        }
+      });
+    }
+
+    /* ================= DÉCOUVERTE ================= */
+    function checkDisc1() {
+      const v = document.getElementById('disc_q1').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-1', 'hint', 'Renseignez le code SGH ou le danger.'); return; }
+      if (v.includes('sgh05') || v.includes('corrosif') || v.includes('corrosion') || v.includes('sgh 05')) {
+        setFeedback('fb-disc-1', 'correct', 'Exact ! Le pictogramme commun est <strong>SGH05 (Corrosif)</strong>. Il signale que ces produits attaquent la peau et les tissus vivants.');
+        document.getElementById('block-disc-1').classList.add('completed');
+        appState.disc.q1 = true;
+      } else {
+        setFeedback('fb-disc-1', 'incorrect', 'Le pictogramme commun est le SGH05 (Corrosif).');
+      }
+    }
+
+    function checkDisc2() {
+      const v = document.getElementById('disc_q2').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-2', 'hint', 'Indiquez les zones corporelles menacées.'); return; }
+      if ((v.includes('peau') || v.includes('cutan')) && (v.includes('yeux') || v.includes('ocul')) && (v.includes('respir') || v.includes('poumon'))) {
+        setFeedback('fb-disc-2', 'correct', 'Très bien ! Les trois zones vitales exposées sont : <strong>la peau (mains)</strong>, <strong>les yeux</strong> et <strong>les voies respiratoires</strong>.');
+        document.getElementById('block-disc-2').classList.add('completed');
+        appState.disc.q2 = true;
+      } else {
+        setFeedback('fb-disc-2', 'incorrect', 'Mentionnez la peau, les yeux et les voies respiratoires.');
+      }
+    }
+
+    function checkDisc3() {
+      const v = document.getElementById('disc_q3').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-3', 'hint', 'Lisez les EPI requis pour la décoloration.'); return; }
+      if (v.includes('gant') && (v.includes('lunette') || v.includes('yeux')) && (v.includes('masque') || v.includes('tablier') || v.includes('blouse'))) {
+        setFeedback('fb-disc-3', 'correct', 'Parfait ! Les EPI indispensables sont les <strong>gants en nitrile</strong>, les <strong>lunettes de sécurité</strong> et le <strong>masque FFP2</strong> (ou tablier imperméable).');
+        document.getElementById('block-disc-3').classList.add('completed');
+        appState.disc.q3 = true;
+      } else {
+        setFeedback('fb-disc-3', 'incorrect', 'Indiquez les gants (nitrile), les lunettes de sécurité et le masque FFP2.');
+      }
+    }
+
+    function checkDisc4() {
+      const v = document.getElementById('disc_q4').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-4', 'hint', 'Choisissez entre Vinyle, Latex et Nitrile.'); return; }
+      if (v.includes('nitrile')) {
+        setFeedback('fb-disc-4', 'correct', 'Bravo ! C\'est le <strong>Nitrile</strong> qui assure une étanchéité chimique de plus de 60 min, là où le vinyle devient perméable en 10 minutes.');
+        document.getElementById('block-disc-4').classList.add('completed');
+        appState.disc.q4 = true;
+      } else {
+        setFeedback('fb-disc-4', 'incorrect', 'Le matériau optimal est le Nitrile (le vinyle est poreux et le latex allergisant).');
+      }
+    }
+
+    /* ================= NIVEAU 1 ================= */
+    function checkEx1_1_sgh05() {
+      const v = document.getElementById('ex1_1_sgh05').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-1-sgh05', 'hint', 'Signification du pictogramme SGH05.'); return; }
+      if (v.includes('corrosif') || v.includes('corrosion') || v.includes('brulure') || v.includes('brûlure')) {
+        setFeedback('fb-ex1-1-sgh05', 'correct', 'Exact : SGH05 = <strong>Corrosif</strong> (provoque des brûlures chimiques cutanées et de graves lésions oculaires).');
+        appState.lvl1['1-1-1'] = true;
+        document.getElementById('q-m1-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-1-sgh05', 'incorrect', 'SGH05 signifie Corrosif.'); }
+    }
+
+    function checkEx1_1_epi() {
+      const v = document.getElementById('ex1_1_epi').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-1-epi', 'hint', 'Citez les 2 EPI essentiels.'); return; }
+      if (v.includes('gant') && (v.includes('lunette') || v.includes('protection oculaire'))) {
+        setFeedback('fb-ex1-1-epi', 'correct', 'Bravo ! <strong>Gants en nitrile</strong> et <strong>lunettes de sécurité</strong> sont immédiatement exigés.');
+        appState.lvl1['1-1-2'] = true;
+        document.getElementById('q-m1-1-2').classList.add('completed');
+        document.getElementById('exbox-m1-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-1-epi', 'incorrect', 'Indiquez les gants en nitrile et les lunettes de sécurité.'); }
+    }
+
+    function checkEx1_2_role() {
+      const v = document.getElementById('ex1_2_role').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-2-role', 'hint', 'Rôle des gants de protection.'); return; }
+      if (v.includes('protég') || v.includes('irrit') || v.includes('dessèch') || v.includes('barrière') || v.includes('brûlur') || v.includes('contact')) {
+        setFeedback('fb-ex1-2-role', 'correct', 'Exact : Protéger l\'épiderme contre le <strong>dessèchement</strong>, l\'<strong>irritation</strong> et les agressions alcalines ou oxydantes.');
+        appState.lvl1['1-2-1'] = true;
+        document.getElementById('q-m1-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-2-role', 'incorrect', 'Les gants protègent la peau contre l\'irritation, le dessèchement et le contact avec les produits.'); }
+    }
+
+    function checkEx1_2_mat() {
+      const v = document.getElementById('ex1_2_mat').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-2-mat', 'hint', 'Quel est le matériau optimal ?'); return; }
+      if (v.includes('nitrile')) {
+        setFeedback('fb-ex1-2-mat', 'correct', 'Parfait : le <strong>Nitrile</strong> est le matériau de référence.');
+        appState.lvl1['1-2-2'] = true;
+        document.getElementById('q-m1-2-2').classList.add('completed');
+        document.getElementById('exbox-m1-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-2-mat', 'incorrect', 'Le bon choix est le Nitrile.'); }
+    }
+
+    function checkEx1_3_risque() {
+      const v = document.getElementById('ex1_3_risque').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-3-risque', 'hint', 'Risque à l\'ouverture du pot de poudre.'); return; }
+      if (v.includes('inhal') || v.includes('poussièr') || v.includes('volatil') || v.includes('respir') || v.includes('persulfate')) {
+        setFeedback('fb-ex1-3-risque', 'correct', 'Exact : <strong>Inhalation de poussières volatiles sensibilisantes</strong> (sels de persulfates).');
+        appState.lvl1['1-3-1'] = true;
+        document.getElementById('q-m1-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-3-risque', 'incorrect', 'C\'est l\'inhalation de poussières volatiles irritantes et allergisantes.'); }
+    }
+
+    function checkEx1_3_epi() {
+      const v = document.getElementById('ex1_3_epi').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-3-epi', 'hint', 'Quel masque protège les voies respiratoires ?'); return; }
+      if (v.includes('masque') || v.includes('ffp2') || v.includes('ffp 2') || v.includes('ffp')) {
+        setFeedback('fb-ex1-3-epi', 'correct', 'Exact : Le <strong>masque de protection respiratoire FFP2</strong>.');
+        appState.lvl1['1-3-2'] = true;
+        document.getElementById('q-m1-3-2').classList.add('completed');
+        document.getElementById('exbox-m1-4').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-3-epi', 'incorrect', 'Il s\'agit du masque respiratoire FFP2.'); }
+    }
+
+    function checkEx1_4_secours() {
+      const v = document.getElementById('ex1_4_secours').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-4-secours', 'hint', 'Équipement pour laver les yeux.'); return; }
+      if (v.includes('rince') || v.includes('oculaire') || v.includes('douchette') || v.includes('fontaine')) {
+        setFeedback('fb-ex1-4-secours', 'correct', 'Exact : La <strong>rinceuse oculaire de sécurité</strong> (ou fontaine/douchette oculaire).');
+        appState.lvl1['1-4-1'] = true;
+        document.getElementById('q-m1-4-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-4-secours', 'incorrect', 'La rinceuse oculaire ou la douchette d\'eau.'); }
+    }
+
+    function checkEx1_4_duree() {
+      const v = parseInputNumber(document.getElementById('ex1_4_duree').value);
+      if (v === null) { setFeedback('fb-ex1-4-duree', 'hint', 'Durée minimale en minutes.'); return; }
+      if (v >= 15) {
+        setFeedback('fb-ex1-4-duree', 'correct', 'Bravo ! <strong>15 minutes minimum</strong> de rinçage continu à l\'eau courante en maintenant les paupières écartées. SOCLE CAP VALIDÉ À 100% !');
+        appState.lvl1['1-4-2'] = true;
+        document.getElementById('q-m1-4-2').classList.add('completed');
+        updateProgressBar();
+        showCustomModal("Félicitations ! Vous avez validé l'intégralité du Niveau 1 🟢 (Socle CAP à 100%). Votre Attestation Officielle CMA Formation est débloquée et le Niveau 2 🟡 est accessible !");
+      } else { setFeedback('fb-ex1-4-duree', 'incorrect', 'La durée minimale recommandée par l\'INRS et les FDS est de 15 minutes.'); }
+    }
+
+    /* ================= NIVEAU 2 ================= */
+    function checkEx2_1_rapport() {
+      const v = parseInputNumber(document.getElementById('ex2_1_rapport').value);
+      if (v === null) { setFeedback('fb-ex2_1_rapport', 'hint', '60 divisé par 10.'); return; }
+      if (v === 6) {
+        setFeedback('fb-ex2-1-rapport', 'correct', 'Exact : $\\frac{60\\text{ min}}{10\\text{ min}} = 6$. Le Nitrile résiste <strong>6 fois plus longtemps</strong> que le Vinyle face aux peroxydes.');
+        appState.lvl2['2-1-1'] = true;
+        document.getElementById('q-m2-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-1-rapport', 'incorrect', '60 / 10 = 6.'); }
+    }
+
+    function checkEx2_1_just() {
+      const v = document.getElementById('ex2_1_just').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-1-just', 'hint', 'Justifiez l\'obligation du Nitrile.'); return; }
+      if (v.includes('perméab') || v.includes('étanch') || v.includes('poreux') || v.includes('brûlur') || v.includes('eczéma') || v.includes('allerg')) {
+        setFeedback('fb-ex2-1-just', 'correct', 'Très bien argumenté : le vinyle devient microporeux très vite et laisse passer les peroxydes, provoquant brûlures et eczémas chroniques.');
+        appState.lvl2['2-1-2'] = true;
+        document.getElementById('q-m2-1-2').classList.add('completed');
+        document.getElementById('exbox-m2-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-1-just', 'incorrect', 'Mentionnez la perméabilité rapide du vinyle et le risque de passage des agents chimiques vers la peau.'); }
+    }
+
+    function checkEx2_2_hp() {
+      const h = document.getElementById('ex2_2_h').value.trim().toLowerCase();
+      const p = document.getElementById('ex2_2_p').value.trim().toLowerCase();
+      if (!h || !p) { setFeedback('fb-ex2-2-hp', 'hint', 'Définissez les lettres H et P.'); return; }
+      if ((h.includes('danger') || h.includes('hazard')) && (p.includes('prudence') || p.includes('précaut') || p.includes('protect'))) {
+        setFeedback('fb-ex2-2-hp', 'correct', 'Exact ! <strong>H = Mentions de Danger</strong> (Hazard) et <strong>P = Conseils de Prudence</strong> (Precaution).');
+        appState.lvl2['2-2-1'] = true;
+        document.getElementById('q-m2-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-2-hp', 'incorrect', 'H = Mentions de danger ; P = Conseils de prudence.'); }
+    }
+
+    function checkEx2_2_epi() {
+      const v = document.getElementById('ex2_2_epi').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-2-epi', 'hint', 'Citez les 3 équipements du P280.'); return; }
+      if (v.includes('gant') && (v.includes('lunette') || v.includes('yeux') || v.includes('visage')) && (v.includes('tablier') || v.includes('blouse') || v.includes('vêtement'))) {
+        setFeedback('fb-ex2-2-epi', 'correct', 'Parfait : <strong>Gants en nitrile</strong>, <strong>lunettes de protection</strong> et <strong>vêtements/tablier de protection</strong>.');
+        appState.lvl2['2-2-2'] = true;
+        document.getElementById('q-m2-2-2').classList.add('completed');
+        document.getElementById('exbox-m2-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-2-epi', 'incorrect', 'Gants nitrile, lunettes de sécurité et vêtement/tablier protecteur.'); }
+    }
+
+    function checkEx2_3_vapeur() {
+      const v = document.getElementById('ex2_3_vapeur').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-3-vapeur', 'hint', 'Effet de la chaleur sur l\'évaporation.'); return; }
+      if (v.includes('augment') || v.includes('accélèr') || v.includes('volatil') || v.includes('plus') || v.includes('fort') || v.includes('rapide')) {
+        setFeedback('fb-ex2-3-vapeur', 'correct', 'Excellente réponse : la chaleur <strong>augmente la pression de vapeur</strong> de l\'ammoniac et accélère son évaporation gazeuse irritante dans le salon.');
+        appState.lvl2['2-3-1'] = true;
+        document.getElementById('q-m2-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-3-vapeur', 'incorrect', 'La chaleur accélère la vaporisation de l\'ammoniac dans l\'atmosphère.'); }
+    }
+
+    function checkEx2_3_amenag() {
+      const v = document.getElementById('ex2_3_amenag').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-3-amenag', 'hint', 'Aménagement technique recommandé.'); return; }
+      if (v.includes('aspir') || v.includes('hotte') || v.includes('ventil') || v.includes('aérat') || v.includes('clim')) {
+        setFeedback('fb-ex2-3-amenag', 'correct', 'Bravo : installer une <strong>aspiration localisée à la source / hotte</strong> dans le laboratoire et ventiler efficacement l\'atelier.');
+        appState.lvl2['2-3-2'] = true;
+        document.getElementById('q-m2-3-2').classList.add('completed');
+        document.getElementById('exbox-m2-4').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-3-amenag', 'incorrect', 'Système d\'aspiration localisée des vapeurs à la source / hotte de laboratoire.'); }
+    }
+
+    function checkEx2_4_diff() {
+      const v = document.getElementById('ex2_4_diff').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-4-diff', 'hint', 'Irritation mécanique vs allergie chimique.'); return; }
+      if ((v.includes('lipid') || v.includes('décap') || v.includes('barrière') || v.includes('peau') || v.includes('savon')) && (v.includes('immun') || v.includes('allerg') || v.includes('sensibil') || v.includes('persulfate'))) {
+        setFeedback('fb-ex2-4-diff', 'correct', 'Excellente distinction : l\'irritation est une destruction mécanique de la barrière lipidique cutanée par l\'eau/savon ; l\'allergie est une réaction immunitaire spécifique aux persulfates.');
+        appState.lvl2['2-4-1'] = true;
+        document.getElementById('q-m2-4-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-4-diff', 'incorrect', 'Irritation = décapage du film lipidique ; Allergie = réaction du système immunitaire aux molécules chimiques.'); }
+    }
+
+    function checkEx2_4_regle() {
+      const v = document.getElementById('ex2_4_regle').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-4-regle', 'hint', 'Règle d\'or avant d\'enfiler des gants.'); return; }
+      if (v.includes('séch') || v.includes('sec') || v.includes('macérat')) {
+        setFeedback('fb-ex2-4-regle', 'correct', 'Bravo ! <strong>Sécher parfaitement les mains</strong> avant d\'enfiler les gants afin d\'éviter toute macération cutanée due à la sueur. NIVEAU 2 VALIDÉ !');
+        appState.lvl2['2-4-2'] = true;
+        document.getElementById('q-m2-4-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-4-regle', 'incorrect', 'Sécher méticuleusement les mains avant d\'enfiler les gants.'); }
+    }
+
+    /* ================= NIVEAU 3 ================= */
+    function checkEx3_1_prop() {
+      const v = parseInputNumber(document.getElementById('ex3_1_prop').value);
+      if (v === null) { setFeedback('fb-ex3-1-prop', 'hint', '3 divisé par 15 en pourcentage.'); return; }
+      if (Math.abs(v - 20) < 0.5 || Math.abs(v - 0.2) < 0.01) {
+        setFeedback('fb-ex3-1-prop', 'correct', 'Exact : $\\frac{3}{15} = 0,20 = 20\\%$ des salariés développent des dermatoses.');
+        appState.lvl3['3-1-1'] = true;
+        document.getElementById('q-m3-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-1-prop', 'incorrect', '3 / 15 = 0,20 soit 20%.'); }
+    }
+
+    function checkEx3_1_cout() {
+      const v = parseInputNumber(document.getElementById('ex3_1_cout').value);
+      if (v === null) { setFeedback('fb-ex3-1-cout', 'hint', '20 boîtes * 3 €.'); return; }
+      if (v === 60) {
+        setFeedback('fb-ex3-1-cout', 'correct', 'Exact : $20 \\times (8 - 5) = 60\\text{ €}$ par mois pour les 3 salons réunionnais. Une somme dérisoire comparée au coût d\'un arrêt de travail pour dermatose professionnelle !');
+        appState.lvl3['3-1-2'] = true;
+        document.getElementById('q-m3-1-2').classList.add('completed');
+        document.getElementById('exbox-m3-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-1-cout', 'incorrect', '20 * (8 - 5) = 60 €.'); }
+    }
+
+    function checkEx3_2_react() {
+      const v = document.getElementById('ex3_2_react').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex3-2-react', 'hint', 'Pourquoi pas de métal avec les oxydants ?'); return; }
+      if (v.includes('métal') || v.includes('oxyd') || v.includes('réact') || v.includes('catalys') || v.includes('exotherm') || v.includes('chaleur') || v.includes('explos')) {
+        setFeedback('fb-ex3-2-react', 'correct', 'Exact : les ions métalliques catalysent la décomposition brutale du peroxyde d\'hydrogène en dégageant un fort flux thermique et du gaz $NH_3$.');
+        appState.lvl3['3-2-1'] = true;
+        document.getElementById('q-m3-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-2-react', 'incorrect', 'Les métaux réagissent violemment avec les oxydants (réaction d\'oxydoréduction catalysée avec échauffement violent).'); }
+    }
+
+    function checkEx3_2_mat() {
+      const v = document.getElementById('ex3_2_mat').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex3-2-mat', 'hint', 'Matériaux inertes autorisés.'); return; }
+      if (v.includes('plastique') || v.includes('verre')) {
+        setFeedback('fb-ex3-2-mat', 'correct', 'Parfait : bols et pinceaux en <strong>plastique inerte</strong> ou en <strong>verre</strong> exclusivement.');
+        appState.lvl3['3-2-2'] = true;
+        document.getElementById('q-m3-2-2').classList.add('completed');
+        document.getElementById('exbox-m3-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-2-mat', 'incorrect', 'Plastique ou verre.'); }
+    }
+
+    function checkEx3_3_ordures() {
+      const v = document.getElementById('ex3_3_ordures').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex3-3-ordures', 'hint', 'Oui ou non ?'); return; }
+      if (v.includes('non') || v.includes('interdit')) {
+        setFeedback('fb-ex3-3-ordures', 'correct', 'Exact : <strong>NON</strong>, il est formellement interdit de jeter ces réactifs avec les ordures ménagères ou dans les canalisations des eaux usées de La Réunion.');
+        appState.lvl3['3-3-1'] = true;
+        document.getElementById('q-m3-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-3-ordures', 'incorrect', 'Non, c\'est interdit par la réglementation environnementale.'); }
+    }
+
+    function checkEx3_3_filiere() {
+      const v = document.getElementById('ex3_3_filiere').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex3-3-filiere', 'hint', 'Nom de la filière de déchets.'); return; }
+      if (v.includes('dasri') || v.includes('dangereux') || v.includes('spécifique') || v.includes('chimique') || v.includes('collecteur agréé')) {
+        setFeedback('fb-ex3-3-filiere', 'correct', 'Bravo ! Filière des <strong>Déchets Dangereux / DASRI</strong> avec collecte par une entreprise agréée. NIVEAU 3 EXPERT COMPLÉTÉ AVEC SUCCÈS !');
+        appState.lvl3['3-3-2'] = true;
+        document.getElementById('q-m3-3-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-3-filiere', 'incorrect', 'Filière spécialisée des déchets dangereux / collecteur agréé DASRI.'); }
+    }
+
+    /* ================= ÉVALUATION SOMMATIVE ================= */
+    function checkEval1() {
+      const v = document.getElementById('eval_q1').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-eval-1', 'hint', 'Relevez les 2 fautes de sécurité.'); return; }
+      if ((v.includes('gant') && (v.includes('vinyle') || v.includes('trou'))) && (v.includes('lunette') || v.includes('yeux'))) {
+        setFeedback('fb-eval-1', 'correct', 'Correct (2/2 pts) : 1) Port de gants en vinyle inadaptés et troués. 2) Absence de lunettes de protection.');
+        document.getElementById('q-eval-1').classList.add('completed');
+      } else { setFeedback('fb-eval-1', 'incorrect', 'Fautes : gants vinyle troués et absence de lunettes de sécurité.'); }
+    }
+
+    function checkEval2() {
+      const g = document.getElementById('eval_q2_gants').value.trim().toLowerCase();
+      const y = document.getElementById('eval_q2_yeux').value.trim().toLowerCase();
+      if (!g || !y) { setFeedback('fb-eval-2', 'hint', 'Complétez les 2 champs.'); return; }
+      if (g.includes('nitrile') && (y.includes('lunette') || y.includes('sécurité') || y.includes('visage'))) {
+        setFeedback('fb-eval-2', 'correct', 'Correct (2/2 pts) : Gants en <strong>Nitrile</strong> (norme EN 374-1) et <strong>Lunettes de sécurité</strong> étanches (NF EN166).');
+        document.getElementById('q-eval-2').classList.add('completed');
+      } else { setFeedback('fb-eval-2', 'incorrect', 'Gants en Nitrile neufs et lunettes de sécurité.'); }
+    }
+
+    function checkEval3() {
+      const v = document.getElementById('eval_q3').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-eval-3', 'hint', 'Expliquez les risques peau et yeux.'); return; }
+      if ((v.includes('peau') || v.includes('brûlur') || v.includes('nécrose')) && (v.includes('yeux') || v.includes('cornée') || v.includes('lésion') || v.includes('cécité'))) {
+        setFeedback('fb-eval-3', 'correct', 'Correct (2/2 pts) : Brûlures chimiques cutanées profondes et lésions irréversibles de la cornée risquant la cécité.');
+        document.getElementById('q-eval-3').classList.add('completed');
+      } else { setFeedback('fb-eval-3', 'incorrect', 'Brûlures chimiques cutanées et lésions oculaires graves de la cornée.'); }
+    }
+
+    function checkEval4() {
+      const v = document.getElementById('eval_q4').value.trim().toUpperCase();
+      if (!v) { setFeedback('fb-eval-4', 'hint', 'Rédigez la consigne de sécurité.'); return; }
+      if (v.includes('PORT') && v.includes('OBLIGATOIRE') && v.includes('NITRILE') && v.includes('LUNETTE')) {
+        setFeedback('fb-eval-4', 'correct', 'Correct (2/2 pts) : « PORT OBLIGATOIRE DES GANTS EN NITRILE ET DES LUNETTES DE SÉCURITÉ POUR TOUTE MANIPULATION CHIMIQUE »');
+        document.getElementById('q-eval-4').classList.add('completed');
+      } else if (v.includes('NITRILE') && v.includes('LUNETTE')) {
+        setFeedback('fb-eval-4', 'correct', 'Correct (2/2 pts) : Consigne claire et impérative prescrivant le port des gants nitrile et lunettes.');
+        document.getElementById('q-eval-4').classList.add('completed');
+      } else { setFeedback('fb-eval-4', 'incorrect', 'Formulez : PORT OBLIGATOIRE DES GANTS EN NITRILE ET DES LUNETTES DE SÉCURITÉ.'); }
+    }
+
+    /* ================= LOGIQUE DU SIMULATEUR ================= */
+    function toggleGloveType(type) {
+      appState.sim.glove = type;
+      ['vinyle', 'latex', 'nitrile'].forEach(t => {
+        const btn = document.getElementById(`btn-epi-gloves-${t}`);
+        if (btn) {
+          if (t === type) btn.classList.add('selected');
+          else btn.classList.remove('selected');
+        }
+      });
+      runSimulation();
+    }
+
+    function toggleEpiOption(key) {
+      appState.sim[key] = !appState.sim[key];
+      const btnIdMap = {
+        glasses: 'btn-epi-glasses',
+        mask: 'btn-epi-mask',
+        vent: 'btn-epi-vent'
+      };
+      const btn = document.getElementById(btnIdMap[key]);
+      if (btn) {
+        if (appState.sim[key]) btn.classList.add('selected');
+        else btn.classList.remove('selected');
+      }
+      runSimulation();
+    }
+
+    function runSimulation() {
+      const prod = document.getElementById('sim-product-select').value;
+      const temp = parseInt(document.getElementById('sim-temp-range').value, 10);
+
+      // Risque de base selon l'opération
+      let baseRisk = 70;
+      let needMask = false;
+      let needGlasses = true;
+
+      if (prod === 'deco') { baseRisk = 95; needMask = true; }
+      else if (prod === 'perm') { baseRisk = 85; needMask = false; }
+      else if (prod === 'colo') { baseRisk = 75; needMask = false; }
+      else if (prod === 'spray') { baseRisk = 50; needMask = false; needGlasses = false; }
+      else if (prod === 'shamp') { baseRisk = 30; needMask = false; needGlasses = false; }
+
+      // Facteur température tropicale
+      let tempFactor = 0;
+      if (temp > 25) {
+        tempFactor = (temp - 25) * 2; // +10% à 30°C, +20% à 35°C
+      }
+
+      // Atténuations par les EPI
+      let protectionScore = 0;
+
+      // Gants
+      if (appState.sim.glove === 'nitrile') protectionScore += 35;
+      else if (appState.sim.glove === 'latex') protectionScore += 18; // Risque allergie
+      else if (appState.sim.glove === 'vinyle') protectionScore += 5;  // Fuite à 10 min
+
+      // Lunettes
+      if (appState.sim.glasses) protectionScore += 25;
+
+      // Masque FFP2
+      if (appState.sim.mask) protectionScore += needMask ? 25 : 10;
+
+      // Ventilation / Aspiration
+      if (appState.sim.vent) protectionScore += 20;
+
+      let residualRisk = Math.max(0, Math.min(100, Math.round((baseRisk + tempFactor) - protectionScore)));
+
+      // Affichage de la jauge
+      const bar = document.getElementById('gaugeBarFill');
+      const txt = document.getElementById('gaugeValueText');
+      txt.textContent = `${residualRisk} %`;
+      bar.style.width = `${residualRisk}%`;
+
+      // Couleur jauge
+      if (residualRisk < 25) {
+        bar.style.background = '#16A34A';
+        txt.style.color = '#16A34A';
+      } else if (residualRisk < 60) {
+        bar.style.background = '#F59E0B';
+        txt.style.color = '#D97706';
+      } else {
+        bar.style.background = '#EF4444';
+        txt.style.color = '#DC2626';
+      }
+
+      // Diagnostic textuel
+      const box = document.getElementById('simSummaryBox');
+      let diagHTML = '';
+
+      if (residualRisk <= 15) {
+        box.style.background = '#DCFCE7';
+        box.style.border = '1px solid #16A34A';
+        box.style.color = '#065F46';
+        diagHTML = `<strong>Protection Optimale :</strong> Votre équipement répond aux normes de sécurité en salon de coiffure. Les gants en Nitrile garantissent l'imperméabilité chimique et vos muqueuses sont sécurisées.`;
+      } else if (residualRisk <= 45) {
+        box.style.background = '#FEF3C7';
+        box.style.border = '1px solid #F59E0B';
+        box.style.color = '#92400E';
+        diagHTML = `<strong>Vigilance requise :</strong> Risque modéré. Vérifiez l'adéquation de vos EPI (le vinyle est à proscrire pour les mélanges oxydants et le port de lunettes protège des éclaboussures accidentelles).`;
+      } else {
+        box.style.background = '#FEE2E2';
+        box.style.border = '1px solid #EF4444';
+        box.style.color = '#991B1B';
+        diagHTML = `<strong>DANGER CRITIQUE :</strong> Risque élevé d'accident du travail ! Sous la chaleur de ${temp}°C, l'ammoniac irrite les yeux et les voies respiratoires. Équipez-vous immédiatement de gants en Nitrile et de lunettes étanches.`;
+      }
+
+      box.innerHTML = diagHTML;
+    }
+  </script>
+<script src="../../assets/aides.js"></script>
+</body>
+</html>

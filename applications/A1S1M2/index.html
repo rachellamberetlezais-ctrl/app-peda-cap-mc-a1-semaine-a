@@ -1,0 +1,2761 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S1 M2 - Statistique : Recueil de données & Tableaux d'effectifs | CAP Métiers de la Coiffure</title>
+
+  <!-- MathJax v3 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        enableMenu: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    /* Charte graphique officielle CMA Formation */
+    :root {
+      --cma-bordeaux: #A50F23;
+      --cma-bordeaux-dark: #7F0B1A;
+      --cma-corail: #EE3C3D;
+      --cma-corail-light: #FEE2E2;
+      --cma-bg: #F8FAFC;
+      --cma-card-bg: #FFFFFF;
+      --cma-text: #1E293B;
+      --cma-text-muted: #64748B;
+      --cma-border: #E2E8F0;
+      --cma-success: #16A34A;
+      --cma-success-bg: #DCFCE7;
+      --cma-warning: #D97706;
+      --cma-warning-bg: #FEF3C7;
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 14px rgba(165, 15, 35, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--cma-bg);
+      color: var(--cma-text);
+      line-height: 1.5;
+      font-size: 15px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Puces officielles CMA */
+    .icon-bullet {
+      height: 18px;
+      width: 18px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+
+    /* Header principal conforme au cahier des charges */
+    .app-header {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 20px;
+      padding-top: 14px;
+      padding-left: 16px;
+      padding-right: 16px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 100%);
+      border-bottom: 1px solid var(--cma-border);
+    }
+
+    .header-content {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .app-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .header-titles {
+      flex: 1;
+    }
+
+    .header-titles h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      line-height: 1.25;
+    }
+
+    .header-titles p {
+      font-size: 0.82rem;
+      color: var(--cma-text-muted);
+      margin-top: 3px;
+    }
+
+    /* Ruban officiel répété sur toute la largeur */
+    .cma-wave-border {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: 14px;
+      margin: 0;
+      border: 0;
+      background-image: url("ruban_vague.png");
+      background-repeat: repeat-x;
+      background-size: 102.941176px 102.941176px;
+      background-position: left -46.941176px;
+    }
+
+    /* Barre de progression compacte de 8px */
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background-color: #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cma-corail) 0%, var(--cma-bordeaux) 100%);
+      transition: width 0.4s ease;
+    }
+
+    /* Onglets de navigation tactiles Mobile-First */
+    .nav-container {
+      max-width: 960px;
+      margin: 12px auto 6px auto;
+      padding: 0 12px;
+      width: 100%;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-btn {
+      flex: 1 0 auto;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1.5px solid var(--cma-border);
+      background: #FFFFFF;
+      color: var(--cma-text);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--cma-corail);
+      color: var(--cma-bordeaux);
+    }
+
+    .nav-btn.active {
+      background: var(--cma-bordeaux);
+      color: #FFFFFF;
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 2px 8px rgba(165, 15, 35, 0.3);
+    }
+
+    /* Conteneur principal */
+    .main-container {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 12px 14px 40px 14px;
+      flex: 1;
+    }
+
+    .step-section {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .step-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cartes & Éléments */
+    .card {
+      background: var(--cma-card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--cma-border);
+      padding: 18px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-callout {
+      background: #F1F5F9;
+      border-left: 4px solid var(--cma-corail);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 14px;
+      font-size: 0.93rem;
+    }
+
+    .info-callout strong {
+      color: var(--cma-bordeaux);
+    }
+
+    /* Échantillons et jetons de comptage interactifs */
+    .data-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0;
+      padding: 10px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+    }
+
+    .data-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .data-badge.b-c { background: #E0F2FE; color: #0369A1; border-color: #BAE6FD; }
+    .data-badge.b-k { background: #FCE7F3; color: #BE185D; border-color: #FBCFE8; }
+    .data-badge.b-b { background: #FEF3C7; color: #B45309; border-color: #FDE68A; }
+    .data-badge.b-s { background: #DCFCE7; color: #15803D; border-color: #BBF7D0; }
+    .data-badge.b-r { background: #EDE9FE; color: #6D28D9; border-color: #DDD6FE; }
+
+    .data-badge.counted {
+      opacity: 0.45;
+      text-decoration: line-through;
+      transform: scale(0.95);
+    }
+
+    .tally-panel {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    @media (min-width: 640px) {
+      .tally-panel {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+    .tally-box {
+      background: #FFFFFF;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+    }
+    .tally-title {
+      font-size: 0.76rem;
+      font-weight: bold;
+      color: var(--cma-text-muted);
+    }
+    .tally-count {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      margin-top: 2px;
+    }
+
+    /* Tableaux adaptatifs */
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: 1px solid var(--cma-border);
+    }
+
+    .cma-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+      min-width: 500px;
+    }
+
+    .cma-table th {
+      background: #F8FAFC;
+      color: var(--cma-bordeaux);
+      font-weight: 700;
+      padding: 10px;
+      border-bottom: 2px solid var(--cma-border);
+    }
+
+    .cma-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--cma-border);
+      background: #FFFFFF;
+    }
+
+    .cma-table tfoot td {
+      font-weight: 800;
+      background: #FFF5F5;
+      color: var(--cma-bordeaux);
+      border-top: 2px solid var(--cma-border);
+    }
+
+    /* Saisie Mobile-First */
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .cma-input {
+      font-size: 16px;
+      height: 44px;
+      padding: 8px 12px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      color: var(--cma-text);
+      background: #FFFFFF;
+      min-width: 120px;
+      flex: 1;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .cma-input:focus {
+      outline: none;
+      border-color: var(--cma-corail);
+      box-shadow: 0 0 0 3px rgba(238, 60, 61, 0.15);
+    }
+
+    .cma-input-table {
+      width: 90px;
+      height: 38px;
+      font-size: 15px;
+      padding: 4px 8px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .cma-input-table:focus {
+      outline: none;
+      border-color: var(--cma-corail);
+    }
+
+    .input-unit {
+      font-weight: 600;
+      color: var(--cma-text-muted);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--cma-bordeaux);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--cma-bordeaux-dark);
+    }
+
+    .btn-corail {
+      background: var(--cma-corail);
+      color: #FFFFFF;
+    }
+
+    .btn-corail:hover {
+      background: #D92B2C;
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: 6px 14px;
+      font-size: 0.88rem;
+    }
+
+    /* Retours pédagogiques */
+    .feedback-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background: var(--cma-success-bg);
+      border: 1px solid var(--cma-success);
+      color: #065F46;
+    }
+
+    .feedback-box.incorrect {
+      display: block;
+      background: #FEE2E2;
+      border: 1px solid #EF4444;
+      color: #991B1B;
+    }
+
+    .feedback-box.hint {
+      display: block;
+      background: var(--cma-warning-bg);
+      border: 1px solid var(--cma-warning);
+      color: #92400E;
+    }
+
+    /* Accordéons pour le cours */
+    .accordion-item {
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .accordion-header {
+      padding: 14px 16px;
+      min-height: 48px;
+      background: #FFFFFF;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .accordion-header::after {
+      content: '+';
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--cma-corail);
+    }
+
+    .accordion-item.open .accordion-header::after {
+      content: '−';
+    }
+
+    .accordion-body {
+      padding: 14px 16px;
+      border-top: 1px solid var(--cma-border);
+      background: #FDFDFE;
+      display: none;
+      font-size: 0.93rem;
+    }
+
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* Simulateur interactif de statistiques */
+    .sim-wrapper {
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid var(--cma-border);
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .canvas-box {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      background: #F8FAFC;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sim-controls-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 640px) {
+      .sim-controls-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .sim-control-item {
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .sim-stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-step {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      border: 1px solid var(--cma-border);
+      background: #FFFFFF;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-step:hover {
+      border-color: var(--cma-corail);
+      color: var(--cma-bordeaux);
+    }
+    .step-val {
+      min-width: 32px;
+      text-align: center;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+    }
+
+    /* Entraînement gamifié */
+    .level-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .level-card.active-lvl {
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 0 0 2px rgba(165, 15, 35, 0.1);
+    }
+
+    .level-card.locked {
+      background: #F1F5F9;
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
+
+    .level-pill {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .pill-l1 { background: #DCFCE7; color: #15803D; }
+    .pill-l2 { background: #FEF3C7; color: #B45309; }
+    .pill-l3 { background: #EDE9FE; color: #6D28D9; }
+    .pill-eval { background: #FFE4E6; color: #BE123C; }
+
+    .exercise-box {
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exercise-box.locked-exercise {
+      display: none;
+    }
+
+    .exercise-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--cma-text-muted);
+    }
+
+    .badge-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .tag-cap { background: var(--cma-corail-light); color: var(--cma-bordeaux); }
+    .tag-bonus { background: #FEF3C7; color: #B45309; }
+    .tag-expert { background: #EDE9FE; color: #6D28D9; }
+
+    .q-item {
+      padding: 12px;
+      border-radius: 8px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      margin-bottom: 12px;
+    }
+
+    .q-item.completed {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+    }
+
+    .q-title {
+      font-weight: 600;
+      font-size: 0.94rem;
+      margin-bottom: 8px;
+      color: var(--cma-text);
+    }
+
+    /* Score banner */
+    .score-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .score-card {
+      background: #FFFFFF;
+      border: 1px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .score-card.cap-highlight {
+      border-color: #86EFAC;
+      background: #F0FDF4;
+    }
+
+    .score-card-title {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--cma-text-muted);
+    }
+
+    .score-card-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      margin-top: 2px;
+    }
+
+    /* Badges */
+    .badge-shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .cma-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .cma-badge.unlocked {
+      border-color: #F59E0B;
+      background: #FFFBEB;
+      color: #92400E;
+    }
+
+    .cma-badge.locked {
+      opacity: 0.5;
+      background: #F1F5F9;
+      color: #94A3B8;
+    }
+
+    /* Attestation officielle */
+    .attestation-sheet {
+      background: #FFFFFF;
+      border: 3px double var(--cma-bordeaux);
+      border-radius: 14px;
+      padding: 24px 20px;
+      margin: 16px 0;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .att-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-bottom: 2px solid var(--cma-corail);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      gap: 10px;
+    }
+
+    .att-logo {
+      max-height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .att-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .att-sub {
+      font-size: 0.88rem;
+      color: var(--cma-text-muted);
+      font-weight: 600;
+    }
+
+    .att-learner {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .att-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 16px 0;
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid var(--cma-border);
+    }
+
+    @media (min-width: 600px) {
+      .att-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .att-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--cma-border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .att-sig-block {
+      text-align: right;
+      font-size: 0.85rem;
+    }
+
+    .att-sig-name {
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-top: 4px;
+    }
+
+    /* Impression / Export PDF */
+    @media print {
+      body {
+        background: #FFFFFF;
+        color: #000000;
+      }
+      .app-header, .progress-track, .nav-container, .step-section:not(#step-4), .no-print, .btn, .input-row, input, select {
+        display: none !important;
+      }
+      #step-4 {
+        display: block !important;
+      }
+      .main-container {
+        padding: 0;
+        max-width: 100%;
+      }
+      .attestation-sheet {
+        border: 2px solid #A50F23;
+        box-shadow: none;
+        page-break-inside: avoid;
+        margin: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="../../assets/aides.css">
+</head>
+<body>
+
+  <!-- En-tête principal officiel CMA Formation -->
+  <header class="app-header">
+    <div class="header-content">
+      <img src="logo.png" alt="Logo CMA Formation" class="app-logo" onerror="this.src='https://placehold.co/120x48/A50F23/ffffff?text=CMA+Formation'">
+      <div class="header-titles">
+        <h1>Statistique : Recueil de données & Tableaux d'effectifs</h1>
+        <p>Mathématiques | CAP Métiers de la Coiffure | Année 1 - S1 M2 | CMA Formation Sainte-Clotilde (Rachel Lamberet-Lezais)</p>
+      </div>
+    </div>
+    <!-- Ruban officiel répété sur toute la largeur -->
+    <div class="cma-wave-border"></div>
+  </header>
+
+  <!-- Barre de progression générale compacte (8px) -->
+  <div class="progress-track" aria-label="Progression de la séance">
+    <div class="progress-bar-fill" id="globalProgressBar"></div>
+  </div>
+
+  <!-- Barre d'onglets tactiles Mobile-First -->
+  <div class="nav-container">
+    <nav class="nav-tabs" role="tablist">
+      <button class="nav-btn active" onclick="switchStep(1)" id="tab-step-1" role="tab" aria-selected="true">
+        <span>1.</span> Découverte
+      </button>
+      <button class="nav-btn" onclick="switchStep(2)" id="tab-step-2" role="tab" aria-selected="false">
+        <span>2.</span> Cours & Simulateur
+      </button>
+      <button class="nav-btn" onclick="switchStep(3)" id="tab-step-3" role="tab" aria-selected="false">
+        <span>3.</span> Entraînement
+      </button>
+      <button class="nav-btn" onclick="switchStep(4)" id="tab-step-4" role="tab" aria-selected="false">
+        <span>4.</span> Bilan & Attestation
+      </button>
+    </nav>
+  </div>
+
+  <!-- Conteneur principal SPA -->
+  <main class="main-container">
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 1 — DÉCOUVERTE                      -->
+    <!-- ========================================== -->
+    <section id="step-1" class="step-section active">
+      <div class="card">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Mise en situation : Bilan hebdomadaire du salon à Saint-Denis
+        </h2>
+        <div class="info-callout">
+          <strong>Contexte professionnel réunionnais :</strong> Malia, apprentie au salon « Tropical Coiffure » situé rue de Paris à Saint-Denis, enregistre pendant une semaine les prestations réalisées auprès de <strong>40 clientes</strong>.<br>
+          Le gérant souhaite analyser l'activité pour réapprovisionner les stocks de produits (shampooings, décolorants, soins hydratants anti-UV adaptés au climat réunionnais) et ajuster le planning de l'équipe.
+        </div>
+        <p style="margin-bottom: 8px;">
+          <strong>Relevé brut des 40 prestations enregistrées :</strong><br>
+          <span style="font-size: 0.88rem; color: var(--cma-text-muted);">
+            <em>Astuce interactive :</em> Touchez un badge pour le barrer au fur et à mesure de votre comptage !
+          </span>
+        </p>
+
+        <!-- Données brutes interactives cliquables -->
+        <div class="data-grid" id="rawPrestationsContainer"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+          <span style="font-size: 0.82rem; color: var(--cma-text-muted);">
+            Légende : <strong>C</strong> = Coupe, <strong>K</strong> = Coloration, <strong>B</strong> = Balayage, <strong>S</strong> = Soin Profond, <strong>R</strong> = Brushing.
+          </span>
+          <button class="btn btn-sm btn-primary" onclick="resetPrestationBadges()">Réinitialiser le pointage</button>
+        </div>
+
+        <div class="tally-panel">
+          <div class="tally-box">
+            <div class="tally-title">Coupe (C)</div>
+            <div class="tally-count" id="count-C">0 / 16</div>
+          </div>
+          <div class="tally-box">
+            <div class="tally-title">Coloration (K)</div>
+            <div class="tally-count" id="count-K">0 / 8</div>
+          </div>
+          <div class="tally-box">
+            <div class="tally-title">Balayage (B)</div>
+            <div class="tally-count" id="count-B">0 / 5</div>
+          </div>
+          <div class="tally-box">
+            <div class="tally-title">Soin Profond (S)</div>
+            <div class="tally-count" id="count-S">0 / 6</div>
+          </div>
+          <div class="tally-box">
+            <div class="tally-title">Brushing (R)</div>
+            <div class="tally-count" id="count-R">0 / 5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questions d'investigation -->
+      <div class="card">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Questions d'investigation
+        </h3>
+
+        <!-- Q1 -->
+        <div class="q-item" id="block-disc-1">
+          <div class="q-title">1. [C1 - S'informer] Identifier la population étudiée et le caractère observé dans cette enquête :</div>
+          <div class="input-row">
+            <span class="input-unit">Population :</span>
+            <input type="text" class="cma-input" id="disc_q1_pop" placeholder="Votre résultat..." style="max-width: 170px;">
+            <span class="input-unit">Caractère :</span>
+            <input type="text" class="cma-input" id="disc_q1_car" placeholder="Votre résultat..." style="max-width: 170px;">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc1()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-1"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-item" id="block-disc-2">
+          <div class="q-title">2. [C2 - Exécuter] Saisir l'effectif $n_i$ de chaque prestation et vérifier l'effectif total $N$ :</div>
+          <div class="table-scroll">
+            <table class="cma-table">
+              <thead>
+                <tr>
+                  <th>Prestation</th>
+                  <th>Coupe (C)</th>
+                  <th>Coloration (K)</th>
+                  <th>Balayage (B)</th>
+                  <th>Soin (S)</th>
+                  <th>Brushing (R)</th>
+                  <th>TOTAL N</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Effectif $n_i$</strong></td>
+                  <td><input type="text" inputmode="numeric" class="cma-input-table" id="disc_eff_c" placeholder="..."></td>
+                  <td><input type="text" inputmode="numeric" class="cma-input-table" id="disc_eff_k" placeholder="..."></td>
+                  <td><input type="text" inputmode="numeric" class="cma-input-table" id="disc_eff_b" placeholder="..."></td>
+                  <td><input type="text" inputmode="numeric" class="cma-input-table" id="disc_eff_s" placeholder="..."></td>
+                  <td><input type="text" inputmode="numeric" class="cma-input-table" id="disc_eff_r" placeholder="..."></td>
+                  <td><input type="text" inputmode="numeric" class="cma-input-table" id="disc_eff_tot" placeholder="..."></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: right; margin-top: 6px;">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc2()">Vérifier les effectifs</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-2"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-item" id="block-disc-3">
+          <div class="q-title">3. [C2 - Exécuter] Calculer la fréquence décimale $f_i = \frac{n_i}{N}$ et le pourcentage (%) de la prestation « Coupe (C) » :</div>
+          <div class="input-row">
+            <span class="input-unit">Fréquence $f_{\text{Coupe}} =$</span>
+            <input type="text" inputmode="decimal" class="cma-input" id="disc_q3_freq" placeholder="Votre résultat..." style="max-width: 120px;">
+            <span class="input-unit">Pourcentage =</span>
+            <input type="text" inputmode="decimal" class="cma-input" id="disc_q3_pct" placeholder="Votre résultat..." style="max-width: 120px;">
+            <span class="input-unit">%</span>
+            <button class="btn btn-primary btn-sm" onclick="checkDisc3()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-3"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-item" id="block-disc-4">
+          <div class="q-title">4. [C4 - Communiquer] Indiquer quelle est la prestation majoritaire au salon et conseiller le gérant :</div>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="disc_q4" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc4()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-4"></div>
+        </div>
+
+        <div style="text-align: right; margin-top: 14px;">
+          <button class="btn btn-corail" onclick="switchStep(2)">Passer au Cours & Simulateur Statistique →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 2 — COURS ET SIMULATEUR INTERACTIF   -->
+    <!-- ========================================== -->
+    <section id="step-2" class="step-section">
+      <div class="card">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Synthèse de cours : Recueil & Tableaux d'effectifs
+        </h2>
+
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            1. Vocabulaire statistique fondamental
+          </div>
+          <div class="accordion-body">
+            <ul style="padding-left: 20px; margin: 8px 0;">
+              <li><strong>Population :</strong> L'ensemble des individus ou objets étudiés (ex : <em>les 40 clientes reçues au salon</em>).</li>
+              <li><strong>Caractère :</strong> La propriété observée sur chaque individu (ex : <em>le type de prestation capillaire</em>).</li>
+              <li><strong>Modalités :</strong> Les différentes valeurs ou catégories prises par le caractère (ex : <em>Coupe, Coloration, Balayage, Soin Profond, Brushing</em>).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            2. Effectif et Effectif Total ($N$)
+          </div>
+          <div class="accordion-body">
+            <ul style="padding-left: 20px;">
+              <li><strong>Effectif d'une modalité ($n_i$) :</strong> Le nombre de fois où cette modalité apparaît dans la série d'observations.</li>
+              <li><strong>Effectif total ($N$) :</strong> La somme de tous les effectifs individuels :
+                <p style="text-align: center; font-weight: 700; color: var(--cma-bordeaux); font-size: 1.1rem; margin: 8px 0;">
+                  $$N = \sum n_i = n_1 + n_2 + n_3 + \dots + n_p$$
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            3. Fréquence ($f_i$) et Pourcentage (%)
+          </div>
+          <div class="accordion-body">
+            <p>La <strong>fréquence</strong> $f_i$ est le quotient de l'effectif $n_i$ par l'effectif total $N$ :</p>
+            <p style="text-align: center; font-weight: 700; color: var(--cma-bordeaux); font-size: 1.15rem; margin: 8px 0;">
+              $$f_i = \frac{n_i}{N}$$
+            </p>
+            <ul style="padding-left: 20px; margin-top: 6px;">
+              <li>Une fréquence est un nombre décimal compris entre 0 et 1 ($0 \le f_i \le 1$).</li>
+              <li>La <strong>somme de toutes les fréquences</strong> est toujours strictement égale à <strong>1</strong>.</li>
+              <li>Le <strong>pourcentage</strong> s'obtient en multipliant la fréquence par 100 : $\text{Pourcentage} = f_i \times 100$. La somme fait <strong>100%</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            4. Formules de calcul sur Tableur (Excel / Google Sheets)
+          </div>
+          <div class="accordion-body">
+            <ul style="padding-left: 20px;">
+              <li>Calcul de la somme d'effectifs : <code>=SOMME(B2:B6)</code></li>
+              <li>Calcul de la fréquence avec cellule d'effectif total bloquée : <code>=B2/$B$7</code></li>
+              <li>Mise en forme en pourcentage : application du format <code>%</code> ou formule <code>=C2*100</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulateur interactif de statistiques -->
+      <div class="card">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Simulateur interactif de tableau statistique & diagramme
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Modifiez les effectifs des prestations à l'aide des boutons <strong>+</strong> et <strong>-</strong>. Observez le recalcul instantané de l'effectif total, des fréquences, des pourcentages et la mise à jour du graphique.
+        </p>
+
+        <div class="sim-wrapper">
+          <div class="canvas-box">
+            <canvas id="statsCanvas"></canvas>
+          </div>
+
+          <div class="sim-controls-grid">
+            <div class="sim-control-item">
+              <div>
+                <strong>Coupe (C)</strong>
+                <div style="font-size: 0.8rem; color: var(--cma-text-muted);">Shamp.+Coupe</div>
+              </div>
+              <div class="sim-stepper">
+                <button class="btn-step" onclick="adjustSimVal(0, -1)">-</button>
+                <span class="step-val" id="sim-val-0">16</span>
+                <button class="btn-step" onclick="adjustSimVal(0, 1)">+</button>
+              </div>
+            </div>
+
+            <div class="sim-control-item">
+              <div>
+                <strong>Coloration (K)</strong>
+                <div style="font-size: 0.8rem; color: var(--cma-text-muted);">Racines/Mèches</div>
+              </div>
+              <div class="sim-stepper">
+                <button class="btn-step" onclick="adjustSimVal(1, -1)">-</button>
+                <span class="step-val" id="sim-val-1">8</span>
+                <button class="btn-step" onclick="adjustSimVal(1, 1)">+</button>
+              </div>
+            </div>
+
+            <div class="sim-control-item">
+              <div>
+                <strong>Balayage (B)</strong>
+                <div style="font-size: 0.8rem; color: var(--cma-text-muted);">Effet soleil péi</div>
+              </div>
+              <div class="sim-stepper">
+                <button class="btn-step" onclick="adjustSimVal(2, -1)">-</button>
+                <span class="step-val" id="sim-val-2">5</span>
+                <button class="btn-step" onclick="adjustSimVal(2, 1)">+</button>
+              </div>
+            </div>
+
+            <div class="sim-control-item">
+              <div>
+                <strong>Soin Profond (S)</strong>
+                <div style="font-size: 0.8rem; color: var(--cma-text-muted);">Hydratant / Kératine</div>
+              </div>
+              <div class="sim-stepper">
+                <button class="btn-step" onclick="adjustSimVal(3, -1)">-</button>
+                <span class="step-val" id="sim-val-3">6</span>
+                <button class="btn-step" onclick="adjustSimVal(3, 1)">+</button>
+              </div>
+            </div>
+
+            <div class="sim-control-item" style="grid-column: 1 / -1;">
+              <div>
+                <strong>Brushing (R)</strong>
+                <div style="font-size: 0.8rem; color: var(--cma-text-muted);">Lissage / Volume</div>
+              </div>
+              <div class="sim-stepper">
+                <button class="btn-step" onclick="adjustSimVal(4, -1)">-</button>
+                <span class="step-val" id="sim-val-4">5</span>
+                <button class="btn-step" onclick="adjustSimVal(4, 1)">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tableau dynamique du simulateur -->
+          <div class="table-scroll" style="margin-top: 14px;">
+            <table class="cma-table">
+              <thead>
+                <tr>
+                  <th>Prestation</th>
+                  <th>Effectif $n_i$</th>
+                  <th>Fréquence $f_i$</th>
+                  <th>Pourcentage (%)</th>
+                </tr>
+              </thead>
+              <tbody id="simTableBody">
+                <!-- Rempli en JS -->
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>TOTAL</td>
+                  <td id="simTotN">40</td>
+                  <td id="simTotF">1.00</td>
+                  <td id="simTotPct">100%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 14px;">
+          <button class="btn btn-corail" onclick="switchStep(3)">Accéder aux Entraînements Différenciés →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 3 — ENTRAÎNEMENT GAMIFIÉ             -->
+    <!-- ========================================== -->
+    <section id="step-3" class="step-section">
+
+      <!-- Barre de score -->
+      <div class="score-banner">
+        <div class="score-card cap-highlight">
+          <div class="score-card-title">Socle CAP (Niveau 1)</div>
+          <div class="score-card-val" id="capProgressTxt">0%</div>
+        </div>
+        <div class="score-card">
+          <div class="score-card-title">Bonus Élite / Dépassement</div>
+          <div class="score-card-val" id="bonusScoreTxt">+0 pts</div>
+        </div>
+      </div>
+
+      <!-- Sélecteurs de niveaux -->
+      <div class="level-card active-lvl" id="hdr-lvl-1" onclick="switchLvlTab(1)">
+        <div>
+          <span class="level-pill pill-l1">NIVEAU 1 🟢</span>
+          <div style="font-weight: 700; margin-top: 4px;">Débutant / Socle CAP (4 Exercices)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Valide 100% du socle CAP et débloque l'attestation officielle</div>
+        </div>
+        <span id="badge-status-1" style="font-weight: bold; color: var(--cma-bordeaux);">En cours</span>
+      </div>
+
+      <div class="level-card locked" id="hdr-lvl-2" onclick="switchLvlTab(2)">
+        <div>
+          <span class="level-pill pill-l2">NIVEAU 2 🟡</span>
+          <div style="font-weight: 700; margin-top: 4px;">Avancé / Dépassement (4 Exercices)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Cuirs chevelus, colorations, créneaux horaires, contenances de tubes</div>
+        </div>
+        <span id="badge-status-2" style="font-size: 0.82rem; color: var(--cma-text-muted);">🔒 Verrouillé</span>
+      </div>
+
+      <div class="level-card locked" id="hdr-lvl-3" onclick="switchLvlTab(3)">
+        <div>
+          <span class="level-pill pill-l3">NIVEAU 3 🔴</span>
+          <div style="font-weight: 700; margin-top: 4px;">Expert / Excellence (3 Situations)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Audit 3 salons, reconstitution tableur incomplet, audit Qualiopi</div>
+        </div>
+        <span id="badge-status-3" style="font-size: 0.82rem; color: var(--cma-text-muted);">🔒 Verrouillé</span>
+      </div>
+
+      <div class="level-card" id="hdr-lvl-eval" onclick="switchLvlTab(4)">
+        <div>
+          <span class="level-pill pill-eval">ÉVALUATION 📝</span>
+          <div style="font-weight: 700; margin-top: 4px;">Évaluation Formelle Élève (/8 points)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Ventes de soins capillaires en période d'été austral à Sainte-Clotilde</div>
+        </div>
+        <span id="badge-status-eval" style="font-size: 0.82rem; color: var(--cma-bordeaux); font-weight: bold;">Autonome</span>
+      </div>
+
+      <!-- ================= NIVEAU 1 ================= -->
+      <div id="cnt-lvl-1">
+
+        <!-- Ex 1.1 -->
+        <div class="exercise-box" id="exbox-m1-1">
+          <div class="exercise-meta">
+            <span>Exercice 1.1 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Inventaire des types de shampooings utilisés à Sainte-Clotilde
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Un salon a comptabilisé 20 shampooings : 8 Neutres, 5 Hydratants, 4 Protecteurs d'éclat, 3 Purifiants.
+          </p>
+
+          <div class="q-item" id="q-m1-1-1">
+            <div class="q-title">1. Calculer l'effectif total $N$ :</div>
+            <div class="input-row">
+              <span class="input-unit">$N =$</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex1_1_tot" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_tot()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-tot"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-1-2">
+            <div class="q-title">2. Compléter les fréquences $f_i = \frac{n_i}{N}$ et les pourcentages :</div>
+            <div class="table-scroll">
+              <table class="cma-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Effectif</th>
+                    <th>Fréquence $f_i$</th>
+                    <th>Pourcentage (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Neutre</td>
+                    <td>8</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_f1" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_p1" placeholder="..."> %</td>
+                  </tr>
+                  <tr>
+                    <td>Hydratant</td>
+                    <td>5</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_f2" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_p2" placeholder="..."> %</td>
+                  </tr>
+                  <tr>
+                    <td>Protecteur</td>
+                    <td>4</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_f3" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_p3" placeholder="..."> %</td>
+                  </tr>
+                  <tr>
+                    <td>Purifiant</td>
+                    <td>3</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_f4" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="ex1_1_p4" placeholder="..."> %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="text-align: right; margin-top: 6px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_table()">Valider le tableau</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-table"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-2">
+          <div class="exercise-meta">
+            <span>Exercice 1.2 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Classification des longueurs de cheveux de 25 clientes
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Relevé sur 25 clientes : Court (C) : 10 ; Mi-longs (M) : 10 ; Longs (L) : 5.
+          </p>
+
+          <div class="q-item" id="q-m1-2-1">
+            <div class="q-title">1. Calculer les fréquences de chaque catégorie :</div>
+            <div class="input-row">
+              <span class="input-unit">$f_{\text{Court}} =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_2_f1" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">, $f_{\text{Mi-longs}} =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_2_f2" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">, $f_{\text{Longs}} =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_2_f3" placeholder="Votre résultat..." style="max-width: 90px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_2_freq()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-2-freq"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-2-2">
+            <div class="q-title">2. Quelle est la somme des fréquences ($0,40 + 0,40 + 0,20$) ?</div>
+            <div class="input-row">
+              <span class="input-unit">Somme =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_2_somme" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_2_somme()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-2-somme"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-3">
+          <div class="exercise-meta">
+            <span>Exercice 1.3 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Relevé des ventes de brosses démêlantes sur une journée
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Ventes : 6 Brosses plates, 4 Brosses rondes, 10 Peignes à dents larges.
+          </p>
+
+          <div class="q-item" id="q-m1-3-1">
+            <div class="q-title">1. Déterminer l'effectif total $N$ :</div>
+            <div class="input-row">
+              <span class="input-unit">$N =$</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex1_3_n" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_3_n()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-3-n"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-3-2">
+            <div class="q-title">2. Calculer le pourcentage représenté par les peignes à dents larges ($\frac{10}{N} \times 100$) :</div>
+            <div class="input-row">
+              <span class="input-unit">Pourcentage =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_3_pct" placeholder="Votre résultat...">
+              <span class="input-unit">%</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_3_pct()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-3-pct"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.4 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-4">
+          <div class="exercise-meta">
+            <span>Exercice 1.4 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Répartition des marques de laques en stock
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Sur 50 flacons en réserve : 20 Marque A, 15 Marque B, 15 Marque C.
+          </p>
+
+          <div class="q-item" id="q-m1-4-1">
+            <div class="q-title">1. Calculer les fréquences décimales ($f_A, f_B, f_C$) :</div>
+            <div class="input-row">
+              <span class="input-unit">$f_A =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_4_fa" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">, $f_B =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_4_fb" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">, $f_C =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_4_fc" placeholder="Votre résultat..." style="max-width: 90px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_4_freq()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-4-freq"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-4-2">
+            <div class="q-title">2. Exprimer chaque fréquence sous forme de pourcentage (%) :</div>
+            <div class="input-row">
+              <span class="input-unit">Marque A =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_4_pa" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">%, B =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_4_pb" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">%, C =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex1_4_pc" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">%</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_4_pct()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-4-pct"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= NIVEAU 2 ================= -->
+      <div id="cnt-lvl-2" style="display: none;">
+
+        <!-- Ex 2.1 -->
+        <div class="exercise-box" id="exbox-m2-1">
+          <div class="exercise-meta">
+            <span>Exercice 2.1 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Diagnostic des types de cuirs chevelus des clientes à Saint-Paul
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Échantillon de 60 clientes : Sec (15), Gras (24), Sensible (12), Normal (9).
+          </p>
+
+          <div class="q-item" id="q-m2-1-1">
+            <div class="q-title">1. Calculer la fréquence $f$ et le pourcentage (%) de cuirs chevelus gras :</div>
+            <div class="input-row">
+              <span class="input-unit">Fréquence =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex2_1_fg" placeholder="Votre résultat..." style="max-width: 110px;">
+              <span class="input-unit">Pourcentage =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex2_1_pg" placeholder="Votre résultat..." style="max-width: 110px;">
+              <span class="input-unit">%</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_1_gras()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-1-gras"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-1-2">
+            <div class="q-title">2. Pourquoi observe-t-on une proportion élevée de cuirs chevelus gras à La Réunion ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_1_climat" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_1_climat()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-1-climat"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-2">
+          <div class="exercise-meta">
+            <span>Exercice 2.2 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Relevé des teintes de colorations demandées à Saint-Pierre
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Sur 80 prestations : 32 Châtains, 24 Bruns, 16 Blonds, 8 Reflets Acajou.
+          </p>
+
+          <div class="q-item" id="q-m2-2-1">
+            <div class="q-title">1. Calculer le nombre cumulé de teintes foncées (Châtains + Bruns) :</div>
+            <div class="input-row">
+              <span class="input-unit">Effectif foncés =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_2_eff" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_2_eff()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-2-eff"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-2-2">
+            <div class="q-title">2. En déduire le pourcentage combiné des teintes foncées sur les 80 prestations :</div>
+            <div class="input-row">
+              <span class="input-unit">Pourcentage =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex2_2_pct" placeholder="Votre résultat...">
+              <span class="input-unit">%</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_2_pct()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-2-pct"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-3">
+          <div class="exercise-meta">
+            <span>Exercice 2.3 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Analyse des rendez-vous par tranche horaire au salon
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Sur 50 RDV d'un samedi : 10 RDV (8h-10h), 18 RDV (10h-12h), 12 RDV (14h-16h), 10 RDV (16h-18h).
+          </p>
+
+          <div class="q-item" id="q-m2-3-1">
+            <div class="q-title">1. Calculer la fréquence du créneau de pointe 10h-12h :</div>
+            <div class="input-row">
+              <span class="input-unit">$f_{\text{10h-12h}} =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex2_3_freq" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_3_freq()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-3-freq"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-3-2">
+            <div class="q-title">2. Quel est le créneau horaire de pointe ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_3_creneau" placeholder="ex: 10h-12h">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_3_creneau()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-3-creneau"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.4 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-4">
+          <div class="exercise-meta">
+            <span>Exercice 2.4 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Contrôle de conformité des contenances de tubes de teinture
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Un lot de 40 tubes de 60 mL est pesé : 32 tubes conformes (60 mL), 5 sous-dosés (58 mL), 3 sur-dosés (62 mL).
+          </p>
+
+          <div class="q-item" id="q-m2-4-1">
+            <div class="q-title">1. Calculer le pourcentage de tubes conformes ($\frac{32}{40} \times 100$) :</div>
+            <div class="input-row">
+              <span class="input-unit">Pourcentage =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex2_4_pct" placeholder="Votre résultat...">
+              <span class="input-unit">%</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_4_pct()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-4-pct"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-4-2">
+            <div class="q-title">2. La tolérance minimale de 80% est-elle respectée ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_4_valid" placeholder="oui ou non ?">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_4_valid()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-4-valid"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= NIVEAU 3 ================= -->
+      <div id="cnt-lvl-3" style="display: none;">
+
+        <!-- Ex 3.1 -->
+        <div class="exercise-box" id="exbox-m3-1">
+          <div class="exercise-meta">
+            <span>Exercice 3.1 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Audit d'approvisionnement pour un réseau de 3 salons à La Réunion
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Consommation mensuelle de bidons de 5 L : Saint-Denis = 45 bidons (fréquence $f_1 = 0,45$), Saint-Paul = 35 bidons, Saint-Pierre = $x$ bidons.
+          </p>
+
+          <div class="q-item" id="q-m3-1-1">
+            <div class="q-title">1. Déterminer l'effectif total $N = \frac{n_1}{f_1}$ de bidons consommés dans l'île :</div>
+            <div class="input-row">
+              <span class="input-unit">$N =$</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex3_1_tot" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_1_tot()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-1-tot"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-1-2">
+            <div class="q-title">2. En déduire le nombre de bidons $x$ consommés au salon de Saint-Pierre :</div>
+            <div class="input-row">
+              <span class="input-unit">$x =$</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex3_1_x" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_1_x()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-1-x"></div>
+          </div>
+        </div>
+
+        <!-- Ex 3.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m3-2">
+          <div class="exercise-meta">
+            <span>Exercice 3.2 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Reconstitution d'un tableau statistique incomplet sur Tableur
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Enquête auprès de <strong>$N = 120$ clients</strong>. Reconstituer les valeurs manquantes :
+          </p>
+
+          <div class="q-item" id="q-m3-2-1">
+            <div class="q-title">1. Calculer la fréquence du « Shampooing seul » ($n = 30$) et l'effectif de « Shampooing + Coupe » ($f = 0,35$) :</div>
+            <div class="input-row">
+              <span class="input-unit">Fréq. Shampooing seul =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex3_2_f1" placeholder="Votre résultat..." style="max-width: 100px;">
+              <span class="input-unit">, Effectif Shamp.+Coupe =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex3_2_n2" placeholder="Votre résultat..." style="max-width: 100px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_2_vals()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-2-vals"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-2-2">
+            <div class="q-title">2. Quelle formule tableur permet de calculer la fréquence en cellule C2 en bloquant l'effectif total en B6 ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_2_form" placeholder="ex: =B2/$B$6">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_2_form()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-2-form"></div>
+          </div>
+        </div>
+
+        <!-- Ex 3.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m3-3">
+          <div class="exercise-meta">
+            <span>Exercice 3.3 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Évaluation du taux de satisfaction client après rénovation du salon
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Résultats de 200 avis recueillis : Très Satisfait (110), Satisfait (60), Moyennement Satisfait (20), Insatisfait (10).
+          </p>
+
+          <div class="q-item" id="q-m3-3-1">
+            <div class="q-title">1. Calculer le pourcentage de clients satisfaits (Très Satisfait + Satisfait) :</div>
+            <div class="input-row">
+              <span class="input-unit">Pourcentage =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex3_3_pct" placeholder="Votre résultat...">
+              <span class="input-unit">%</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_3_pct()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-3-pct"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-3-2">
+            <div class="q-title">2. L'objectif Qualiopi d'au moins 88% de satisfaction globale est-il validé ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_3_qualiopi" placeholder="validé ou non ?">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_3_qualiopi()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-3-qualiopi"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= ÉVALUATION FORMELLE SOMMATIVE ================= -->
+      <div id="cnt-lvl-eval" style="display: none;">
+        <div class="card" style="border-left: 5px solid var(--cma-bordeaux);">
+          <div class="exercise-meta">
+            <span style="font-size: 1rem; color: var(--cma-bordeaux);">Évaluation Sommative Élève (15 min)</span>
+            <span class="badge-tag tag-cap">Barème : /8 pts</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Ventes de soins capillaires en période d'été austral à Sainte-Clotilde
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            La responsable du salon a comptabilisé les types de soins vendus en décembre auprès de <strong>50 clientes</strong> :<br>
+            • Soin Hydratant Anti-UV (H) : 20 clientes<br>
+            • Soin Réparateur Kératine (K) : 15 clientes<br>
+            • Soin Nuanceur de Couleur (N) : 10 clientes<br>
+            • Soin Purifiant Cuir Chevelu (P) : 5 clientes
+          </p>
+
+          <!-- Eval Q1 -->
+          <div class="q-item" id="q-eval-1">
+            <div class="q-title">1. [C1 - 1 pt] Identifier la population et le caractère étudié :</div>
+            <div class="input-row">
+              <span class="input-unit">Pop. :</span>
+              <input type="text" class="cma-input" id="eval_q1_pop" placeholder="Votre résultat..." style="max-width: 150px;">
+              <span class="input-unit">Caractère :</span>
+              <input type="text" class="cma-input" id="eval_q1_car" placeholder="Votre résultat..." style="max-width: 150px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEval1()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-1"></div>
+          </div>
+
+          <!-- Eval Q2 -->
+          <div class="q-item" id="q-eval-2">
+            <div class="q-title">2. [C2 - 4 pts] Compléter les fréquences $f_i$ et les pourcentages :</div>
+            <div class="table-scroll">
+              <table class="cma-table">
+                <thead>
+                  <tr>
+                    <th>Soin</th>
+                    <th>Effectif</th>
+                    <th>Fréquence $f_i$</th>
+                    <th>Pourcentage (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Hydratant Anti-UV (H)</td>
+                    <td>20</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_f1" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_p1" placeholder="..."> %</td>
+                  </tr>
+                  <tr>
+                    <td>Réparateur Kératine (K)</td>
+                    <td>15</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_f2" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_p2" placeholder="..."> %</td>
+                  </tr>
+                  <tr>
+                    <td>Nuanceur de Couleur (N)</td>
+                    <td>10</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_f3" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_p3" placeholder="..."> %</td>
+                  </tr>
+                  <tr>
+                    <td>Purifiant (P)</td>
+                    <td>5</td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_f4" placeholder="..."></td>
+                    <td><input type="text" inputmode="decimal" class="cma-input-table" id="eval_p4" placeholder="..."> %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="text-align: right; margin-top: 6px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEval2()">Valider le tableau</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-2"></div>
+          </div>
+
+          <!-- Eval Q3 -->
+          <div class="q-item" id="q-eval-3">
+            <div class="q-title">3. [C3 - 1 pt] Vérifier la somme des effectifs et la somme des fréquences :</div>
+            <div class="input-row">
+              <span class="input-unit">Somme effectifs =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="eval_q3_totn" placeholder="Votre résultat..." style="max-width: 100px;">
+              <span class="input-unit">, Somme fréquences =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="eval_q3_totf" placeholder="Votre résultat..." style="max-width: 100px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEval3()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-3"></div>
+          </div>
+
+          <!-- Eval Q4 -->
+          <div class="q-item" id="q-eval-4">
+            <div class="q-title">4. [C4 - 2 pts] Quel pourcentage représente le soin Anti-UV et pourquoi est-il le plus vendu en décembre à La Réunion ?</div>
+            <div class="input-row">
+              <span class="input-unit">Pourcentage =</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="eval_q4_pct" placeholder="Votre résultat..." style="max-width: 90px;">
+              <span class="input-unit">% - Justification :</span>
+              <input type="text" class="cma-input" id="eval_q4_just" placeholder="Soleil, UV tropicaux...">
+              <button class="btn btn-primary btn-sm" onclick="checkEval4()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-eval-4"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 4 — BILAN ET ATTESTATION OFFICIELLE  -->
+    <!-- ========================================== -->
+    <section id="step-4" class="step-section">
+      <div class="card no-print">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Bilan de compétences & Attestation officielle CMA Formation
+        </h2>
+        <p style="font-size: 0.93rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Félicitations pour vos analyses statistiques en salon ! Renseignez votre nom ci-dessous pour actualiser et imprimer votre attestation officielle de compétences.
+        </p>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 6px;">
+            Nom et Prénom de l'apprenant(e) :
+          </label>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="studentNameInput" placeholder="Votre résultat..." oninput="updateStudentName(this.value)">
+            <button class="btn btn-corail" onclick="window.print()">
+              🖨️ Imprimer / Exporter en PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="badge-shelf">
+          <div class="cma-badge" id="badge-stat-cap">
+            <span>🎓</span>
+            <span>Spécialiste Tableaux d'Effectifs & Gestion de Salon (Socle CAP)</span>
+          </div>
+          <div class="cma-badge locked" id="badge-stat-bonus">
+            <span>⭐</span>
+            <span>Expert Statistiques Descriptives & Climat Tropical</span>
+          </div>
+          <div class="cma-badge locked" id="badge-stat-master">
+            <span>🏆</span>
+            <span>Maître Audit Logistique, Tableur & Qualiopi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attestation officielle imprimable -->
+      <div class="attestation-sheet" id="attestationPrintArea">
+        <div class="att-header">
+          <img src="logo.png" alt="Logo CMA Formation" class="att-logo" onerror="this.src='https://placehold.co/120x48/A50F23/ffffff?text=CMA+Formation'">
+          <div>
+            <h2 class="att-title">Attestation Pédagogique de Réussite</h2>
+            <div class="att-sub">CMA Formation de Sainte-Clotilde • Île de La Réunion</div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.95rem; line-height: 1.6; color: var(--cma-text);">
+          <p>La direction pédagogique et le pôle Mathématiques attestent que l'apprenant(e) :</p>
+          <p style="text-align: center; margin: 12px 0;">
+            <span class="att-learner" id="attestationLearnerDisplay">APPRENANT(E) EN FORMATION</span>
+          </p>
+          <p>
+            a réalisé avec succès le recueil, le dépouillement et l'organisation des données statistiques de salon, calculé les effectifs, fréquences et pourcentages, et validé les compétences du référentiel CAP Métiers de la Coiffure.
+          </p>
+
+          <div class="att-grid">
+            <div>
+              <strong>Séance :</strong> S1 M2 - Statistique : Recueil de données & Tableaux d'effectifs<br>
+              <strong>Diplôme :</strong> CAP Métiers de la Coiffure (Gr. 1)<br>
+              <strong>Date d'évaluation :</strong> <span id="currentDateDisplay"></span>
+            </div>
+            <div>
+              <strong>Socle CAP validé :</strong> <span id="attSocleScore" style="color: var(--cma-bordeaux); font-weight: bold;">0%</span><br>
+              <strong>Points Bonus Dépassement :</strong> <span id="attBonusScore" style="color: var(--cma-corail); font-weight: bold;">0 pts</span><br>
+              <strong>Statut :</strong> <span id="attStatusBadge" style="font-weight: bold;">En cours d'acquisition</span>
+            </div>
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--cma-text-muted); margin-top: 10px;">
+            <strong>Compétences attestées :</strong> C1 (Identifier la population et le caractère qualitatif), C2 (Dépouiller des données brutes, calculer les fréquences $f_i$ et pourcentages), C3 (Vérifier la cohérence d'un tableau statistique $\sum n_i = N$ et $\sum f_i = 1$), C4 (Interpréter les résultats pour guider le réapprovisionnement et le planning d'équipe).
+          </p>
+        </div>
+
+        <div class="att-footer">
+          <div style="font-size: 0.8rem; color: var(--cma-text-muted);">
+            Attestation pédagogique de réussite de séance • Document numérique d'atelier
+          </div>
+          <div class="att-sig-block">
+            <div>Formatrice Référente Mathématiques :</div>
+            <div class="att-sig-name">Rachel Lamberet-Lezais</div>
+            <div style="font-size: 0.78rem; color: var(--cma-text-muted);">CMA Formation Sainte-Clotilde</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* Données de la mise en situation (40 prestations) */
+    const rawPrestations = [
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'B', name: 'Balayage', cls: 'b-b' },
+      { code: 'S', name: 'Soin', cls: 'b-s' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'R', name: 'Brushing', cls: 'b-r' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'S', name: 'Soin', cls: 'b-s' },
+      { code: 'B', name: 'Balayage', cls: 'b-b' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'R', name: 'Brushing', cls: 'b-r' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'B', name: 'Balayage', cls: 'b-b' },
+      { code: 'S', name: 'Soin', cls: 'b-s' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'R', name: 'Brushing', cls: 'b-r' },
+      { code: 'B', name: 'Balayage', cls: 'b-b' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'S', name: 'Soin', cls: 'b-s' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'R', name: 'Brushing', cls: 'b-r' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'B', name: 'Balayage', cls: 'b-b' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'S', name: 'Soin', cls: 'b-s' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'R', name: 'Brushing', cls: 'b-r' },
+      { code: 'B', name: 'Balayage', cls: 'b-b' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'K', name: 'Coloration', cls: 'b-k' },
+      { code: 'S', name: 'Soin', cls: 'b-s' },
+      { code: 'C', name: 'Coupe', cls: 'b-c' },
+      { code: 'R', name: 'Brushing', cls: 'b-r' }
+    ];
+
+    /* État réactif de l'application */
+    const appState = {
+      currentStep: 1,
+      learnerName: "APPRENANT(E) EN FORMATION",
+      disc: { q1: false, q2: false, q3: false, q4: false },
+      lvl1: {
+        '1-1-1': false, '1-1-2': false,
+        '1-2-1': false, '1-2-2': false,
+        '1-3-1': false, '1-3-2': false,
+        '1-4-1': false, '1-4-2': false
+      },
+      lvl2: {
+        '2-1-1': false, '2-1-2': false,
+        '2-2-1': false, '2-2-2': false,
+        '2-3-1': false, '2-3-2': false,
+        '2-4-1': false, '2-4-2': false
+      },
+      lvl3: {
+        '3-1-1': false, '3-1-2': false,
+        '3-2-1': false, '3-2-2': false,
+        '3-3-1': false, '3-3-2': false
+      },
+      eval: { '1': false, '2': false, '3': false, '4': false },
+      unlockedLvl2: false,
+      unlockedLvl3: false
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById('currentDateDisplay').textContent = today.toLocaleDateString('fr-FR', options);
+
+      buildRawPrestations();
+      initSimTable();
+      updateProgressBar();
+    });
+
+    function switchStep(stepNumber) {
+      appState.currentStep = stepNumber;
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById(`tab-step-${i}`);
+        const sec = document.getElementById(`step-${i}`);
+        if (tab && sec) {
+          if (i === stepNumber) {
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            sec.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
+            sec.classList.remove('active');
+          }
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (stepNumber === 2) {
+        resizeStatsCanvas();
+      }
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+    }
+
+    function toggleAccordion(header) {
+      header.parentElement.classList.toggle('open');
+    }
+
+    function updateStudentName(val) {
+      const trimmed = val.trim();
+      const display = document.getElementById('attestationLearnerDisplay');
+      if (trimmed.length > 0) {
+        display.textContent = trimmed.toUpperCase();
+        appState.learnerName = trimmed;
+      } else {
+        display.textContent = "APPRENANT(E) EN FORMATION";
+        appState.learnerName = "APPRENANT(E) EN FORMATION";
+      }
+    }
+
+    function parseInputNumber(valStr) {
+      if (!valStr) return null;
+      const clean = valStr.toString().trim().replace(',', '.');
+      const num = parseFloat(clean);
+      return isNaN(num) ? null : num;
+    }
+
+    function setFeedback(elemId, type, message) {
+      const fb = document.getElementById(elemId);
+      if (!fb) return;
+      fb.className = `feedback-box ${type}`;
+      fb.innerHTML = message;
+    }
+
+    function showCustomModal(msg) {
+      const existing = document.getElementById('cma-dialog-box');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'cma-dialog-box';
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.width = '100vw';
+      modal.style.height = '100vh';
+      modal.style.backgroundColor = 'rgba(0, 0, 0, 0.45)';
+      modal.style.display = 'flex';
+      modal.style.alignItems = 'center';
+      modal.style.justifyContent = 'center';
+      modal.style.zIndex = '9999';
+      modal.style.padding = '16px';
+
+      modal.innerHTML = `
+        <div style="background: white; border-radius: 12px; max-width: 380px; width: 100%; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-left: 6px solid #A50F23;">
+          <h3 style="color: #A50F23; margin-bottom: 10px; font-size: 1.1rem;">Information CMA Formation</h3>
+          <p style="font-size: 0.95rem; color: #1E293B; line-height: 1.5; margin-bottom: 16px;">${msg}</p>
+          <div style="text-align: right;">
+            <button class="btn btn-primary btn-sm" onclick="document.getElementById('cma-dialog-box').remove()">Compris</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    /* Génération des badges cliquables de pointage */
+    function buildRawPrestations() {
+      const container = document.getElementById('rawPrestationsContainer');
+      container.innerHTML = '';
+      rawPrestations.forEach((item, idx) => {
+        const badge = document.createElement('span');
+        badge.className = `data-badge ${item.cls}`;
+        badge.textContent = `${idx + 1}. ${item.name} (${item.code})`;
+        badge.dataset.code = item.code;
+        badge.onclick = () => {
+          badge.classList.toggle('counted');
+          updatePointageCounts();
+        };
+        container.appendChild(badge);
+      });
+      updatePointageCounts();
+    }
+
+    function resetPrestationBadges() {
+      document.querySelectorAll('#rawPrestationsContainer .data-badge').forEach(b => b.classList.remove('counted'));
+      updatePointageCounts();
+    }
+
+    function updatePointageCounts() {
+      const counts = { C: 0, K: 0, B: 0, S: 0, R: 0 };
+      document.querySelectorAll('#rawPrestationsContainer .data-badge.counted').forEach(b => {
+        counts[b.dataset.code]++;
+      });
+      document.getElementById('count-C').textContent = `${counts.C} / 16`;
+      document.getElementById('count-K').textContent = `${counts.K} / 8`;
+      document.getElementById('count-B').textContent = `${counts.B} / 5`;
+      document.getElementById('count-S').textContent = `${counts.S} / 6`;
+      document.getElementById('count-R').textContent = `${counts.R} / 5`;
+    }
+
+    function updateProgressBar() {
+      const totalL1 = Object.keys(appState.lvl1).length;
+      let countL1 = 0;
+      for (const k in appState.lvl1) if (appState.lvl1[k]) countL1++;
+
+      const pctCap = Math.round((countL1 / totalL1) * 100);
+      document.getElementById('capProgressTxt').textContent = `${pctCap}%`;
+      document.getElementById('attSocleScore').textContent = `${pctCap}%`;
+
+      if (pctCap >= 100 && !appState.unlockedLvl2) {
+        appState.unlockedLvl2 = true;
+        document.getElementById('hdr-lvl-2').classList.remove('locked');
+        document.getElementById('badge-status-2').textContent = 'Disponible !';
+        document.getElementById('badge-status-1').textContent = '✅ Validé (100%)';
+        document.getElementById('badge-stat-cap').classList.add('unlocked');
+        document.getElementById('attStatusBadge').textContent = 'Socle CAP Validé avec Félicitations';
+        document.getElementById('attStatusBadge').style.color = 'var(--cma-success)';
+      }
+
+      let bonus = 0;
+      for (const k in appState.lvl2) if (appState.lvl2[k]) bonus += 10;
+      for (const k in appState.lvl3) if (appState.lvl3[k]) bonus += 20;
+
+      document.getElementById('bonusScoreTxt').textContent = `+${bonus} pts`;
+      document.getElementById('attBonusScore').textContent = `+${bonus} pts`;
+
+      const totalL2 = Object.keys(appState.lvl2).length;
+      let countL2 = 0;
+      for (const k in appState.lvl2) if (appState.lvl2[k]) countL2++;
+
+      if (countL2 === totalL2 && !appState.unlockedLvl3) {
+        appState.unlockedLvl3 = true;
+        document.getElementById('hdr-lvl-3').classList.remove('locked');
+        document.getElementById('badge-status-3').textContent = 'Disponible !';
+        document.getElementById('badge-status-2').textContent = '✅ Validé (Bonus max)';
+        document.getElementById('badge-stat-bonus').classList.remove('locked');
+        document.getElementById('badge-stat-bonus').classList.add('unlocked');
+      }
+
+      const totalL3 = Object.keys(appState.lvl3).length;
+      let countL3 = 0;
+      for (const k in appState.lvl3) if (appState.lvl3[k]) countL3++;
+
+      if (countL3 === totalL3) {
+        document.getElementById('badge-status-3').textContent = '✅ Maîtrise totale !';
+        document.getElementById('badge-stat-master').classList.remove('locked');
+        document.getElementById('badge-stat-master').classList.add('unlocked');
+      }
+
+      const globalPct = Math.min(100, Math.round((countL1 + countL2 + countL3) / (totalL1 + totalL2 + totalL3) * 100));
+      document.getElementById('globalProgressBar').style.width = `${globalPct}%`;
+    }
+
+    function switchLvlTab(lvl) {
+      if (lvl === 2 && !appState.unlockedLvl2) {
+        showCustomModal("Le Niveau 2 🟡 est verrouillé. Vous devez d'abord valider les 4 exercices du Niveau 1 🟢 (Socle CAP à 100%) !");
+        return;
+      }
+      if (lvl === 3 && !appState.unlockedLvl3) {
+        showCustomModal("Le Niveau 3 🔴 est verrouillé. Vous devez d'abord réussir l'ensemble des défis du Niveau 2 🟡 !");
+        return;
+      }
+
+      const hdrs = ['hdr-lvl-1', 'hdr-lvl-2', 'hdr-lvl-3', 'hdr-lvl-eval'];
+      const cnts = ['cnt-lvl-1', 'cnt-lvl-2', 'cnt-lvl-3', 'cnt-lvl-eval'];
+
+      hdrs.forEach((hId, index) => {
+        const hElem = document.getElementById(hId);
+        const cElem = document.getElementById(cnts[index]);
+        if (hElem && cElem) {
+          if (index + 1 === lvl) {
+            hElem.classList.add('active-lvl');
+            cElem.style.display = 'block';
+          } else {
+            hElem.classList.remove('active-lvl');
+            cElem.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    /* ================= DÉCOUVERTE ================= */
+    function checkDisc1() {
+      const p = document.getElementById('disc_q1_pop').value.trim().toLowerCase();
+      const c = document.getElementById('disc_q1_car').value.trim().toLowerCase();
+      if (!p || !c) { setFeedback('fb-disc-1', 'hint', 'Renseignez la population et le caractère.'); return; }
+      if ((p.includes('client') || p.includes('40')) && (c.includes('prestation') || c.includes('service') || c.includes('coiffure'))) {
+        setFeedback('fb-disc-1', 'correct', 'Exact ! Population = <strong>les 40 clientes</strong> ; Caractère = <strong>le type de prestation capillaire</strong>.');
+        document.getElementById('block-disc-1').classList.add('completed');
+        appState.disc.q1 = true;
+      } else {
+        setFeedback('fb-disc-1', 'incorrect', 'Population : les 40 clientes du salon ; Caractère : le type de prestation.');
+      }
+    }
+
+    function checkDisc2() {
+      const c = parseInputNumber(document.getElementById('disc_eff_c').value);
+      const k = parseInputNumber(document.getElementById('disc_eff_k').value);
+      const b = parseInputNumber(document.getElementById('disc_eff_b').value);
+      const s = parseInputNumber(document.getElementById('disc_eff_s').value);
+      const r = parseInputNumber(document.getElementById('disc_eff_r').value);
+      const tot = parseInputNumber(document.getElementById('disc_eff_tot').value);
+
+      if (c === null || k === null || b === null || s === null || r === null || tot === null) {
+        setFeedback('fb-disc-2', 'hint', 'Complétez les effectifs de chaque prestation et le total.');
+        return;
+      }
+
+      if (c === 16 && k === 8 && b === 5 && s === 6 && r === 5 && tot === 40) {
+        setFeedback('fb-disc-2', 'correct', 'Bravo ! Les effectifs sont parfaitement exacts : Coupe = 16, Colo = 8, Balayage = 5, Soin = 6, Brushing = 5. Total N = 40.');
+        document.getElementById('block-disc-2').classList.add('completed');
+        appState.disc.q2 = true;
+      } else {
+        setFeedback('fb-disc-2', 'incorrect', 'Vérifiez votre pointage : Coupe = 16, Coloration = 8, Balayage = 5, Soin = 6, Brushing = 5. Somme = 40.');
+      }
+    }
+
+    function checkDisc3() {
+      const f = parseInputNumber(document.getElementById('disc_q3_freq').value);
+      const p = parseInputNumber(document.getElementById('disc_q3_pct').value);
+      if (f === null || p === null) { setFeedback('fb-disc-3', 'hint', 'Calculez la fréquence et le pourcentage pour Coupe.'); return; }
+      if (Math.abs(f - 0.40) < 0.01 && Math.abs(p - 40) < 0.5) {
+        setFeedback('fb-disc-3', 'correct', 'Exact : $f_{\\text{Coupe}} = \\frac{16}{40} = 0,40$ soit <strong>40%</strong> des prestations !');
+        document.getElementById('block-disc-3').classList.add('completed');
+        appState.disc.q3 = true;
+      } else {
+        setFeedback('fb-disc-3', 'incorrect', '16 / 40 = 0,40 et 0,40 * 100 = 40%.');
+      }
+    }
+
+    function checkDisc4() {
+      const v = document.getElementById('disc_q4').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-4', 'hint', 'Indiquez la prestation majoritaire.'); return; }
+      if (v.includes('coupe')) {
+        setFeedback('fb-disc-4', 'correct', 'Très bien ! La <strong>Coupe</strong> est la prestation majoritaire (40%). Priorité au renouvellement des ciseaux, lames et peignes.');
+        document.getElementById('block-disc-4').classList.add('completed');
+        appState.disc.q4 = true;
+      } else {
+        setFeedback('fb-disc-4', 'incorrect', 'C\'est la coupe qui compte le plus de clientes (16 sur 40).');
+      }
+    }
+
+    /* ================= NIVEAU 1 ================= */
+    function checkEx1_1_tot() {
+      const v = parseInputNumber(document.getElementById('ex1_1_tot').value);
+      if (v === null) { setFeedback('fb-ex1-1-tot', 'hint', 'Effectif total N.'); return; }
+      if (v === 20) {
+        setFeedback('fb-ex1-1-tot', 'correct', 'Exact : $N = 8 + 5 + 4 + 3 = 20$ shampooings.');
+        appState.lvl1['1-1-1'] = true;
+        document.getElementById('q-m1-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-1-tot', 'incorrect', '8 + 5 + 4 + 3 = 20.'); }
+    }
+
+    function checkEx1_1_table() {
+      const f1 = parseInputNumber(document.getElementById('ex1_1_f1').value);
+      const p1 = parseInputNumber(document.getElementById('ex1_1_p1').value);
+      const f2 = parseInputNumber(document.getElementById('ex1_1_f2').value);
+      const p2 = parseInputNumber(document.getElementById('ex1_1_p2').value);
+      const f3 = parseInputNumber(document.getElementById('ex1_1_f3').value);
+      const p3 = parseInputNumber(document.getElementById('ex1_1_p3').value);
+      const f4 = parseInputNumber(document.getElementById('ex1_1_f4').value);
+      const p4 = parseInputNumber(document.getElementById('ex1_1_p4').value);
+
+      if ([f1, p1, f2, p2, f3, p3, f4, p4].some(x => x === null)) {
+        setFeedback('fb-ex1-1-table', 'hint', 'Renseignez toutes les cases du tableau.');
+        return;
+      }
+
+      if (Math.abs(f1 - 0.40) < 0.01 && Math.abs(p1 - 40) < 0.5 &&
+          Math.abs(f2 - 0.25) < 0.01 && Math.abs(p2 - 25) < 0.5 &&
+          Math.abs(f3 - 0.20) < 0.01 && Math.abs(p3 - 20) < 0.5 &&
+          Math.abs(f4 - 0.15) < 0.01 && Math.abs(p4 - 15) < 0.5) {
+        setFeedback('fb-ex1-1-table', 'correct', 'Bravo ! Tableau validé : 0,40 (40%), 0,25 (25%), 0,20 (20%), 0,15 (15%). Somme = 100%.');
+        appState.lvl1['1-1-2'] = true;
+        document.getElementById('q-m1-1-2').classList.add('completed');
+        document.getElementById('exbox-m1-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else {
+        setFeedback('fb-ex1-1-table', 'incorrect', '8/20 = 0,40 (40%) ; 5/20 = 0,25 (25%) ; 4/20 = 0,20 (20%) ; 3/20 = 0,15 (15%).');
+      }
+    }
+
+    function checkEx1_2_freq() {
+      const f1 = parseInputNumber(document.getElementById('ex1_2_f1').value);
+      const f2 = parseInputNumber(document.getElementById('ex1_2_f2').value);
+      const f3 = parseInputNumber(document.getElementById('ex1_2_f3').value);
+      if (f1 === null || f2 === null || f3 === null) { setFeedback('fb-ex1-2-freq', 'hint', 'Renseignez les 3 fréquences.'); return; }
+      if (Math.abs(f1 - 0.40) < 0.01 && Math.abs(f2 - 0.40) < 0.01 && Math.abs(f3 - 0.20) < 0.01) {
+        setFeedback('fb-ex1-2-freq', 'correct', 'Exact : Court = 0,40 ; Mi-longs = 0,40 ; Longs = 0,20.');
+        appState.lvl1['1-2-1'] = true;
+        document.getElementById('q-m1-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-2-freq', 'incorrect', '10/25 = 0,40 ; 10/25 = 0,40 ; 5/25 = 0,20.'); }
+    }
+
+    function checkEx1_2_somme() {
+      const v = parseInputNumber(document.getElementById('ex1_2_somme').value);
+      if (v === null) { setFeedback('fb-ex1-2-somme', 'hint', 'Somme des fréquences.'); return; }
+      if (Math.abs(v - 1) < 0.01) {
+        setFeedback('fb-ex1-2-somme', 'correct', 'Exact : $0,40 + 0,40 + 0,20 = 1$. La somme des fréquences est toujours égale à 1.');
+        appState.lvl1['1-2-2'] = true;
+        document.getElementById('q-m1-2-2').classList.add('completed');
+        document.getElementById('exbox-m1-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-2-somme', 'incorrect', 'La somme fait 1.'); }
+    }
+
+    function checkEx1_3_n() {
+      const v = parseInputNumber(document.getElementById('ex1_3_n').value);
+      if (v === null) { setFeedback('fb-ex1-3-n', 'hint', 'Effectif total N.'); return; }
+      if (v === 20) {
+        setFeedback('fb-ex1-3-n', 'correct', 'Exact : $N = 6 + 4 + 10 = 20$ ventes.');
+        appState.lvl1['1-3-1'] = true;
+        document.getElementById('q-m1-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-3-n', 'incorrect', '6 + 4 + 10 = 20.'); }
+    }
+
+    function checkEx1_3_pct() {
+      const v = parseInputNumber(document.getElementById('ex1_3_pct').value);
+      if (v === null) { setFeedback('fb-ex1-3-pct', 'hint', 'Pourcentage des peignes.'); return; }
+      if (Math.abs(v - 50) < 0.5) {
+        setFeedback('fb-ex1-3-pct', 'correct', 'Bravo : $\\frac{10}{20} \\times 100 = 50\\%$.');
+        appState.lvl1['1-3-2'] = true;
+        document.getElementById('q-m1-3-2').classList.add('completed');
+        document.getElementById('exbox-m1-4').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-3-pct', 'incorrect', '10 / 20 = 0,50 soit 50%.'); }
+    }
+
+    function checkEx1_4_freq() {
+      const fa = parseInputNumber(document.getElementById('ex1_4_fa').value);
+      const fb = parseInputNumber(document.getElementById('ex1_4_fb').value);
+      const fc = parseInputNumber(document.getElementById('ex1_4_fc').value);
+      if (fa === null || fb === null || fc === null) { setFeedback('fb-ex1-4-freq', 'hint', 'Renseignez les 3 fréquences décimales.'); return; }
+      if (Math.abs(fa - 0.40) < 0.01 && Math.abs(fb - 0.30) < 0.01 && Math.abs(fc - 0.30) < 0.01) {
+        setFeedback('fb-ex1-4-freq', 'correct', 'Exact : $f_A = 0,40$, $f_B = 0,30$, $f_C = 0,30$.');
+        appState.lvl1['1-4-1'] = true;
+        document.getElementById('q-m1-4-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-4-freq', 'incorrect', '20/50 = 0,40 ; 15/50 = 0,30 ; 15/50 = 0,30.'); }
+    }
+
+    function checkEx1_4_pct() {
+      const pa = parseInputNumber(document.getElementById('ex1_4_pa').value);
+      const pb = parseInputNumber(document.getElementById('ex1_4_pb').value);
+      const pc = parseInputNumber(document.getElementById('ex1_4_pc').value);
+      if (pa === null || pb === null || pc === null) { setFeedback('fb-ex1-4-pct', 'hint', 'Renseignez les pourcentages.'); return; }
+      if (Math.abs(pa - 40) < 0.5 && Math.abs(pb - 30) < 0.5 && Math.abs(pc - 30) < 0.5) {
+        setFeedback('fb-ex1-4-pct', 'correct', 'Bravo ! Marque A = 40%, Marque B = 30%, Marque C = 30%. SOCLE CAP VALIDÉ À 100% !');
+        appState.lvl1['1-4-2'] = true;
+        document.getElementById('q-m1-4-2').classList.add('completed');
+        updateProgressBar();
+        showCustomModal("Félicitations ! Vous avez validé l'intégralité du Niveau 1 🟢 (Socle CAP à 100%). Votre Attestation Officielle CMA Formation est débloquée et le Niveau 2 🟡 est accessible !");
+      } else { setFeedback('fb-ex1-4-pct', 'incorrect', '40%, 30% et 30%.'); }
+    }
+
+    /* ================= NIVEAU 2 ================= */
+    function checkEx2_1_gras() {
+      const f = parseInputNumber(document.getElementById('ex2_1_fg').value);
+      const p = parseInputNumber(document.getElementById('ex2_1_pg').value);
+      if (f === null || p === null) { setFeedback('fb-ex2-1-gras', 'hint', 'Fréquence et pourcentage.'); return; }
+      if (Math.abs(f - 0.40) < 0.01 && Math.abs(p - 40) < 0.5) {
+        setFeedback('fb-ex2-1-gras', 'correct', 'Exact : $\\frac{24}{60} = 0,40$ soit <strong>40%</strong>.');
+        appState.lvl2['2-1-1'] = true;
+        document.getElementById('q-m2-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-1-gras', 'incorrect', '24 / 60 = 0,40 soit 40%.'); }
+    }
+
+    function checkEx2_1_climat() {
+      const v = document.getElementById('ex2_1_climat').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-1-climat', 'hint', 'Expliquez en lien avec le climat.'); return; }
+      if (v.includes('chaleur') || v.includes('humid') || v.includes('sébum') || v.includes('transpir') || v.includes('chaud') || v.includes('tropical')) {
+        setFeedback('fb-ex2-1-climat', 'correct', 'Excellente analyse : la chaleur et l\'humidité tropicales stimulent la production de sébum et la transpiration.');
+        appState.lvl2['2-1-2'] = true;
+        document.getElementById('q-m2-1-2').classList.add('completed');
+        document.getElementById('exbox-m2-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-1-climat', 'incorrect', 'Mentionnez la chaleur, l\'humidité ou la production de sébum liée au climat tropical.'); }
+    }
+
+    function checkEx2_2_eff() {
+      const v = parseInputNumber(document.getElementById('ex2_2_eff').value);
+      if (v === null) { setFeedback('fb-ex2-2-eff', 'hint', '32 + 24.'); return; }
+      if (v === 56) {
+        setFeedback('fb-ex2-2-eff', 'correct', 'Exact : $32 + 24 = 56$ prestations.');
+        appState.lvl2['2-2-1'] = true;
+        document.getElementById('q-m2-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-2-eff', 'incorrect', '32 + 24 = 56.'); }
+    }
+
+    function checkEx2_2_pct() {
+      const v = parseInputNumber(document.getElementById('ex2_2_pct').value);
+      if (v === null) { setFeedback('fb-ex2-2-pct', 'hint', '56 / 80 * 100.'); return; }
+      if (Math.abs(v - 70) < 0.5) {
+        setFeedback('fb-ex2-2-pct', 'correct', 'Bravo : $\\frac{56}{80} \\times 100 = 70\\%$.');
+        appState.lvl2['2-2-2'] = true;
+        document.getElementById('q-m2-2-2').classList.add('completed');
+        document.getElementById('exbox-m2-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-2-pct', 'incorrect', '56 / 80 = 0,70 soit 70%.'); }
+    }
+
+    function checkEx2_3_freq() {
+      const v = parseInputNumber(document.getElementById('ex2_3_freq').value);
+      if (v === null) { setFeedback('fb-ex2-3-freq', 'hint', '18 / 50.'); return; }
+      if (Math.abs(v - 0.36) < 0.01) {
+        setFeedback('fb-ex2-3-freq', 'correct', 'Exact : $f = \\frac{18}{50} = 0,36$ (36%).');
+        appState.lvl2['2-3-1'] = true;
+        document.getElementById('q-m2-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-3-freq', 'incorrect', '18 / 50 = 0,36.'); }
+    }
+
+    function checkEx2_3_creneau() {
+      const v = document.getElementById('ex2_3_creneau').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-3-creneau', 'hint', 'Indiquez le créneau.'); return; }
+      if (v.includes('10') && v.includes('12')) {
+        setFeedback('fb-ex2-3-creneau', 'correct', 'Exact : le créneau de pointe est <strong>10h-12h</strong> avec 18 RDV.');
+        appState.lvl2['2-3-2'] = true;
+        document.getElementById('q-m2-3-2').classList.add('completed');
+        document.getElementById('exbox-m2-4').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-3-creneau', 'incorrect', 'C\'est la tranche 10h-12h.'); }
+    }
+
+    function checkEx2_4_pct() {
+      const v = parseInputNumber(document.getElementById('ex2_4_pct').value);
+      if (v === null) { setFeedback('fb-ex2-4-pct', 'hint', '32 / 40 * 100.'); return; }
+      if (Math.abs(v - 80) < 0.5) {
+        setFeedback('fb-ex2-4-pct', 'correct', 'Exact : $\\frac{32}{40} \\times 100 = 80\\%$.');
+        appState.lvl2['2-4-1'] = true;
+        document.getElementById('q-m2-4-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-4-pct', 'incorrect', '32 / 40 = 0,80 soit 80%.'); }
+    }
+
+    function checkEx2_4_valid() {
+      const v = document.getElementById('ex2_4_valid').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-4-valid', 'hint', 'Oui ou non ?'); return; }
+      if (v.includes('oui') || v.includes('valid') || v.includes('respect')) {
+        setFeedback('fb-ex2-4-valid', 'correct', 'Bravo ! 80% est égal au seuil minimum exigé : la tolérance est <strong>respectée</strong>. NIVEAU 2 VALIDÉ !');
+        appState.lvl2['2-4-2'] = true;
+        document.getElementById('q-m2-4-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-4-valid', 'incorrect', 'Oui, 80% atteint exactement le seuil de 80%.'); }
+    }
+
+    /* ================= NIVEAU 3 ================= */
+    function checkEx3_1_tot() {
+      const v = parseInputNumber(document.getElementById('ex3_1_tot').value);
+      if (v === null) { setFeedback('fb-ex3-1-tot', 'hint', '45 / 0,45.'); return; }
+      if (v === 100) {
+        setFeedback('fb-ex3-1-tot', 'correct', 'Exact : $N = \\frac{45}{0,45} = 100$ bidons.');
+        appState.lvl3['3-1-1'] = true;
+        document.getElementById('q-m3-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-1-tot', 'incorrect', '45 / 0,45 = 100.'); }
+    }
+
+    function checkEx3_1_x() {
+      const v = parseInputNumber(document.getElementById('ex3_1_x').value);
+      if (v === null) { setFeedback('fb-ex3-1-x', 'hint', '100 - 45 - 35.'); return; }
+      if (v === 20) {
+        setFeedback('fb-ex3-1-x', 'correct', 'Bravo : $x = 100 - (45 + 35) = 20$ bidons pour Saint-Pierre (20%).');
+        appState.lvl3['3-1-2'] = true;
+        document.getElementById('q-m3-1-2').classList.add('completed');
+        document.getElementById('exbox-m3-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-1-x', 'incorrect', '100 - 80 = 20.'); }
+    }
+
+    function checkEx3_2_vals() {
+      const f1 = parseInputNumber(document.getElementById('ex3_2_f1').value);
+      const n2 = parseInputNumber(document.getElementById('ex3_2_n2').value);
+      if (f1 === null || n2 === null) { setFeedback('fb-ex3-2-vals', 'hint', 'Renseignez les deux valeurs.'); return; }
+      if (Math.abs(f1 - 0.25) < 0.01 && n2 === 42) {
+        setFeedback('fb-ex3-2-vals', 'correct', 'Exact : $f_1 = \\frac{30}{120} = 0,25$ et $n_2 = 120 \\times 0,35 = 42$ clients.');
+        appState.lvl3['3-2-1'] = true;
+        document.getElementById('q-m3-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-2-vals', 'incorrect', '30/120 = 0,25 et 120 * 0,35 = 42.'); }
+    }
+
+    function checkEx3_2_form() {
+      const v = document.getElementById('ex3_2_form').value.trim().toUpperCase().replace(/\s/g, '');
+      if (!v) { setFeedback('fb-ex3-2-form', 'hint', 'Formule tableur avec =.'); return; }
+      if (v.includes('=B2/$B$6') || v.includes('=B2/$B$5') || (v.includes('B2/') && v.includes('$'))) {
+        setFeedback('fb-ex3-2-form', 'correct', 'Excellente formule : <code>=B2/$B$6</code> garantit un calcul sans décalage de la cellule totale.');
+        appState.lvl3['3-2-2'] = true;
+        document.getElementById('q-m3-2-2').classList.add('completed');
+        document.getElementById('exbox-m3-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-2-form', 'incorrect', 'La formule attendue est =B2/$B$6 (avec le dollar de verrouillage).'); }
+    }
+
+    function checkEx3_3_pct() {
+      const v = parseInputNumber(document.getElementById('ex3_3_pct').value);
+      if (v === null) { setFeedback('fb-ex3-3-pct', 'hint', '(110 + 60) / 200 * 100.'); return; }
+      if (Math.abs(v - 85) < 0.5) {
+        setFeedback('fb-ex3-3-pct', 'correct', 'Exact : $\\frac{110 + 60}{200} = \\frac{170}{200} = 85\\%$.');
+        appState.lvl3['3-3-1'] = true;
+        document.getElementById('q-m3-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-3-pct', 'incorrect', '170 / 200 = 0,85 soit 85%.'); }
+    }
+
+    function checkEx3_3_qualiopi() {
+      const v = document.getElementById('ex3_3_qualiopi').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex3-3-qualiopi', 'hint', 'Validé ou non ?'); return; }
+      if (v.includes('non') || v.includes('pas') || v.includes('refus')) {
+        setFeedback('fb-ex3-3-qualiopi', 'correct', 'Bravo ! 85% < 88%, l\'objectif Qualiopi n\'est <strong>pas validé</strong>. Il manque 3% pour être conforme. NIVEAU 3 EXPERT COMPLÉTÉ AVEC SUCCÈS !');
+        appState.lvl3['3-3-2'] = true;
+        document.getElementById('q-m3-3-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-3-qualiopi', 'incorrect', 'Non, car 85% est inférieur aux 88% demandés.'); }
+    }
+
+    /* ================= ÉVALUATION SOMMATIVE ================= */
+    function checkEval1() {
+      const p = document.getElementById('eval_q1_pop').value.trim().toLowerCase();
+      const c = document.getElementById('eval_q1_car').value.trim().toLowerCase();
+      if (!p || !c) { setFeedback('fb-eval-1', 'hint', 'Renseignez population et caractère.'); return; }
+      if ((p.includes('client') || p.includes('50')) && (c.includes('soin') || c.includes('type') || c.includes('prestation'))) {
+        setFeedback('fb-eval-1', 'correct', 'Correct (1/1 pt) : Population = les 50 clientes ; Caractère = type de soin capillaire.');
+        document.getElementById('q-eval-1').classList.add('completed');
+      } else { setFeedback('fb-eval-1', 'incorrect', 'Population : les 50 clientes ; Caractère : type de soin.'); }
+    }
+
+    function checkEval2() {
+      const f1 = parseInputNumber(document.getElementById('eval_f1').value);
+      const p1 = parseInputNumber(document.getElementById('eval_p1').value);
+      const f2 = parseInputNumber(document.getElementById('eval_f2').value);
+      const p2 = parseInputNumber(document.getElementById('eval_p2').value);
+      const f3 = parseInputNumber(document.getElementById('eval_f3').value);
+      const p3 = parseInputNumber(document.getElementById('eval_p3').value);
+      const f4 = parseInputNumber(document.getElementById('eval_f4').value);
+      const p4 = parseInputNumber(document.getElementById('eval_p4').value);
+
+      if ([f1, p1, f2, p2, f3, p3, f4, p4].some(x => x === null)) {
+        setFeedback('fb-eval-2', 'hint', 'Complétez l\'ensemble du tableau.');
+        return;
+      }
+
+      if (Math.abs(f1 - 0.40) < 0.01 && Math.abs(p1 - 40) < 0.5 &&
+          Math.abs(f2 - 0.30) < 0.01 && Math.abs(p2 - 30) < 0.5 &&
+          Math.abs(f3 - 0.20) < 0.01 && Math.abs(p3 - 20) < 0.5 &&
+          Math.abs(f4 - 0.10) < 0.01 && Math.abs(p4 - 10) < 0.5) {
+        setFeedback('fb-eval-2', 'correct', 'Correct (4/4 pts) : 0,40 (40%), 0,30 (30%), 0,20 (20%), 0,10 (10%).');
+        document.getElementById('q-eval-2').classList.add('completed');
+      } else {
+        setFeedback('fb-eval-2', 'incorrect', '20/50 = 0,40 (40%) ; 15/50 = 0,30 (30%) ; 10/50 = 0,20 (20%) ; 5/50 = 0,10 (10%).');
+      }
+    }
+
+    function checkEval3() {
+      const totn = parseInputNumber(document.getElementById('eval_q3_totn').value);
+      const totf = parseInputNumber(document.getElementById('eval_q3_totf').value);
+      if (totn === null || totf === null) { setFeedback('fb-eval-3', 'hint', 'Renseignez les deux sommes.'); return; }
+      if (totn === 50 && Math.abs(totf - 1) < 0.01) {
+        setFeedback('fb-eval-3', 'correct', 'Correct (1/1 pt) : Somme effectifs = 50 et Somme fréquences = 1 (100%).');
+        document.getElementById('q-eval-3').classList.add('completed');
+      } else { setFeedback('fb-eval-3', 'incorrect', 'Somme effectifs = 50 ; Somme fréquences = 1.'); }
+    }
+
+    function checkEval4() {
+      const p = parseInputNumber(document.getElementById('eval_q4_pct').value);
+      const j = document.getElementById('eval_q4_just').value.trim().toLowerCase();
+      if (p === null || !j) { setFeedback('fb-eval-4', 'hint', 'Pourcentage et justification.'); return; }
+      if (Math.abs(p - 40) < 0.5 && (j.includes('soleil') || j.includes('uv') || j.includes('été') || j.includes('chaleur') || j.includes('décembre'))) {
+        setFeedback('fb-eval-4', 'correct', 'Correct (2/2 pts) : 40% ; décembre correspond au plein été austral à La Réunion, avec un fort ensoleillement nécessitant une protection anti-UV.');
+        document.getElementById('q-eval-4').classList.add('completed');
+      } else { setFeedback('fb-eval-4', 'incorrect', '40%. Justification : forte exposition au soleil/UV en été austral (décembre).'); }
+    }
+
+    /* ================= SIMULATEUR INTERACTIF ================= */
+    const simData = [
+      { name: 'Coupe (C)', count: 16, color: '#0369A1' },
+      { name: 'Coloration (K)', count: 8, color: '#BE185D' },
+      { name: 'Balayage (B)', count: 5, color: '#B45309' },
+      { name: 'Soin (S)', count: 6, color: '#15803D' },
+      { name: 'Brushing (R)', count: 5, color: '#6D28D9' }
+    ];
+
+    const statsCanvas = document.getElementById('statsCanvas');
+    const statsCtx = statsCanvas.getContext('2d');
+
+    function initSimTable() {
+      resizeStatsCanvas();
+      window.addEventListener('resize', resizeStatsCanvas);
+      renderSimTable();
+    }
+
+    function resizeStatsCanvas() {
+      if (!statsCanvas) return;
+      statsCanvas.width = statsCanvas.parentElement.getBoundingClientRect().width;
+      statsCanvas.height = statsCanvas.parentElement.getBoundingClientRect().height;
+      drawStatsChart();
+    }
+
+    function adjustSimVal(idx, delta) {
+      const newVal = simData[idx].count + delta;
+      if (newVal >= 0 && newVal <= 50) {
+        simData[idx].count = newVal;
+        document.getElementById(`sim-val-${idx}`).textContent = newVal;
+        renderSimTable();
+      }
+    }
+
+    function renderSimTable() {
+      const tbody = document.getElementById('simTableBody');
+      tbody.innerHTML = '';
+
+      let totalN = 0;
+      simData.forEach(d => totalN += d.count);
+
+      simData.forEach(d => {
+        const freq = totalN > 0 ? (d.count / totalN) : 0;
+        const pct = freq * 100;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${d.name}</strong></td>
+          <td>${d.count}</td>
+          <td>${freq.toFixed(3)}</td>
+          <td>${pct.toFixed(1)}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('simTotN').textContent = totalN;
+      document.getElementById('simTotF').textContent = totalN > 0 ? "1.000" : "0.000";
+      document.getElementById('simTotPct').textContent = totalN > 0 ? "100%" : "0%";
+
+      drawStatsChart();
+    }
+
+    function drawStatsChart() {
+      if (!statsCanvas) return;
+      const w = statsCanvas.width;
+      const h = statsCanvas.height;
+      statsCtx.clearRect(0, 0, w, h);
+
+      let totalN = 0;
+      let maxVal = 0;
+      simData.forEach(d => {
+        totalN += d.count;
+        if (d.count > maxVal) maxVal = d.count;
+      });
+
+      if (totalN === 0) {
+        statsCtx.fillStyle = '#94A3B8';
+        statsCtx.font = '14px Arial';
+        statsCtx.textAlign = 'center';
+        statsCtx.fillText('Aucune donnée saisie', w / 2, h / 2);
+        return;
+      }
+
+      const paddingLeft = 40;
+      const paddingBottom = 30;
+      const paddingTop = 20;
+      const chartW = w - paddingLeft - 20;
+      const chartH = h - paddingBottom - paddingTop;
+      const barW = (chartW / simData.length) * 0.65;
+      const gap = (chartW / simData.length) * 0.35;
+
+      const scaleY = maxVal > 0 ? (chartH / (maxVal * 1.15)) : 1;
+
+      // Ligne d'axe X
+      statsCtx.strokeStyle = '#CBD5E1';
+      statsCtx.lineWidth = 1.5;
+      statsCtx.beginPath();
+      statsCtx.moveTo(paddingLeft, h - paddingBottom);
+      statsCtx.lineTo(w - 20, h - paddingBottom);
+      statsCtx.stroke();
+
+      simData.forEach((d, i) => {
+        const x = paddingLeft + (i * (barW + gap)) + gap / 2;
+        const barH = d.count * scaleY;
+        const y = h - paddingBottom - barH;
+
+        // Barre
+        statsCtx.fillStyle = d.color;
+        statsCtx.beginPath();
+        statsCtx.roundRect ? statsCtx.roundRect(x, y, barW, barH, [4, 4, 0, 0]) : statsCtx.rect(x, y, barW, barH);
+        statsCtx.fill();
+
+        // Valeur au-dessus
+        statsCtx.fillStyle = '#1E293B';
+        statsCtx.font = 'bold 11px Arial';
+        statsCtx.textAlign = 'center';
+        statsCtx.fillText(d.count, x + barW / 2, y - 5);
+
+        // Nom de modalité
+        statsCtx.fillStyle = '#64748B';
+        statsCtx.font = '11px Arial';
+        const label = d.name.split(' ')[0];
+        statsCtx.fillText(label, x + barW / 2, h - paddingBottom + 16);
+      });
+    }
+  </script>
+<script src="../../assets/aides.js"></script>
+</body>
+</html>

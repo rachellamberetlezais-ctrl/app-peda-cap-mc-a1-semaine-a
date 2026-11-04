@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Mathématiques CAP Coiffure — Pourcentages & Réductions (S3 M2)</title>
+
+  <!-- MathJax v3 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --cma-bordeaux: #A50F23;
+      --cma-corail: #EE3C3D;
+      --cma-fond: #F8FAFC;
+      --cma-texte: #1E293B;
+      --cma-card: #FFFFFF;
+      --cma-border: #E2E8F0;
+      --cma-success: #16A34A;
+      --cma-warning: #D97706;
+      --cma-radius: 12px;
+      --cma-shadow: 0 4px 12px rgba(30, 41, 59, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--cma-fond);
+      color: var(--cma-texte);
+      line-height: 1.5;
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #app-container {
+      width: 100%;
+      max-width: 900px;
+      min-height: 100vh;
+      background-color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    /* HEADER OFFICIEL CMA */
+    .app-header {
+      position: relative;
+      overflow: hidden;
+      padding: 16px 16px 20px 16px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--cma-border);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .app-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 1.05rem;
+      color: var(--cma-bordeaux);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .header-text p {
+      font-size: 0.78rem;
+      color: #64748B;
+      margin-top: 2px;
+    }
+
+    .cma-wave-border {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: 14px;
+      margin: 0;
+      border: 0;
+      background-image: url("ruban_vague.png");
+      background-repeat: repeat-x;
+      background-size: 102.941176px 102.941176px;
+      background-position: left -46.941176px;
+    }
+
+    /* BARRE DE PROGRESSION SOCLE CAP (8px) */
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: #E2E8F0;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cma-corail), var(--cma-bordeaux));
+      transition: width 0.4s ease;
+    }
+
+    /* NAVIGATION 4 ÉTAPES */
+    .nav-tabs-wrapper {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--cma-border);
+      padding: 8px 12px;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 22px;
+      border: 1px solid var(--cma-border);
+      background-color: #FFFFFF;
+      color: var(--cma-texte);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn.active {
+      background-color: var(--cma-bordeaux);
+      color: #FFFFFF;
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 2px 6px rgba(165, 15, 35, 0.3);
+    }
+
+    .nav-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 0.7rem;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .nav-btn:not(.active) .nav-badge {
+      background-color: #F1F5F9;
+      color: #64748B;
+    }
+
+    /* CONTENUS D'ÉTAPES */
+    .tab-content {
+      display: none;
+      padding: 16px;
+      flex: 1;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* TITRES ET PUCES OFFICIELLES */
+    .icon-bullet {
+      height: 18px;
+      width: 18px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      color: var(--cma-bordeaux);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1rem;
+      color: var(--cma-bordeaux);
+      margin: 14px 0 8px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    /* CARTES & ENCARTS */
+    .card {
+      background: var(--cma-card);
+      border: 1px solid var(--cma-border);
+      border-radius: var(--cma-radius);
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--cma-shadow);
+    }
+
+    .context-box {
+      border-left: 4px solid var(--cma-corail);
+      background-color: #FFF5F5;
+      padding: 12px;
+      border-radius: 0 var(--cma-radius) var(--cma-radius) 0;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+    }
+
+    /* FORMULAIRES & SAISIES (MOBILE-FIRST) */
+    .input-group {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--cma-texte);
+    }
+
+    input[type="text"],
+    select {
+      min-height: 44px;
+      font-size: 16px;
+      padding: 8px 12px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      font-family: inherit;
+      width: 100%;
+      max-width: 320px;
+      background: #FFFFFF;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--cma-bordeaux);
+    }
+
+    .unit-tag {
+      font-size: 0.88rem;
+      font-weight: bold;
+      color: #64748B;
+    }
+
+    /* BOUTONS D'ACTION */
+    .btn-action {
+      min-height: 44px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--cma-bordeaux);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 6px;
+    }
+
+    .btn-action:active {
+      transform: scale(0.98);
+    }
+
+    /* FEEDBACKS */
+    .feedback-box {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.correct {
+      background-color: #DCFCE7;
+      color: #15803D;
+      border: 1px solid #86EFAC;
+    }
+
+    .feedback-box.incorrect {
+      background-color: #FEE2E2;
+      color: #B91C1C;
+      border: 1px solid #FCA5A5;
+    }
+
+    /* TABLEAUX RESPONSIVES */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 10px 0;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 500px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid var(--cma-border);
+      text-align: left;
+    }
+
+    th {
+      background-color: #F1F5F9;
+      color: var(--cma-bordeaux);
+      font-weight: 700;
+    }
+
+    /* SIMULATEUR DE REMISE & CAISSE (ÉTAPE 2) */
+    .sim-card {
+      background: #FFFFFF;
+      border: 2px solid var(--cma-bordeaux);
+      border-radius: var(--cma-radius);
+      padding: 16px;
+      margin: 14px 0;
+    }
+
+    .ticket-caisse-box {
+      background: #F8FAFC;
+      border: 2px dashed #94A3B8;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 14px 0;
+      font-family: 'Courier New', monospace;
+      color: #0F172A;
+    }
+
+    .ticket-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 4px 0;
+      font-size: 0.92rem;
+    }
+
+    .ticket-total {
+      border-top: 1px dashed #64748B;
+      padding-top: 8px;
+      margin-top: 8px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--cma-bordeaux);
+    }
+
+    /* ENTRAÎNEMENT GAMIFIÉ */
+    .level-container {
+      margin-bottom: 16px;
+      border: 1px solid var(--cma-border);
+      border-radius: var(--cma-radius);
+      overflow: hidden;
+    }
+
+    .level-header {
+      padding: 12px 14px;
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--cma-border);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .level-header.lvl-1 { border-left: 6px solid var(--cma-success); }
+    .level-header.lvl-2 { border-left: 6px solid var(--cma-warning); }
+    .level-header.lvl-3 { border-left: 6px solid var(--cma-bordeaux); }
+
+    .level-body {
+      padding: 14px;
+      background: #FFFFFF;
+    }
+
+    .locked-overlay {
+      background: #F1F5F9;
+      padding: 24px 16px;
+      text-align: center;
+      color: #64748B;
+      font-weight: 600;
+    }
+
+    .sub-question {
+      padding: 12px 0;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+    .sub-question:last-child {
+      border-bottom: none;
+    }
+
+    /* ACCORDÉONS ÉTAPE 2 */
+    .accordion-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      font-weight: bold;
+      color: var(--cma-bordeaux);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 12px;
+      border: 1px solid var(--cma-border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      background: #FFFFFF;
+      font-size: 0.9rem;
+    }
+
+    .accordion-content.open {
+      display: block;
+    }
+
+    /* ATTESTATION NUMÉRIQUE & BADGES */
+    .attestation-box {
+      border: 3px double var(--cma-bordeaux);
+      border-radius: 12px;
+      padding: 20px;
+      background: #FFFFFF;
+      position: relative;
+      margin-top: 14px;
+    }
+
+    .attestation-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--cma-bordeaux);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .attestation-title {
+      color: var(--cma-bordeaux);
+      font-size: 1.15rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .badge-grid {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .badge-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      text-align: center;
+    }
+
+    .badge-icon {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+    }
+
+    .badge-name {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--cma-texte);
+    }
+
+    .badge-status {
+      font-size: 0.75rem;
+      color: #64748B;
+    }
+
+    /* IMPRESSION & PDF */
+    @media print {
+      body {
+        background: #FFFFFF;
+      }
+      #app-container {
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .app-header, .progress-bar-container, .nav-tabs-wrapper, .btn-action, .no-print {
+        display: none !important;
+      }
+      .tab-content {
+        display: none !important;
+      }
+      #tab4 {
+        display: block !important;
+      }
+      .attestation-box {
+        border: 2px solid #000;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="../../assets/aides.css">
+</head>
+<body>
+
+<div id="app-container">
+  <!-- HEADER OFFICIEL CMA -->
+  <header class="app-header">
+    <div class="header-content">
+      <img src="logo.png" alt="Logo CMA Formation" class="app-logo">
+      <div class="header-text">
+        <h1>CMA FORMATION SAINTE-CLOTILDE</h1>
+        <p>CAP Métiers de la Coiffure | Mathématiques — Module Algèbre (S3 M2)</p>
+      </div>
+    </div>
+    <div class="cma-wave-border"></div>
+  </header>
+
+  <!-- BARRE DE PROGRESSION SOCLE CAP (8px) -->
+  <div class="progress-bar-container" title="Progression du Socle CAP">
+    <div class="progress-bar-fill" id="global-progress"></div>
+  </div>
+
+  <!-- NAVIGATION 4 ÉTAPES -->
+  <nav class="nav-tabs-wrapper">
+    <div class="nav-tabs">
+      <button class="nav-btn active" onclick="switchTab(1)" id="btn-tab1">
+        <span>Étape 1</span>
+        <span class="nav-badge">Découverte</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab(2)" id="btn-tab2">
+        <span>Étape 2</span>
+        <span class="nav-badge">Cours & Simulateur</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab(3)" id="btn-tab3">
+        <span>Étape 3</span>
+        <span class="nav-badge" id="badge-ex-count">Entraînement (0/13)</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab(4)" id="btn-tab4">
+        <span>Étape 4</span>
+        <span class="nav-badge">Bilan & Attestation</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= ÉTAPE 1 : DÉCOUVERTE ================= -->
+  <main class="tab-content active" id="tab1">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Situation Professionnelle : Promotion Été Austral à Sainte-Clotilde</h2>
+
+    <div class="context-box">
+      <strong>Mise en situation au salon « L'Atelier Kréol » à Sainte-Clotilde :</strong><br>
+      Durant la période de l'été austral à La Réunion (décembre à février), le rayonnement solaire intense et l'eau de mer agressent la fibre capillaire.<br>
+      Pour inciter sa clientèle à protéger ses cheveux, le salon « L'Atelier Kréol » à Sainte-Clotilde lance une campagne promotionnelle :<br>
+      <em>« Opération Soleil Austral : Remise exceptionnelle de 15 % sur tous les soins profonds et masques hydratants anti-UV ! »</em><br><br>
+      Le protocole complet « Soin Réparateur & Bouclier UV » est habituellement facturé au tarif public de $48{,}00\text{ \euro}\text{ TTC}$.<br>
+      Une cliente se présente au bac pour réaliser ce soin et demande à l'apprentie le montant exact de la remise accordée ainsi que le prix net final à payer en caisse.<br><br>
+      <em>Problématique :</em> Comment calculer le montant de la réduction en euros à partir d'un pourcentage ($15\text{ \%}$) et déterminer le prix net remisé par deux méthodes complémentaires (soustraction directe et coefficient multiplicateur) ?
+    </div>
+
+    <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Tableau Tarifaire de la Prestation</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Prestation</th>
+            <th>Prix initial TTC ($P_i$)</th>
+            <th>Taux de remise ($t$)</th>
+            <th>Prix final TTC ($P_f$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Soin Réparateur & Bouclier UV</strong></td>
+            <td>$48{,}00\text{ \euro}$</td>
+            <td>$15\text{ \%}$</td>
+            <td>
+              <input type="text" inputmode="decimal" id="inv-pf-tab" placeholder="Votre résultat..." style="max-width: 140px;">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Questions d'Investigation</h3>
+
+    <div class="card">
+      <p><strong>1. [C1 - S'informer]</strong> Relever le prix initial de la prestation et le pourcentage de réduction appliqué :</p>
+      <div class="input-group">
+        <label>Prix initial ($P_i$) :</label>
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q1-pi" placeholder="Votre résultat...">
+          <span class="unit-tag">€ TTC</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Taux de remise ($t$) :</label>
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q1-t" placeholder="Votre résultat...">
+          <span class="unit-tag">%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>2. [C2 - Exécuter] Méthode 1 :</strong> Calculer le montant en euros de la réduction $R = 48 \times \frac{15}{100}$ :</p>
+      <div class="input-group">
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q2-r" placeholder="Votre résultat...">
+          <span class="unit-tag">€ de réduction</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>3. [C2 - Exécuter] Méthode 1 (suite) :</strong> En déduire le prix final remisé $P_f = P_i - R$ :</p>
+      <div class="input-group">
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q3-pf" placeholder="Votre résultat...">
+          <span class="unit-tag">€ TTC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>4. [C3 - Appliquer] Méthode 2 :</strong> Calculer le coefficient multiplicateur $C_m = 1 - \frac{15}{100}$ puis calculer directement $P_f = P_i \times C_m$ :</p>
+      <div class="input-group">
+        <label>Coefficient multiplicateur $C_m$ :</label>
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q4-cm" placeholder="Votre résultat...">
+          <span class="unit-tag">(sans unité)</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Prix final direct ($P_f = 48 \times C_m$) :</label>
+        <div class="input-row">
+          <input type="text" inputmode="decimal" id="inv-q4-pfdir" placeholder="Votre résultat...">
+          <span class="unit-tag">€ TTC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>5. [C4 - Communiquer]</strong> Rédiger la réponse claire à apporter à la cliente au moment de l'encaissement :</p>
+      <div class="input-group">
+        <label>Formulation de l'annonce en caisse :</label>
+        <select id="inv-q5-comm">
+          <option value="">Sélectionner votre annonce...</option>
+          <option value="correct">Votre remise est de 7,20 €, le montant net à régler est de 40,80 € TTC.</option>
+          <option value="faux1">Votre remise est de 15,00 €, le montant net est de 33,00 € TTC.</option>
+          <option value="faux2">Votre remise est de 4,80 €, le montant net est de 43,20 € TTC.</option>
+        </select>
+      </div>
+      <button class="btn-action" onclick="verifierEtape1()">Valider les observations de découverte</button>
+      <div class="feedback-box" id="feedback-etape1"></div>
+    </div>
+  </main>
+
+  <!-- ================= ÉTAPE 2 : COURS & SIMULATEUR ================= -->
+  <main class="tab-content" id="tab2">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Synthèse de Cours : Pourcentages & Réductions</h2>
+
+    <button class="accordion-btn" onclick="toggleAccordion('acc1')">
+      <span>1. Définition et calcul d'un pourcentage</span>
+      <span>▼</span>
+    </button>
+    <div class="accordion-content open" id="acc1">
+      <p>Prendre $t\text{ \%}$ d'une grandeur $V_i$, c'est multiplier cette grandeur par la fraction $\frac{t}{100}$ ou par le nombre décimal associé :</p>
+      <p style="text-align: center; margin: 8px 0; font-weight: bold;">$$\text{Montant de la part} = V_i \times \frac{t}{100}$$</p>
+    </div>
+
+    <button class="accordion-btn" onclick="toggleAccordion('acc2')">
+      <span>2. Calcul d'une réduction (diminution de t %)</span>
+      <span>▼</span>
+    </button>
+    <div class="accordion-content" id="acc2">
+      <p><strong>• Méthode en deux étapes (par soustraction) :</strong></p>
+      <ul style="margin-left: 20px; margin-bottom: 8px;">
+        <li>Étape 1 : Calcul du montant de la remise : $\text{Remise} = V_i \times \frac{t}{100}$</li>
+        <li>Étape 2 : Calcul de la valeur finale : $V_f = V_i - \text{Remise}$</li>
+      </ul>
+      <p><strong>• Méthode directe (par coefficient multiplicateur $C_m$) :</strong></p>
+      <p>Une diminution de $t\text{ \%}$ correspond à multiplier directement par :</p>
+      <p style="text-align: center; margin: 6px 0;">$$C_m = 1 - \frac{t}{100} \implies V_f = V_i \times C_m$$</p>
+      <p><em>Exemple :</em> Une remise de $15\text{ \%}$ donne $C_m = 1 - 0{,}15 = 0{,}85$. Alors $V_f = V_i \times 0{,}85$.</p>
+    </div>
+
+    <button class="accordion-btn" onclick="toggleAccordion('acc3')">
+      <span>3. Calcul d'une augmentation (TVA à La Réunion)</span>
+      <span>▼</span>
+    </button>
+    <div class="accordion-content" id="acc3">
+      <p>Pour une hausse de $t\text{ \%}$, le coefficient multiplicateur est :</p>
+      <p style="text-align: center; margin: 6px 0;">$$C_m = 1 + \frac{t}{100} \implies V_f = V_i \times \left(1 + \frac{t}{100}\right)$$</p>
+      <p><strong>Application fiscale locale :</strong> À La Réunion, le taux normal de TVA est de $8{,}5\text{ \%}$ (contre $20\text{ \%}$ dans l'Hexagone) :</p>
+      <p style="text-align: center; margin: 6px 0;">$$\text{Prix TTC} = \text{Prix HT} \times 1{,}085$$</p>
+    </div>
+
+    <!-- SIMULATEUR INTERACTIF DE CAISSE -->
+    <div class="sim-card">
+      <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Simulateur Interactif : Caisse Enregistreuse & Calculateur de Remise</h3>
+      <p style="font-size: 0.85rem; color: #64748B;">Ajustez le prix initial de la prestation et le taux de réduction pour simuler instantanément le ticket de caisse du salon.</p>
+
+      <div class="input-group" style="margin-top: 10px;">
+        <label for="sim-pi">Prix initial de la prestation : <span id="sim-pi-val">48,00</span> € TTC</label>
+        <input type="range" id="sim-pi" min="10" max="150" step="1" value="48" style="width: 100%; min-height: 44px;" oninput="updateSim()">
+      </div>
+
+      <div class="input-group">
+        <label for="sim-taux">Taux de remise promotionnelle : <span id="sim-taux-val">15</span> %</label>
+        <input type="range" id="sim-taux" min="0" max="50" step="5" value="15" style="width: 100%; min-height: 44px;" oninput="updateSim()">
+      </div>
+
+      <div class="ticket-caisse-box">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 8px;">TICKET DE CAISSE — L'ATELIER KRÉOL</div>
+        <div class="ticket-line"><span>Tarif initial TTC :</span><span id="tkt-pi">48,00 €</span></div>
+        <div class="ticket-line"><span>Remise appliquée :</span><span id="tkt-taux">-15 %</span></div>
+        <div class="ticket-line"><span>Montant de la déduction :</span><span id="tkt-remise">-7,20 €</span></div>
+        <div class="ticket-line"><span>Coefficient multiplicateur :</span><span id="tkt-cm">× 0,85</span></div>
+        <div class="ticket-line ticket-total"><span>NET À PAYER :</span><span id="tkt-net">40,80 € TTC</span></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= ÉTAPE 3 : ENTRAÎNEMENT GAMIFIÉ ================= -->
+  <main class="tab-content" id="tab3">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Parcours d'Entraînement Progressif</h2>
+    <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 12px;">
+      La validation de l'intégralité du <strong>Niveau 1</strong> valide à 100 % le socle CAP et débloque votre attestation officielle. Les Niveaux 2 et 3 sont des défis bonus d'excellence.
+    </p>
+
+    <!-- NIVEAU 1 : SOCLE CAP -->
+    <div class="level-container">
+      <div class="level-header lvl-1">
+        <span>🟢 Niveau 1 — Débutant (Socle CAP : Application directe & Guidage)</span>
+        <span id="badge-n1-status">0 / 5 validés</span>
+      </div>
+      <div class="level-body">
+
+        <!-- EXERCICE 1.1 -->
+        <div class="sub-question" id="ex1_1_container">
+          <p><strong>Exercice 1.1 : Calcul mental et direct de montants de remises</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Calculer le montant de la remise dans chaque cas :</p>
+          <div class="input-group">
+            <label>a) $10\text{ \%}$ sur un shampooing traitant à $20{,}00\text{ \euro}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_1_a" placeholder="Votre résultat...">
+              <span class="unit-tag">€</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>b) $20\text{ \%}$ sur un soin après-soleil à $30{,}00\text{ \euro}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_1_b" placeholder="Votre résultat...">
+              <span class="unit-tag">€</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>c) $50\text{ \%}$ sur un flacon de sérum à $24{,}00\text{ \euro}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_1_c" placeholder="Votre résultat...">
+              <span class="unit-tag">€</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>d) $15\text{ \%}$ sur un peigne démêloir à $12{,}00\text{ \euro}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_1_d" placeholder="Votre résultat...">
+              <span class="unit-tag">€</span>
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_1()">Valider l'exercice 1.1</button>
+          <div class="feedback-box" id="fb_ex1_1"></div>
+        </div>
+
+        <!-- EXERCICE 1.2 -->
+        <div class="sub-question" id="ex1_2_container">
+          <p><strong>Exercice 1.2 : Détermination de coefficients multiplicateurs de réduction</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Donner le coefficient multiplicateur $C_m = 1 - \frac{t}{100}$ correspondant à chaque baisse :</p>
+          <div class="input-group">
+            <label>a) Une remise de $10\text{ \%}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_2_a" placeholder="Votre résultat...">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>b) Une remise de $15\text{ \%}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_2_b" placeholder="Votre résultat...">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>c) Une remise de $20\text{ \%}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_2_c" placeholder="Votre résultat...">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>d) Une remise de $30\text{ \%}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_2_d" placeholder="Votre résultat...">
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_2()">Valider l'exercice 1.2</button>
+          <div class="feedback-box" id="fb_ex1_2"></div>
+        </div>
+
+        <!-- EXERCICE 1.3 -->
+        <div class="sub-question" id="ex1_3_container">
+          <p><strong>Exercice 1.3 : Forfait coupe-brushing remisé à Sainte-Clotilde</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Le forfait coûte normalement $40{,}00\text{ \euro}\text{ TTC}$. Remise étudiante de $10\text{ \%}$.</p>
+          <div class="input-group">
+            <label>1. Montant de la remise en euros :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_3_1" placeholder="Votre résultat...">
+              <span class="unit-tag">€</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>2. Prix final payé par l'étudiante :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_3_2" placeholder="Votre résultat...">
+              <span class="unit-tag">€ TTC</span>
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_3()">Valider l'exercice 1.3</button>
+          <div class="feedback-box" id="fb_ex1_3"></div>
+        </div>
+
+        <!-- EXERCICE 1.4 -->
+        <div class="sub-question" id="ex1_4_container">
+          <p><strong>Exercice 1.4 : Vente flash sur une gamme de laques professionnelles</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Laque fixatrice affichée à $18{,}00\text{ \euro}$ bénéficiant d'une promotion de $-25\text{ \%}$.</p>
+          <div class="input-group">
+            <label>1. Coefficient multiplicateur associé à une baisse de $25\text{ \%}$ :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_4_1" placeholder="Votre résultat...">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>2. Prix remisé de la laque :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_4_2" placeholder="Votre résultat...">
+              <span class="unit-tag">€</span>
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_4()">Valider l'exercice 1.4</button>
+          <div class="feedback-box" id="fb_ex1_4"></div>
+        </div>
+
+        <!-- EXERCICE 1.5 -->
+        <div class="sub-question" id="ex1_5_container">
+          <p><strong>Exercice 1.5 : Compléter le ticket de caisse d'un salon dionysien</strong></p>
+          <p style="font-size: 0.85rem; margin: 4px 0;">Prestation : Balayage lumière affiché à $80{,}00\text{ \euro}\text{ TTC}$. Remise fidélité : $15\text{ \%}$.</p>
+          <div class="input-group">
+            <label>1. Montant de la remise ($80 \times 0{,}15$) :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_5_1" placeholder="Votre résultat...">
+              <span class="unit-tag">€</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>2. Net à payer ($80 - \text{Remise}$) :</label>
+            <div class="input-row">
+              <input type="text" inputmode="decimal" id="q1_5_2" placeholder="Votre résultat...">
+              <span class="unit-tag">€ TTC</span>
+            </div>
+          </div>
+          <button class="btn-action" onclick="checkEx1_5()">Valider l'exercice 1.5</button>
+          <div class="feedback-box" id="fb_ex1_5"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NIVEAU 2 : AVANCÉ -->
+    <div class="level-container">
+      <div class="level-header lvl-2">
+        <span>🟡 Niveau 2 — Avancé (Autonomie & Résolution de problème standard)</span>
+        <span id="badge-n2-status">Verrouillé 🔒</span>
+      </div>
+      <div class="level-body" id="body-lvl2">
+        <div class="locked-overlay" id="overlay-lvl2">
+          Complétez et validez l'ensemble des 5 exercices du Niveau 1 pour déverrouiller le Niveau 2.
+        </div>
+
+        <div id="content-lvl2" style="display: none;">
+          <!-- EXERCICE 2.1 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.1 : Campagne anti-UV sur 3 soins solaires à Saint-Gilles</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Remise de $15\text{ \%}$ ($C_m = 0{,}85$) sur : Huile ($24{,}00\text{ \euro}$), Masque ($36{,}00\text{ \euro}$), Spray ($18{,}00\text{ \euro}$).</p>
+            <div class="input-group">
+              <label>1a. Prix remisé de l'Huile protectrice :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_1a" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>1b. Prix remisé du Masque nutritif :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_1b" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>1c. Prix remisé du Spray anti-dessèchement :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_1c" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2a. Total du panier avant remise (3 articles) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_2a" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2b. Total du panier après remise :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_1_2b" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx2_1()">Valider l'exercice 2.1</button>
+            <div class="feedback-box" id="fb_ex2_1"></div>
+          </div>
+
+          <!-- EXERCICE 2.2 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.2 : Calcul du taux de remise accordé à une cliente fidèle</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Lissage brésilien facturé habituellement $150{,}00\text{ \euro}$. La cliente ne paie que $120{,}00\text{ \euro}$.</p>
+            <div class="input-group">
+              <label>1. Montant en euros de la réduction accordée :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_2_1" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Pourcentage de réduction appliqué $t = \frac{\text{Remise}}{\text{Prix initial}} \times 100$ :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_2_2" placeholder="Votre résultat...">
+                <span class="unit-tag">%</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx2_2()">Valider l'exercice 2.2</button>
+            <div class="feedback-box" id="fb_ex2_2"></div>
+          </div>
+
+          <!-- EXERCICE 2.3 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.3 : Passage du prix HT au prix TTC à La Réunion</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">TVA locale normale à La Réunion : $8{,}5\text{ \%}$. Séchoir professionnel affiché à $120{,}00\text{ \euro}\text{ HT}$.</p>
+            <div class="input-group">
+              <label>1. Montant de la TVA ($8{,}5\text{ \%}$ de $120{,}00\text{ \euro}$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_3_1" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Prix d'achat TTC de l'appareil ($120 + \text{TVA}$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_3_2" placeholder="Votre résultat...">
+                <span class="unit-tag">€ TTC</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3. Coefficient multiplicateur $C_m$ pour retrouver directement ce prix TTC :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_3_3" placeholder="Votre résultat...">
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx2_3()">Valider l'exercice 2.3</button>
+            <div class="feedback-box" id="fb_ex2_3"></div>
+          </div>
+
+          <!-- EXERCICE 2.4 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.4 : Remise commerciale grossiste et TVA locale</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Commande de bacs de shampooing pour $400{,}00\text{ \euro}\text{ HT}$. Remise commerciale de $5\text{ \%}$, puis TVA réunionnaise à $8{,}5\text{ \%}$.</p>
+            <div class="input-group">
+              <label>1. Montant net commercial HT après la remise de $5\text{ \%}$ :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_4_1" placeholder="Votre résultat...">
+                <span class="unit-tag">€ HT</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Montant final TTC de la facture (TVA $8{,}5\text{ \%}$ appliquée sur le net HT) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_4_2" placeholder="Votre résultat...">
+                <span class="unit-tag">€ TTC</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx2_4()">Valider l'exercice 2.4</button>
+            <div class="feedback-box" id="fb_ex2_4"></div>
+          </div>
+
+          <!-- EXERCICE 2.5 -->
+          <div class="sub-question">
+            <p><strong>Exercice 2.5 : Comparaison de deux offres promotionnelles concurrentes</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Forfait couleur à $70{,}00\text{ \euro}$ : Salon A propose $-12{,}00\text{ \euro}$ immédiats. Salon B propose $-18\text{ \%}$.</p>
+            <div class="input-group">
+              <label>1. Prix final au Salon A :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_5_pa" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Montant de la remise en euros au Salon B ($70 \times 0{,}18$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_5_rb" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3. Prix final au Salon B :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q2_5_pb" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>4. Quel salon propose le tarif le plus avantageux pour la cliente ?</label>
+              <select id="q2_5_choix">
+                <option value="">Sélectionner...</option>
+                <option value="B">Salon B (57,40 € &lt; 58,00 €)</option>
+                <option value="A">Salon A (58,00 €)</option>
+              </select>
+            </div>
+            <button class="btn-action" onclick="checkEx2_5()">Valider l'exercice 2.5</button>
+            <div class="feedback-box" id="fb_ex2_5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NIVEAU 3 : EXPERT -->
+    <div class="level-container">
+      <div class="level-header lvl-3">
+        <span>🔴 Niveau 3 — Expert (Situation complexe & Analyse critique)</span>
+        <span id="badge-n3-status">Verrouillé 🔒</span>
+      </div>
+      <div class="level-body" id="body-lvl3">
+        <div class="locked-overlay" id="overlay-lvl3">
+          Complétez et validez l'ensemble des exercices du Niveau 2 pour déverrouiller le Niveau Expert.
+        </div>
+
+        <div id="content-lvl3" style="display: none;">
+          <!-- EXERCICE 3.1 -->
+          <div class="sub-question">
+            <p><strong>Exercice 3.1 : Retrouver le prix initial avant solde (Calcul inverse)</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Fer à boucler vendu à $102{,}00\text{ \euro}\text{ TTC}$ après une démarque de $-15\text{ \%}$.</p>
+            <div class="input-group">
+              <label>1. Coefficient multiplicateur $C_m$ associé à $-15\text{ \%}$ :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_1_1" placeholder="Votre résultat...">
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Prix initial avant la démarque ($P_i = \frac{P_f}{C_m} = \frac{102}{0{,}85}$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_1_3" placeholder="Votre résultat...">
+                <span class="unit-tag">€ TTC</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3. Pourquoi le calcul de l'apprenti ($102 + 102 \times 0{,}15 = 117{,}30\text{ \euro}$) est-il faux ?</label>
+              <select id="q3_1_4">
+                <option value="">Sélectionner l'explication mathématique...</option>
+                <option value="correct">Car la réduction de 15% s'appliquait sur le prix initial plus élevé, et non sur le prix soldé.</option>
+                <option value="faux1">Car le taux de TVA n'a pas été ajouté.</option>
+                <option value="faux2">Car 15% de 102 vaut 15,30 €.</option>
+              </select>
+            </div>
+            <button class="btn-action" onclick="checkEx3_1()">Valider l'exercice 3.1</button>
+            <div class="feedback-box" id="fb_ex3_1"></div>
+          </div>
+
+          <!-- EXERCICE 3.2 -->
+          <div class="sub-question">
+            <p><strong>Exercice 3.2 : Remises successives (Attention aux pièges commerciaux !)</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Forfait à $90{,}00\text{ \euro}$ : première remise de $-10\text{ \%}$, puis remise fidélité supplémentaire de $-10\text{ \%}$ sur le prix réduit.</p>
+            <div class="input-group">
+              <label>1. Prix après la première réduction de $10\text{ \%}$ ($90 \times 0{,}90$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_2_1" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Prix final après la seconde réduction de $10\text{ \%}$ ($81 \times 0{,}90$) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_2_2" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3. Pourcentage global de réduction obtenu par rapport aux $90{,}00\text{ \euro}$ de départ :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_2_3" placeholder="Votre résultat...">
+                <span class="unit-tag">%</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>4. Deux réductions successives de $10\text{ \%}$ équivalent-elles à une seule réduction de $20\text{ \%}$ ?</label>
+              <select id="q3_2_4">
+                <option value="">Sélectionner...</option>
+                <option value="non">Non, car la 2e remise s'applique sur un montant déjà diminué : réduction globale de 19% et non 20%.</option>
+                <option value="oui">Oui, car 10% + 10% font 20%.</option>
+              </select>
+            </div>
+            <button class="btn-action" onclick="checkEx3_2()">Valider l'exercice 3.2</button>
+            <div class="feedback-box" id="fb_ex3_2"></div>
+          </div>
+
+          <!-- EXERCICE 3.3 -->
+          <div class="sub-question">
+            <p><strong>Exercice 3.3 : Bilan financier d'une journée promotionnelle en salon réunionnais</strong></p>
+            <p style="font-size: 0.85rem; margin: 4px 0;">Journée « Opération Soleil Austral » : 15 soins UV ($48\text{ \euro}$, remise $15\text{ \%}$), 8 couleurs ($65\text{ \euro}$, remise $10\text{ \%}$), 10 sérums ($22\text{ \euro}$ sans remise).</p>
+            <div class="input-group">
+              <label>1. Chiffre d'affaires théorique de la journée sans aucune promotion :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_3_1" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>2. Chiffre d'affaires réel effectivement encaissé :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_3_2" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3a. Montant total des remises offertes :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_3_3a" placeholder="Votre résultat...">
+                <span class="unit-tag">€</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>3b. Ce montant en pourcentage du chiffre d'affaires théorique (au dixième près) :</label>
+              <div class="input-row">
+                <input type="text" inputmode="decimal" id="q3_3_3b" placeholder="Votre résultat...">
+                <span class="unit-tag">%</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="checkEx3_3()">Valider l'exercice 3.3</button>
+            <div class="feedback-box" id="fb_ex3_3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= ÉTAPE 4 : BILAN & ATTESTATION ================= -->
+  <main class="tab-content" id="tab4">
+    <h2><img src="fleche_rouge.png" alt="" class="icon-bullet">Bilan & Validation des Compétences</h2>
+
+    <!-- BLOC D'IDENTITÉ APPRENANT -->
+    <div class="card no-print">
+      <h3><img src="fleche_rouge.png" alt="" class="icon-bullet">Identification de l'Apprenant</h3>
+      <div class="input-group">
+        <label for="learner-name">Nom et Prénom de l'apprenant :</label>
+        <input type="text" id="learner-name" placeholder="Votre nom complet..." oninput="updateLearnerName(this.value)">
+      </div>
+    </div>
+
+    <!-- ATTESTATION NUMÉRIQUE PÉDAGOGIQUE -->
+    <div id="attestation-lock-msg" class="context-box">
+      ⚠️ <strong>Attestation verrouillée :</strong> Complétez et validez les 5 exercices du <strong>Niveau 1</strong> pour débloquer votre attestation pédagogique de réussite.
+    </div>
+
+    <div class="attestation-box" id="attestation-card" style="display: none;">
+      <div class="attestation-header">
+        <div>
+          <div class="attestation-title">Attestation Pédagogique de Réussite</div>
+          <p style="font-size: 0.85rem; color: #64748B;">CMA Formation Sainte-Clotilde • Île de La Réunion</p>
+        </div>
+        <img src="logo.png" alt="CMA Formation Logo" class="app-logo">
+      </div>
+
+      <p style="margin: 10px 0;">Il est attesté que l'apprenant(e) :</p>
+      <h3 style="color: var(--cma-bordeaux); font-size: 1.3rem; margin: 4px 0;" id="attest-name">Apprenant Non Renseigné</h3>
+
+      <p style="font-size: 0.9rem; margin-top: 10px;">
+        a validé avec succès les compétences du module de Mathématiques appliquées :<br>
+        <strong>« Proportionnalité : Calculs de pourcentages et réductions »</strong><br>
+        <span style="font-size: 0.82rem; color: #64748B;">Discipline : Mathématiques | CAP Métiers de la Coiffure (Groupement 1) | Session S3 M2</span>
+      </p>
+
+      <div class="badge-grid">
+        <div class="badge-item">
+          <div class="badge-icon">🏷️</div>
+          <div class="badge-name">Socle CAP Remises</div>
+          <div class="badge-status" id="badge-socle-status">100% Acquis</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-icon">💶</div>
+          <div class="badge-name">Gestion Caisse</div>
+          <div class="badge-status" id="badge-caisse-status">Validé</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-icon">⭐</div>
+          <div class="badge-name">Bonus Élite / Bac Pro</div>
+          <div class="badge-status" id="badge-bonus-status">En cours (0 / 8)</div>
+        </div>
+      </div>
+
+      <div style="font-size: 0.82rem; border-top: 1px solid var(--cma-border); padding-top: 10px; margin-top: 10px;">
+        <p><strong>Compétences évaluées (Norme Qualiopi) :</strong></p>
+        <p>• C1 (S'informer) : Extraire les prix publics initiaux et identifier les taux de remise ou de TVA locale.</p>
+        <p>• C2 (Exécuter) : Calculer les montants de déduction en euros et appliquer les coefficients multiplicateurs.</p>
+        <p>• C3 (Appliquer) : Réaliser des calculs inverses (prix avant solde), évaluer des remises successives et appliquer la TVA réunionnaise à $8{,}5\text{ \%}$.</p>
+        <p>• C4 (Communiquer) : Rédiger et argumenter l'annonce du montant net à payer en caisse auprès de la clientèle.</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 16px; font-size: 0.85rem;">
+        <div>
+          <span>Date : </span><strong id="attest-date">--/--/----</strong><br>
+          <span>Formateur : </span><strong>Rachel Lamberet-Lezais</strong>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 0.75rem; color: #64748B;">Signature Pédagogique</div>
+          <div style="font-family: cursive; font-size: 1.1rem; color: var(--cma-bordeaux);">R. Lamberet-Lezais</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center;" class="no-print">
+        <button class="btn-action" onclick="window.print()">
+          🖨️ Imprimer l'Attestation / Exporter en PDF
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  /* ÉTAT GLOBAL DE L'APPLICATION */
+  const state = {
+    currentTab: 1,
+    learnerName: "",
+    etape1Done: false,
+    scoreN1: 0,
+    scoreBonus: 0,
+    n1Validated: { ex1: false, ex2: false, ex3: false, ex4: false, ex5: false },
+    n2Validated: { ex1: false, ex2: false, ex3: false, ex4: false, ex5: false },
+    n3Validated: { ex1: false, ex2: false, ex3: false }
+  };
+
+  /* NAVIGATION ENTRE ÉTAPES */
+  function switchTab(tabIndex) {
+    for (let i = 1; i <= 4; i++) {
+      const content = document.getElementById('tab' + i);
+      const btn = document.getElementById('btn-tab' + i);
+      if (content) content.classList.remove('active');
+      if (btn) btn.classList.remove('active');
+    }
+    const targetContent = document.getElementById('tab' + tabIndex);
+    const targetBtn = document.getElementById('btn-tab' + tabIndex);
+    if (targetContent) targetContent.classList.add('active');
+    if (targetBtn) targetBtn.classList.add('active');
+    state.currentTab = tabIndex;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      MathJax.typesetPromise().catch(function(){});
+    }
+  }
+
+  function toggleAccordion(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('open');
+    }
+  }
+
+  /* CONVERSION ET VALIDATION NUMÉRIQUE ROBUSTE */
+  function parseFrenchNumber(str) {
+    if (!str) return null;
+    const clean = str.trim().replace(/\s+/g, '').replace(',', '.');
+    if (clean === "") return null;
+    const val = Number(clean);
+    return isFinite(val) ? val : null;
+  }
+
+  /* IDENTITÉ & DATE */
+  function updateLearnerName(val) {
+    state.learnerName = val.trim();
+    const target = document.getElementById('attest-name');
+    if (target) {
+      target.textContent = state.learnerName ? state.learnerName : "Apprenant Non Renseigné";
+    }
+  }
+
+  function initDate() {
+    const d = new Date();
+    const dateStr = String(d.getDate()).padStart(2, '0') + '/' +
+                    String(d.getMonth() + 1).padStart(2, '0') + '/' +
+                    d.getFullYear();
+    const el = document.getElementById('attest-date');
+    if (el) el.textContent = dateStr;
+  }
+
+  /* SIMULATEUR INTERACTIF (ÉTAPE 2) */
+  function updateSim() {
+    const pi = parseFloat(document.getElementById('sim-pi').value);
+    const taux = parseFloat(document.getElementById('sim-taux').value);
+    const remise = pi * (taux / 100);
+    const cm = 1 - (taux / 100);
+    const net = pi * cm;
+
+    document.getElementById('sim-pi-val').textContent = pi.toFixed(2).replace('.', ',');
+    document.getElementById('sim-taux-val').textContent = taux;
+
+    document.getElementById('tkt-pi').textContent = pi.toFixed(2).replace('.', ',') + " €";
+    document.getElementById('tkt-taux').textContent = "-" + taux + " %";
+    document.getElementById('tkt-remise').textContent = "-" + remise.toFixed(2).replace('.', ',') + " €";
+    document.getElementById('tkt-cm').textContent = "× " + cm.toFixed(2).replace('.', ',');
+    document.getElementById('tkt-net').textContent = net.toFixed(2).replace('.', ',') + " € TTC";
+  }
+
+  /* ÉTAPE 1 : INVESTIGATION */
+  function verifierEtape1() {
+    const pfTab = parseFrenchNumber(document.getElementById('inv-pf-tab').value);
+    const q1Pi = parseFrenchNumber(document.getElementById('inv-q1-pi').value);
+    const q1T = parseFrenchNumber(document.getElementById('inv-q1-t').value);
+    const q2R = parseFrenchNumber(document.getElementById('inv-q2-r').value);
+    const q3Pf = parseFrenchNumber(document.getElementById('inv-q3-pf').value);
+    const q4Cm = parseFrenchNumber(document.getElementById('inv-q4-cm').value);
+    const q4PfDir = parseFrenchNumber(document.getElementById('inv-q4-pfdir').value);
+    const q5Comm = document.getElementById('inv-q5-comm').value;
+    const fb = document.getElementById('feedback-etape1');
+
+    if (pfTab === null || q1Pi === null || q1T === null || q2R === null || q3Pf === null || q4Cm === null || q4PfDir === null || !q5Comm) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Veuillez renseigner toutes les valeurs du tableau et répondre à l'ensemble des 5 questions d'investigation.";
+      return;
+    }
+
+    const cTab = Math.abs(pfTab - 40.8) < 0.1;
+    const cQ1 = Math.abs(q1Pi - 48) < 0.1 && Math.abs(q1T - 15) < 0.1;
+    const cQ2 = Math.abs(q2R - 7.2) < 0.1;
+    const cQ3 = Math.abs(q3Pf - 40.8) < 0.1;
+    const cQ4 = Math.abs(q4Cm - 0.85) < 0.05 && Math.abs(q4PfDir - 40.8) < 0.1;
+    const cQ5 = (q5Comm === "correct");
+
+    if (cTab && cQ1 && cQ2 && cQ3 && cQ4 && cQ5) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Parfait !</strong> Vos calculs sont validés : réduction de 7,20 €, Cm = 0,85 et prix net remisé de 40,80 € TTC retrouvé par les deux méthodes.";
+      state.etape1Done = true;
+      updateGlobalProgress();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Certaines valeurs sont inexactes. Rappel : R = 48 × 0,15 = 7,20 € ; Pf = 48 − 7,20 = 40,80 € TTC.";
+    }
+  }
+
+  /* NIVEAU 1 */
+  function checkEx1_1() {
+    const a = parseFrenchNumber(document.getElementById('q1_1_a').value);
+    const b = parseFrenchNumber(document.getElementById('q1_1_b').value);
+    const c = parseFrenchNumber(document.getElementById('q1_1_c').value);
+    const d = parseFrenchNumber(document.getElementById('q1_1_d').value);
+    const fb = document.getElementById('fb_ex1_1');
+
+    if (a === null || b === null || c === null || d === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez les quatre montants demandés.";
+      return;
+    }
+
+    if (Math.abs(a - 2) < 0.1 && Math.abs(b - 6) < 0.1 && Math.abs(c - 12) < 0.1 && Math.abs(d - 1.8) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Exact !</strong> a) 2,00 € ; b) 6,00 € ; c) 12,00 € ; d) 1,80 €.";
+      state.n1Validated.ex1 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Vérifiez : 10% de 20 = 2 € ; 20% de 30 = 6 € ; 50% de 24 = 12 € ; 15% de 12 = 1,80 €.";
+    }
+  }
+
+  function checkEx1_2() {
+    const a = parseFrenchNumber(document.getElementById('q1_2_a').value);
+    const b = parseFrenchNumber(document.getElementById('q1_2_b').value);
+    const c = parseFrenchNumber(document.getElementById('q1_2_c').value);
+    const d = parseFrenchNumber(document.getElementById('q1_2_d').value);
+    const fb = document.getElementById('fb_ex1_2');
+
+    if (a === null || b === null || c === null || d === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Renseignez les quatre coefficients demandés.";
+      return;
+    }
+
+    if (Math.abs(a - 0.9) < 0.05 && Math.abs(b - 0.85) < 0.05 && Math.abs(c - 0.8) < 0.05 && Math.abs(d - 0.7) < 0.05) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Parfait !</strong> a) Cm = 0,90 ; b) Cm = 0,85 ; c) Cm = 0,80 ; d) Cm = 0,70.";
+      state.n1Validated.ex2 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Rappel : Cm = 1 − (t / 100). Par exemple, 1 − 0,10 = 0,90.";
+    }
+  }
+
+  function checkEx1_3() {
+    const v1 = parseFrenchNumber(document.getElementById('q1_3_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q1_3_2').value);
+    const fb = document.getElementById('fb_ex1_3');
+
+    if (v1 === null || v2 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez les deux réponses de l'exercice 1.3.";
+      return;
+    }
+
+    if (Math.abs(v1 - 4) < 0.1 && Math.abs(v2 - 36) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Exact !</strong> 1. Remise : 40 × 0,10 = 4,00 € ; 2. Prix payé : 40 − 4 = 36,00 € TTC.";
+      state.n1Validated.ex3 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Calculez 10% de 40 € puis soustrayez cette remise du prix initial.";
+    }
+  }
+
+  function checkEx1_4() {
+    const v1 = parseFrenchNumber(document.getElementById('q1_4_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q1_4_2').value);
+    const fb = document.getElementById('fb_ex1_4');
+
+    if (v1 === null || v2 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Remplissez les deux questions de l'exercice 1.4.";
+      return;
+    }
+
+    if (Math.abs(v1 - 0.75) < 0.05 && Math.abs(v2 - 13.5) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Correct !</strong> 1. Cm = 1 − 0,25 = 0,75 ; 2. Prix remisé : 18 × 0,75 = 13,50 €.";
+      state.n1Validated.ex4 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Pour une baisse de 25%, Cm = 1 − 0,25 = 0,75. Multipliez ensuite 18 par 0,75.";
+    }
+  }
+
+  function checkEx1_5() {
+    const v1 = parseFrenchNumber(document.getElementById('q1_5_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q1_5_2').value);
+    const fb = document.getElementById('fb_ex1_5');
+
+    if (v1 === null || v2 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez le ticket de caisse.";
+      return;
+    }
+
+    if (Math.abs(v1 - 12) < 0.1 && Math.abs(v2 - 68) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Félicitations !</strong> Remise = 12,00 € et net à payer = 80 − 12 = 68,00 € TTC.";
+      state.n1Validated.ex5 = true;
+      calcNiveau1();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Vérifiez : 80 × 0,15 = 12 € ; 80 − 12 = 68 € TTC.";
+    }
+  }
+
+  function calcNiveau1() {
+    let count = 0;
+    if (state.n1Validated.ex1) count++;
+    if (state.n1Validated.ex2) count++;
+    if (state.n1Validated.ex3) count++;
+    if (state.n1Validated.ex4) count++;
+    if (state.n1Validated.ex5) count++;
+    state.scoreN1 = count;
+
+    document.getElementById('badge-n1-status').textContent = count + " / 5 validés";
+    updateGlobalProgress();
+
+    if (count === 5) {
+      const overlay2 = document.getElementById('overlay-lvl2');
+      const content2 = document.getElementById('content-lvl2');
+      const badge2Status = document.getElementById('badge-n2-status');
+      if (overlay2) overlay2.style.display = 'none';
+      if (content2) content2.style.display = 'block';
+      if (badge2Status) badge2Status.textContent = "0 / 5 validés";
+
+      const lockMsg = document.getElementById('attestation-lock-msg');
+      const card = document.getElementById('attestation-card');
+      if (lockMsg) lockMsg.style.display = 'none';
+      if (card) card.style.display = 'block';
+    }
+  }
+
+  /* NIVEAU 2 */
+  function checkEx2_1() {
+    const p1 = parseFrenchNumber(document.getElementById('q2_1_1a').value);
+    const p2 = parseFrenchNumber(document.getElementById('q2_1_1b').value);
+    const p3 = parseFrenchNumber(document.getElementById('q2_1_1c').value);
+    const totAv = parseFrenchNumber(document.getElementById('q2_1_2a').value);
+    const totAp = parseFrenchNumber(document.getElementById('q2_1_2b').value);
+    const fb = document.getElementById('fb_ex2_1');
+
+    if (p1 === null || p2 === null || p3 === null || totAv === null || totAp === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Remplissez toutes les valeurs de l'exercice 2.1.";
+      return;
+    }
+
+    const cP1 = Math.abs(p1 - 20.4) < 0.1;
+    const cP2 = Math.abs(p2 - 30.6) < 0.1;
+    const cP3 = Math.abs(p3 - 15.3) < 0.1;
+    const cTotAv = Math.abs(totAv - 78) < 0.1;
+    const cTotAp = Math.abs(totAp - 66.3) < 0.1;
+
+    if (cP1 && cP2 && cP3 && cTotAv && cTotAp) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> Huile : 20,40 € ; Masque : 30,60 € ; Spray : 15,30 € ; Panier avant : 78,00 € ; Panier après : 66,30 €.";
+      state.n2Validated.ex1 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Vérifiez : 24 × 0,85 = 20,40 € ; 36 × 0,85 = 30,60 € ; 18 × 0,85 = 15,30 € ; total avant = 78 € ; total après = 66,30 €.";
+    }
+  }
+
+  function checkEx2_2() {
+    const v1 = parseFrenchNumber(document.getElementById('q2_2_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q2_2_2').value);
+    const fb = document.getElementById('fb_ex2_2');
+
+    if (v1 === null || v2 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez les deux questions de l'exercice 2.2.";
+      return;
+    }
+
+    if (Math.abs(v1 - 30) < 0.1 && Math.abs(v2 - 20) < 0.1) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> Réduction accordée : 150 − 120 = 30,00 € ; Taux appliqué : (30 / 150) × 100 = 20 %.";
+      state.n2Validated.ex2 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Calculez la différence 150 − 120, puis divisez par 150 et multipliez par 100.";
+    }
+  }
+
+  function checkEx2_3() {
+    const v1 = parseFrenchNumber(document.getElementById('q2_3_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q2_3_2').value);
+    const v3 = parseFrenchNumber(document.getElementById('q2_3_3').value);
+    const fb = document.getElementById('fb_ex2_3');
+
+    if (v1 === null || v2 === null || v3 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Remplissez les trois champs de l'exercice 2.3.";
+      return;
+    }
+
+    if (Math.abs(v1 - 10.2) < 0.1 && Math.abs(v2 - 130.2) < 0.1 && Math.abs(v3 - 1.085) < 0.01) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> TVA = 120 × 0,085 = 10,20 € ; Prix TTC = 130,20 € ; Cm = 1,085.";
+      state.n2Validated.ex3 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "TVA locale à 8,5% : 120 × 0,085 = 10,20 € ; TTC = 120 + 10,20 = 130,20 € ; Cm = 1 + 0,085 = 1,085.";
+    }
+  }
+
+  function checkEx2_4() {
+    const v1 = parseFrenchNumber(document.getElementById('q2_4_1').value);
+    const v2 = parseFrenchNumber(document.getElementById('q2_4_2').value);
+    const fb = document.getElementById('fb_ex2_4');
+
+    if (v1 === null || v2 === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez les deux étapes de la facture grossiste.";
+      return;
+    }
+
+    if (Math.abs(v1 - 380) < 0.1 && Math.abs(v2 - 412.3) < 0.2) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> Net commercial HT : 400 × 0,95 = 380,00 € ; Montant TTC : 380 × 1,085 = 412,30 € TTC.";
+      state.n2Validated.ex4 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Calculez d'abord 400 × 0,95 = 380 €, puis appliquez la TVA locale : 380 × 1,085 = 412,30 €.";
+    }
+  }
+
+  function checkEx2_5() {
+    const pa = parseFrenchNumber(document.getElementById('q2_5_pa').value);
+    const rb = parseFrenchNumber(document.getElementById('q2_5_rb').value);
+    const pb = parseFrenchNumber(document.getElementById('q2_5_pb').value);
+    const choix = document.getElementById('q2_5_choix').value;
+    const fb = document.getElementById('fb_ex2_5');
+
+    if (pa === null || rb === null || pb === null || !choix) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez l'ensemble des questions du comparatif.";
+      return;
+    }
+
+    if (Math.abs(pa - 58) < 0.1 && Math.abs(rb - 12.6) < 0.1 && Math.abs(pb - 57.4) < 0.1 && choix === 'B') {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Validé !</strong> Salon A = 58,00 € ; Salon B = 57,40 € (remise de 12,60 €). Le Salon B est le plus avantageux.";
+      state.n2Validated.ex5 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Salon A : 70 − 12 = 58 €. Salon B : 70 × 0,18 = 12,60 € de remise, soit un prix de 57,40 €.";
+    }
+  }
+
+  /* NIVEAU 3 */
+  function checkEx3_1() {
+    const cm = parseFrenchNumber(document.getElementById('q3_1_1').value);
+    const pi = parseFrenchNumber(document.getElementById('q3_1_3').value);
+    const expl = document.getElementById('q3_1_4').value;
+    const fb = document.getElementById('fb_ex3_1');
+
+    if (cm === null || pi === null || !expl) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez toutes les questions de l'exercice 3.1.";
+      return;
+    }
+
+    if (Math.abs(cm - 0.85) < 0.05 && Math.abs(pi - 120) < 0.5 && expl === 'correct') {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Remarquable !</strong> Cm = 0,85 ; Prix initial Pi = 102 / 0,85 = 120,00 € TTC. Les 15% s'appliquaient bien sur 120 € (soit 18 € de démarque).";
+      state.n3Validated.ex1 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Cm = 1 − 0,15 = 0,85. Pour retrouver le prix initial, divisez le prix final par le coefficient : 102 / 0,85.";
+    }
+  }
+
+  function checkEx3_2() {
+    const p1 = parseFrenchNumber(document.getElementById('q3_2_1').value);
+    const p2 = parseFrenchNumber(document.getElementById('q3_2_2').value);
+    const pct = parseFrenchNumber(document.getElementById('q3_2_3').value);
+    const avis = document.getElementById('q3_2_4').value;
+    const fb = document.getElementById('fb_ex3_2');
+
+    if (p1 === null || p2 === null || pct === null || !avis) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez l'ensemble de l'exercice sur les remises successives.";
+      return;
+    }
+
+    if (Math.abs(p1 - 81) < 0.1 && Math.abs(p2 - 72.9) < 0.1 && Math.abs(pct - 19) < 0.2 && avis === 'non') {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Félicitations !</strong> Après 1re remise : 81,00 € ; Après 2e remise : 72,90 € ; Réduction globale : ((90 − 72,90) / 90) × 100 = 19 % (et non 20 %).";
+      state.n3Validated.ex2 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "1re remise : 90 × 0,9 = 81 €. 2e remise : 81 × 0,9 = 72,90 €. Réduction totale : 90 − 72,90 = 17,10 €, soit 17,10 / 90 = 19%.";
+    }
+  }
+
+  function checkEx3_3() {
+    const cat = parseFrenchNumber(document.getElementById('q3_3_1').value);
+    const car = parseFrenchNumber(document.getElementById('q3_3_2').value);
+    const rem = parseFrenchNumber(document.getElementById('q3_3_3a').value);
+    const pct = parseFrenchNumber(document.getElementById('q3_3_3b').value);
+    const fb = document.getElementById('fb_ex3_3');
+
+    if (cat === null || car === null || rem === null || pct === null) {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Complétez toutes les questions du bilan financier.";
+      return;
+    }
+
+    const c1 = Math.abs(cat - 1460) < 1;
+    const c2 = Math.abs(car - 1300) < 1;
+    const c3 = Math.abs(rem - 160) < 1;
+    const c4 = Math.abs(pct - 11) < 0.3;
+
+    if (c1 && c2 && c3 && c4) {
+      fb.className = "feedback-box correct show";
+      fb.innerHTML = "<strong>Audit parfait !</strong> CA théorique = 1 460,00 € ; CA réel = 1 300,00 € ; Remises offertes = 160,00 € soit 11,0 % du CA théorique.";
+      state.n3Validated.ex3 = true;
+      calcBonus();
+    } else {
+      fb.className = "feedback-box incorrect show";
+      fb.innerHTML = "Vérifiez : Théorique = (15×48)+(8×65)+(10×22) = 720+520+220 = 1 460 €. Réel = (15×40,80)+(8×58,50)+220 = 612+468+220 = 1 300 €. Remises = 160 €, soit (160/1 460)×100 ≈ 11,0%.";
+    }
+  }
+
+  /* CALCUL DES BONUS ET DÉBLOCAGE */
+  function calcBonus() {
+    let countN2 = 0;
+    if (state.n2Validated.ex1) countN2++;
+    if (state.n2Validated.ex2) countN2++;
+    if (state.n2Validated.ex3) countN2++;
+    if (state.n2Validated.ex4) countN2++;
+    if (state.n2Validated.ex5) countN2++;
+
+    document.getElementById('badge-n2-status').textContent = countN2 + " / 5 validés";
+
+    if (countN2 === 5) {
+      const overlay3 = document.getElementById('overlay-lvl3');
+      const content3 = document.getElementById('content-lvl3');
+      const badge3Status = document.getElementById('badge-n3-status');
+      if (overlay3) overlay3.style.display = 'none';
+      if (content3) content3.style.display = 'block';
+      if (badge3Status && badge3Status.textContent.includes("Verrouillé")) {
+        badge3Status.textContent = "0 / 3 validés";
+      }
+    }
+
+    let countN3 = 0;
+    if (state.n3Validated.ex1) countN3++;
+    if (state.n3Validated.ex2) countN3++;
+    if (state.n3Validated.ex3) countN3++;
+
+    const badge3El = document.getElementById('badge-n3-status');
+    if (badge3El && !badge3El.textContent.includes("Verrouillé")) {
+      badge3El.textContent = countN3 + " / 3 validés";
+    }
+
+    state.scoreBonus = countN2 + countN3;
+    const bStatus = document.getElementById('badge-bonus-status');
+    if (bStatus) {
+      bStatus.textContent = state.scoreBonus === 8 ? "Excellence 100% (8 / 8)" : state.scoreBonus + " / 8 validés";
+    }
+
+    updateGlobalProgress();
+  }
+
+  /* BARRE DE PROGRESSION DU SOCLE */
+  function updateGlobalProgress() {
+    const percent = Math.min(100, Math.round((state.scoreN1 / 5) * 100));
+    const bar = document.getElementById('global-progress');
+    if (bar) bar.style.width = percent + "%";
+
+    const totalValid = state.scoreN1 + state.scoreBonus;
+    const badgeExCount = document.getElementById('badge-ex-count');
+    if (badgeExCount) {
+      badgeExCount.textContent = "Entraînement (" + totalValid + "/13)";
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initDate();
+    updateSim();
+  });
+</script>
+
+<script src="../../assets/aides.js"></script>
+</body>
+</html>

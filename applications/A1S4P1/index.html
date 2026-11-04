@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S4 P1 - Caractérisation des solutions aqueuses & mesure du pH | CMA Formation</title>
+
+  <!-- MathJax v3 pour formules mathématiques et chimiques -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --cma-bordeaux: #A50F23;
+      --cma-corail: #EE3C3D;
+      --bg-main: #F8FAFC;
+      --text-main: #1E293B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --success-green: #10B981;
+      --warning-amber: #F59E0B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 12px;
+      padding-bottom: 60px;
+    }
+
+    /* En-tête officiel CMA */
+    .app-header {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 18px 16px 0 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-bottom: 16px;
+      border-top: 5px solid var(--cma-bordeaux);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-logo {
+      max-height: 55px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--cma-bordeaux);
+      background: #FEE2E2;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .header-tag img {
+      height: 12px;
+      width: auto;
+    }
+
+    .app-title {
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      margin-bottom: 4px;
+    }
+
+    .app-subtitle {
+      font-size: 0.85rem;
+      color: #64748B;
+      margin-bottom: 12px;
+    }
+
+    /* Frise fine ruban vague en bas de conteneur */
+    .cma-wave-border {
+      display: block;
+      width: 100%;
+      height: 14px;
+      object-fit: cover;
+      opacity: 0.95;
+      margin-top: 8px;
+    }
+
+    /* Puce officielle CMA */
+    .icon-bullet {
+      height: 16px;
+      width: auto;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+
+    /* Gamification & Progression */
+    .gamification-bar-box {
+      background: var(--card-bg);
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .gamification-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .progress-bar-bg {
+      height: 10px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cma-bordeaux), var(--cma-corail));
+      transition: width 0.4s ease;
+    }
+
+    /* Onglets de navigation hauts */
+    .nav-steps {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+    }
+
+    .nav-btn {
+      flex: 1;
+      min-width: 100px;
+      padding: 10px 8px;
+      border: 2px solid transparent;
+      background: #E2E8F0;
+      color: #475569;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+    }
+
+    .nav-btn.active {
+      background: var(--cma-bordeaux);
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(165, 15, 35, 0.3);
+    }
+
+    /* Vues d'étapes */
+    .step-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cartes UI */
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .card-header-bar {
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid #F1F5F9;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      display: flex;
+      align-items: center;
+    }
+
+    .card-subtitle {
+      font-size: 0.82rem;
+      color: #64748B;
+      margin-bottom: 8px;
+    }
+
+    /* Accordéons pédagogiques */
+    details {
+      background: #F8FAFC;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      border: 1px solid #E2E8F0;
+    }
+
+    summary {
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "➕";
+      font-size: 0.8rem;
+    }
+
+    details[open] summary::after {
+      content: "➖";
+    }
+
+    /* Formulaires de saisie */
+    .input-field-group {
+      margin: 10px 0;
+    }
+
+    .input-field-group label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #334155;
+    }
+
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1.5px solid #CBD5E1;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: #FFFFFF;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="number"]:focus, input[type="text"]:focus {
+      border-color: var(--cma-bordeaux);
+    }
+
+    .unit-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #64748B;
+      white-space: nowrap;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--cma-bordeaux);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 10px;
+    }
+
+    .action-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Simulateur interactif de pH */
+    .sim-box {
+      background: #FFF5F5;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #FECACA;
+      margin-bottom: 12px;
+    }
+
+    .slider-range {
+      width: 100%;
+      height: 10px;
+      border-radius: 6px;
+      accent-color: var(--cma-bordeaux);
+      margin: 12px 0;
+    }
+
+    .ph-spectrum-bar {
+      height: 14px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #EF4444 0%, #F59E0B 35%, #10B981 50%, #3B82F6 75%, #8B5CF6 100%);
+      margin-bottom: 8px;
+    }
+
+    .sim-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .stat-box {
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #E2E8F0;
+    }
+
+    .stat-box h4 {
+      font-size: 0.78rem;
+      color: #64748B;
+      margin-bottom: 4px;
+    }
+
+    .stat-box p {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+    }
+
+    /* Feedbacks d'exercice sans syntaxe brute */
+    .feedback-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.correct {
+      background: #DCFCE7;
+      color: #166534;
+      border: 1px solid #86EFAC;
+    }
+
+    .feedback-box.incorrect {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FCA5A5;
+    }
+
+    /* Verrouillage des niveaux */
+    .level-card {
+      position: relative;
+    }
+
+    .level-card.locked {
+      opacity: 0.55;
+      filter: grayscale(0.85);
+      pointer-events: none;
+    }
+
+    .locked-banner {
+      position: absolute;
+      inset: 0;
+      background: rgba(248, 250, 252, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      font-weight: 800;
+      color: #475569;
+      text-align: center;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    .badge-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .badge-cap-gold {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+    }
+
+    /* Attestation Numérique */
+    .certificate-box {
+      background: #FFFFFF;
+      border: 4px double var(--cma-bordeaux);
+      border-radius: 16px;
+      padding: 24px 18px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(165,15,35,0.08);
+      margin-top: 10px;
+    }
+
+    .certificate-seal {
+      display: inline-block;
+      background: var(--cma-bordeaux);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .certificate-box, .certificate-box * {
+        visibility: visible;
+      }
+      .certificate-box {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: 2px solid var(--cma-bordeaux);
+        box-shadow: none;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="../../assets/aides.css">
+</head>
+<body>
+
+  <!-- HEADER OFFICIEL CMA FORMATION -->
+  <header class="app-header">
+    <img src="logo.png" alt="Logo CMA Formation" class="app-logo" />
+    <span class="header-tag">
+      <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="margin:0; height:12px;" />
+      CMA Formation Sainte-Clotilde • CAP Métiers de la Coiffure
+    </span>
+    <h1 class="app-title">Caractérisation des solutions aqueuses & mesure du pH</h1>
+    <p class="app-subtitle">Séance S4 P1 • Chimie appliquée au cheveu & salon tropical</p>
+    <img src="ruban_vague.png" alt="Frise CMA" class="cma-wave-border" />
+  </header>
+
+  <!-- BARRE DE PROGRESSION GLOBALE -->
+  <section class="gamification-bar-box">
+    <div class="gamification-info">
+      <span>Objectif CAP : <strong id="capStatusText">0%</strong></span>
+      <span id="scoreBadgeView">Points : <strong>0</strong> pts</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="globalProgressBar"></div>
+    </div>
+    <div id="capMainBadgeUnlocked" style="display:none; font-size:0.82rem; color:#166534; font-weight:700; margin-top:4px;">
+      🏆 Objectif CAP 100 % Validé ! Attestation disponible à l'Étape 4.
+    </div>
+  </section>
+
+  <!-- NAVIGATION MOBILE-FIRST HAUTE -->
+  <nav class="nav-steps">
+    <button class="nav-btn active" onclick="switchStep(1)">1. Découverte</button>
+    <button class="nav-btn" onclick="switchStep(2)">2. Cours & Simu</button>
+    <button class="nav-btn" onclick="switchStep(3)">3. Entraînement</button>
+    <button class="nav-btn" onclick="switchStep(4)">4. Bilan & Diplôme</button>
+  </nav>
+
+  <!-- ========================================================================= -->
+  <!-- ÉTAPE 1 : DÉCOUVERTE & INVESTIGATION PROFESSIONNELLE                      -->
+  <!-- ========================================================================= -->
+  <main id="step1" class="step-section active">
+    <div class="card">
+      <div class="card-header-bar">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+          Salon « L'Atelier Kréol » à Sainte-Clotilde
+        </h2>
+      </div>
+      <p style="font-size:0.88rem; color:#475569; margin-bottom:10px;">
+        Sarah accueille une cliente dont les cheveux sont très abîmés, secs et ternes après des baignades répétées dans l'océan et une décoloration récente. À La Réunion, le climat tropical humide, les UV intenses et l'eau de mer alcaline ($pH \approx 8,2$) fragilisent la tige pilaire.
+      </p>
+      <p style="font-size:0.88rem; color:#475569; margin-bottom:12px;">
+        Le cheveu sain possède un film protecteur naturellement acide : $pH \text{ physiologique} \approx 5,5$. Sarah teste quatre solutions au laboratoire :
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom: 12px;">
+        <div style="background:#F1F5F9; border:1px solid #CBD5E1; border-radius:10px; padding:10px;">
+          <strong style="color:var(--cma-bordeaux); font-size:0.85rem;">Solution A : Eau réseau</strong>
+          <p style="font-size:0.8rem; color:#334155; margin-top:2px;">Eau de Sainte-Clotilde : <strong>pH = 7,0</strong></p>
+        </div>
+        <div style="background:#FFF1F2; border:1px solid #FECDD3; border-radius:10px; padding:10px;">
+          <strong style="color:var(--cma-bordeaux); font-size:0.85rem;">Solution B : Shampooing doux</strong>
+          <p style="font-size:0.8rem; color:#334155; margin-top:2px;">Entretien après-soleil : <strong>pH = 5,5</strong></p>
+        </div>
+        <div style="background:#FEF2F2; border:1px solid #FECACA; border-radius:10px; padding:10px;">
+          <strong style="color:var(--cma-bordeaux); font-size:0.85rem;">Solution C : Pâte décolorante</strong>
+          <p style="font-size:0.8rem; color:#334155; margin-top:2px;">Alcaline à l'ammoniaque : <strong>pH = 9,8</strong></p>
+        </div>
+        <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:10px;">
+          <strong style="color:#166534; font-size:0.85rem;">Solution D : Soin fermant</strong>
+          <p style="font-size:0.8rem; color:#334155; margin-top:2px;">Vinaigre de fruits : <strong>pH = 3,5</strong></p>
+        </div>
+      </div>
+
+      <p style="font-weight:700; font-size:0.88rem; color:var(--cma-bordeaux);">
+        Objectif : Caractériser ces solutions, identifier les seuils limites du pH et relier l'acidité ou la basicité à l'état des écailles de la cuticule.
+      </p>
+    </div>
+
+    <!-- Investigation guidée -->
+    <div class="card">
+      <div class="card-header-bar">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+          Investigation expérimentale & seuils numériques
+        </h3>
+      </div>
+
+      <p class="card-subtitle">1. Seuils de l'échelle à $25^\circ\text{C}$ :</p>
+      <div class="input-field-group">
+        <label>Valeur exacte du pH neutre :</label>
+        <div class="input-wrap">
+          <input type="number" id="s1_phNeutre" step="any" placeholder="Votre résultat..." />
+          <span class="unit-label">pH</span>
+        </div>
+      </div>
+      <div class="input-field-group">
+        <label>Limite supérieure de l'acidité (une solution est acide si son pH est inférieur à...) :</label>
+        <div class="input-wrap">
+          <input type="number" id="s1_seuilAcide" step="any" placeholder="Votre résultat..." />
+          <span class="unit-label">pH</span>
+        </div>
+      </div>
+
+      <p class="card-subtitle" style="margin-top:14px;">2. Mesures du salon :</p>
+      <div class="input-field-group">
+        <label>Nombre de solutions acides parmi A, B, C et D :</label>
+        <div class="input-wrap">
+          <input type="number" id="s1_nbAcides" placeholder="Votre résultat..." />
+          <span class="unit-label">solution(s)</span>
+        </div>
+      </div>
+      <div class="input-field-group">
+        <label>Valeur de pH de la solution qui ouvre les cuticules pour décolorer :</label>
+        <div class="input-wrap">
+          <input type="number" id="s1_phOuvrant" step="any" placeholder="Votre résultat..." />
+          <span class="unit-label">pH</span>
+        </div>
+      </div>
+      <div class="input-field-group">
+        <label>Valeur de pH du soin fermant acide au vinaigre :</label>
+        <div class="input-wrap">
+          <input type="number" id="s1_phFermant" step="any" placeholder="Votre résultat..." />
+          <span class="unit-label">pH</span>
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="checkStep1Investigation()">
+        Valider l'investigation du salon
+      </button>
+
+      <div id="feedbackStep1" class="feedback-box"></div>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- ÉTAPE 2 : COURS & SIMULATEUR INTERACTIF                                  -->
+  <!-- ========================================================================= -->
+  <section id="step2" class="step-section">
+    <div class="card">
+      <div class="card-header-bar">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+          Synthèse théorique : Le pH en salon de coiffure
+        </h2>
+      </div>
+
+      <details open>
+        <summary>1. L'échelle de pH (0 à 14)</summary>
+        <p style="font-size:0.86rem; color:#475569; margin-top:8px;">
+          Le pH mesure la concentration en ions oxonium $H_3O^+$ (ou $H^+$) par rapport aux ions hydroxyde $OH^-$ :
+        </p>
+        <p style="font-size:0.85rem; color:#334155; margin-top:6px;">
+          • <strong>Acide :</strong> $0 \le pH < 7$ (ions $H_3O^+$ majoritaires)<br>
+          • <strong>Neutre :</strong> $pH = 7$ (autant d'ions $H_3O^+$ que d'ions $OH^-$)<br>
+          • <strong>Basique / Alcalin :</strong> $7 < pH \le 14$ (ions $OH^-$ majoritaires)
+        </p>
+      </details>
+
+      <details>
+        <summary>2. Instruments de mesure : Papier pH vs pH-mètre</summary>
+        <div style="font-size:0.85rem; color:#334155; margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+          <p>• <strong>Papier pH :</strong> bandelette réactive imprégnée donnant une valeur approchée (à l'unité près) par comparaison immédiate avec un nuancier coloré.</p>
+          <p>• <strong>pH-mètre électronique :</strong> sonde de précision donnant une mesure au dixième ou centième près. Il nécessite un étalonnage régulier avec des solutions tampons ($pH = 4,00$ et $pH = 7,00$) et un rinçage scrupuleux à l'eau déminéralisée.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>3. Action mécanique sur la tige pilaire</summary>
+        <div style="font-size:0.85rem; color:#334155; margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+          <p>• <strong>Milieu basique ($pH > 7$) :</strong> fait gonfler la fibre de kératine et <em>écarte les écailles</em> pour laisser pénétrer les agents chimiques (décoloration, permanente, lissage).</p>
+          <p>• <strong>Milieu acide ($pH < 7$) :</strong> <em>resserre et referme les écailles</em>, lisse la cuticule, bloque les pigments et confère douceur et brillance au cheveu.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Simulateur interactif de pH & Cuticule du cheveu -->
+    <div class="card">
+      <div class="card-header-bar">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+          Simulateur interactif : pH & État des écailles du cheveu
+        </h3>
+      </div>
+      <p style="font-size:0.85rem; color:#64748B; margin-bottom:10px;">
+        Déplacez le curseur pour simuler le pH de la préparation capillaire et observer son impact immédiat sur la tige pilaire :
+      </p>
+
+      <div class="sim-box">
+        <div class="ph-spectrum-bar"></div>
+        <div style="display:flex; justify-content:space-between; font-weight:700;">
+          <span>Valeur du pH simulé :</span>
+          <span id="simPhDisplay" style="color:var(--cma-bordeaux); font-size:1.15rem;">pH = 5,5</span>
+        </div>
+        <input type="range" min="0" max="14" step="0.1" value="5.5" class="slider-range" id="phSlider" oninput="updatePhSim(this.value)" />
+      </div>
+
+      <div class="sim-stats-grid">
+        <div class="stat-box">
+          <h4>Caractère chimique</h4>
+          <p id="simNatureText">Acide (Physiologique)</p>
+          <small id="simIonDominant" style="color:#64748B; font-size:0.75rem;">Ions H3O+ majoritaires</small>
+        </div>
+        <div class="stat-box">
+          <h4>État de la cuticule</h4>
+          <p id="simCuticleText">Écailles fermées & lisses</p>
+          <small id="simHairEffect" style="color:#64748B; font-size:0.75rem;">Brillance & protection</small>
+        </div>
+      </div>
+
+      <div id="simVerdictBox" style="margin-top:12px; padding:10px; border-radius:8px; font-weight:700; font-size:0.85rem; text-align:center; background:#DCFCE7; color:#166534;">
+        🌿 pH physiologique du cuir chevelu : barrière naturelle protectrice intacte.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ÉTAPE 3 : ENTRAÎNEMENT GAMIFIÉ PROGRESSIF (3 NIVEAUX QUALIOPI)            -->
+  <!-- ========================================================================= -->
+  <section id="step3" class="step-section">
+    <!-- NIVEAU 1 : DÉBUTANT (SOCLE CAP) -->
+    <div class="card level-card" id="cardLevel1">
+      <div class="card-header-bar">
+        <div>
+          <h2 class="card-title">
+            <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+            Niveau 1 : Débutant (Socle Officiel CAP)
+          </h2>
+          <span class="card-subtitle">Exigences 100 % CAP • Débloque le diplôme et l'Attestation Numérique</span>
+        </div>
+      </div>
+
+      <!-- Ex 1.1 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 1.1 : Classification acido-basique directe
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          On mesure 5 produits : Lotion (pH 4,2), Eau de rinçage (pH 7,0), Crème défrisante (pH 11,5), Shampooing doux (pH 6,8), Poudre décolorante (pH 10,0).
+        </p>
+        <div class="input-field-group">
+          <label>Combien de solutions sont strictement acides ($pH < 7$) ?</label>
+          <input type="number" id="n1_ex1_acides" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Combien de solutions sont strictement basiques ($pH > 7$) ?</label>
+          <input type="number" id="n1_ex1_basiques" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 1.2 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 1.2 : Comparaison des instruments de mesure
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          On compare le papier pH (estimation à 1 unité près) et le pH-mètre numérique (précision au dixième : 0,1 unité).
+        </p>
+        <div class="input-field-group">
+          <label>Incertitude de mesure du papier pH (en unité de pH entière) :</label>
+          <input type="number" id="n1_ex2_papier" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Précision usuelle d'un pH-mètre d'atelier (en dixième d'unité : taper 0,1) :</label>
+          <input type="number" id="n1_ex2_phmetre" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 1.3 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 1.3 : Ions prédominants et neutralité
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          L'eau pure à $25^\circ\text{C}$ possède autant d'ions oxonium $H_3O^+$ que d'ions hydroxyde $OH^-$.
+        </p>
+        <div class="input-field-group">
+          <label>Quelle est la valeur de pH correspondant à cet équilibre ionique strict ?</label>
+          <input type="number" id="n1_ex3_neutre" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 1.4 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 1.4 : Le pH physiologique cutané
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Le cuir chevelu possède un manteau protecteur acide moyen de $pH = 5,5$.
+        </p>
+        <div class="input-field-group">
+          <label>Écart entre la neutralité ($pH = 7,0$) et le pH physiologique ($5,5$) :</label>
+          <input type="number" id="n1_ex4_ecart" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 1.5 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 1.5 : Échelle de teintes du papier pH
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Bandelette 1 : rouge vif ($pH \approx 2$). Bandelette 2 : bleu-violet ($pH \approx 11$).
+        </p>
+        <div class="input-field-group">
+          <label>Quelle est la valeur de pH du produit qui écarte et ouvre les cuticules kératiniques ?</label>
+          <input type="number" id="n1_ex5_ouvrant" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="validateLevel1()">
+        Valider le Niveau 1 (Socle CAP)
+      </button>
+      <div id="feedbackN1" class="feedback-box"></div>
+    </div>
+
+    <!-- NIVEAU 2 : AVANCÉ (DÉPASSEMENT) -->
+    <div class="card level-card locked" id="cardLevel2">
+      <div class="locked-banner" id="lockBanner2">
+        🔒 Niveau 2 Verrouillé<br>
+        <span style="font-size:0.8rem; font-weight:500; margin-top:4px;">Validez à 100 % le Niveau 1 pour débloquer le Niveau Avancé</span>
+      </div>
+
+      <div class="card-header-bar">
+        <div>
+          <h2 class="card-title">
+            <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+            Niveau 2 : Avancé (Dépassement)
+          </h2>
+          <span class="card-subtitle">Situations professionnelles & étalonnage d'atelier</span>
+        </div>
+      </div>
+
+      <!-- Ex 2.1 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 2.1 : Effet du pH sur la tige pilaire
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Un produit alcalin à $pH = 9,5$ ouvre les écailles. On applique ensuite un soin fermant à $pH = 3,5$.
+        </p>
+        <div class="input-field-group">
+          <label>Quelle variation globale de pH ($\Delta pH = 9,5 - 3,5$) subit la fibre capillaire ?</label>
+          <input type="number" id="n2_ex1_delta" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 2.2 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 2.2 : Étalonnage et dilution d'une lotion
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Un pH-mètre étalonné avec deux tampons ($pH_1 = 4,00$ et $pH_2 = 7,00$) mesure une lotion à $pH = 8,35$.
+        </p>
+        <div class="input-field-group">
+          <label>Écart entre la lotion ($pH = 8,35$) et le tampon neutre ($pH = 7,00$) :</label>
+          <input type="number" id="n2_ex2_ecart" step="any" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Vers quelle valeur limite de pH tend cette lotion basique si on lui ajoute beaucoup d'eau pure ?</label>
+          <input type="number" id="n2_ex2_limite" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 2.3 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 2.3 : Analyse de 3 shampooings du commerce
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Shampooing 1 (purifiant) : $pH = 6,2$ | Shampooing 2 (clarifiant avant lissage) : $pH = 8,5$ | Shampooing 3 (post-coloration) : $pH = 4,5$.
+        </p>
+        <div class="input-field-group">
+          <label>Indiquer la valeur de pH du shampooing le plus acide :</label>
+          <input type="number" id="n2_ex3_plusAcide" step="any" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Indiquer la valeur de pH du shampooing alcalin destiné à ouvrir la cuticule :</label>
+          <input type="number" id="n2_ex3_alcalin" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 2.4 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 2.4 : Risque chimique et défrisant extrême
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Une pâte défrisante caustique affiche un $pH = 12,5$.
+        </p>
+        <div class="input-field-group">
+          <label>Écart entre ce produit très alcalin et le maximum théorique de l'échelle ($pH = 14,0$) :</label>
+          <input type="number" id="n2_ex4_ecart" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="validateLevel2()">
+        Valider le Niveau 2 (Avancé)
+      </button>
+      <div id="feedbackN2" class="feedback-box"></div>
+    </div>
+
+    <!-- NIVEAU 3 : EXPERT -->
+    <div class="card level-card locked" id="cardLevel3">
+      <div class="locked-banner" id="lockBanner3">
+        🔒 Niveau 3 Verrouillé<br>
+        <span style="font-size:0.8rem; font-weight:500; margin-top:4px;">Validez le Niveau 2 pour accéder au Défi Expert</span>
+      </div>
+
+      <div class="card-header-bar">
+        <div>
+          <h2 class="card-title">
+            <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+            Niveau 3 : Expert (Excellence / Bac Pro)
+          </h2>
+          <span class="card-subtitle">Dilution logarithmique, normes environnementales & protocole</span>
+        </div>
+      </div>
+
+      <!-- Ex 3.1 & 3.3 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 3.1 & 3.3 : Échelle logarithmique et concentration ionique
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Dans l'échelle de pH, une diminution de 1 unité multiplie la concentration en ions $H_3O^+$ par 10.
+        </p>
+        <div class="input-field-group">
+          <label>Entre un produit à $pH = 2$ et le cuir chevelu à $pH = 5$ ($\Delta pH = 3$), par quel facteur ($10^3$) la concentration en ions acides est-elle multipliée ?</label>
+          <input type="number" id="n3_ex1_facteur" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <!-- Ex 3.2 -->
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:10px; margin-bottom:12px;">
+        <h3 class="card-title" style="font-size:0.9rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:13px;" />
+          Exercice 3.2 : Audit qualité et rejet d'eaux usées à Sainte-Clotilde
+        </h3>
+        <p style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
+          Réglementation locale : rejet autorisé uniquement si $5,5 \le pH \le 8,5$. Un bac d'effluents contient 50 L de résidus de décoloration à $pH = 10,2$.
+        </p>
+        <div class="input-field-group">
+          <label>De combien d'unités de pH ($10,2 - 8,5$) cet effluent dépasse-t-il la limite maximale légale ?</label>
+          <input type="number" id="n3_ex2_depassement" step="any" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Quelle valeur cible de neutralité stricte ($pH$) cherche-t-on idéalement en neutralisant avec un acide doux ?</label>
+          <input type="number" id="n3_ex2_cible" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="validateLevel3()">
+        Valider le Défi Expert
+      </button>
+      <div id="feedbackN3" class="feedback-box"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ÉTAPE 4 : BILAN, ÉVALUATION FORMELLE & ATTESTATION NUMÉRIQUE              -->
+  <!-- ========================================================================= -->
+  <section id="step4" class="step-section">
+    <!-- ÉVALUATION FORMELLE DU DOSSIER PÉDAGOGIQUE -->
+    <div class="card no-print">
+      <div class="card-header-bar">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" />
+          Évaluation formelle : Contrôle acido-basique en atelier
+        </h2>
+      </div>
+      <p style="font-size:0.85rem; color:#475569; margin-bottom:8px;">
+        Au laboratoire du CFA de Sainte-Clotilde, trois produits sont contrôlés :<br>
+        • Produit 1 (Lotion neutralisante après permanente) : $pH_1 = 3,8$<br>
+        • Produit 2 (Eau de rinçage du réseau) : $pH_2 = 7,0$<br>
+        • Produit 3 (Crème de coloration d'oxydation) : $pH_3 = 9,6$
+      </p>
+
+      <div style="background:#F8FAFC; padding:10px; border-radius:8px; border:1px solid #E2E8F0; margin-bottom:10px;">
+        <h3 class="card-title" style="font-size:0.85rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:12px;" />
+          Partie A : Caractérisation acido-basique
+        </h3>
+        <div class="input-field-group">
+          <label>Valeur de pH du seul produit strictement neutre :</label>
+          <input type="number" id="eval_pNeutre" step="any" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Valeur de pH du produit alcalin (faisant gonfler et ouvrir la cuticule) :</label>
+          <input type="number" id="eval_pAlcalin" step="any" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Valeur de pH de la lotion acide resserrant les écailles :</label>
+          <input type="number" id="eval_pAcide" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <div style="background:#F8FAFC; padding:10px; border-radius:8px; border:1px solid #E2E8F0; margin-bottom:10px;">
+        <h3 class="card-title" style="font-size:0.85rem; margin-bottom:6px;">
+          <img src="fleche_rouge.png" alt="Puce CMA" class="icon-bullet" style="height:12px;" />
+          Partie B : Écart avec le pH physiologique cutané ($5,5$)
+        </h3>
+        <div class="input-field-group">
+          <label>Calculer l'écart de pH entre le Produit 3 ($9,6$) et le cheveu sain ($5,5$) :</label>
+          <input type="number" id="eval_ecart3" step="any" placeholder="Votre résultat..." />
+        </div>
+        <div class="input-field-group">
+          <label>Calculer l'écart de pH entre le cheveu sain ($5,5$) et la lotion Produit 1 ($3,8$) :</label>
+          <input type="number" id="eval_ecart1" step="any" placeholder="Votre résultat..." />
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="validateEvaluation()">
+        Valider l'évaluation formelle
+      </button>
+      <div id="feedbackEval" class="feedback-box"></div>
+    </div>
+
+    <!-- ATTESTATION NUMÉRIQUE OFFICIELLE CMA -->
+    <div class="certificate-box" id="attestationPrintArea">
+      <img src="logo.png" alt="Logo CMA Formation" style="max-height: 50px; display:block; margin:0 auto 8px auto;" />
+      <div class="certificate-seal">CMA FORMATION SAINTE-CLOTILDE</div>
+      <h2 style="font-size:1.3rem; color:var(--cma-bordeaux); font-weight:900; margin-bottom:4px;">
+        ATTESTATION DE RÉUSSITE NUMÉRIQUE
+      </h2>
+      <p style="font-size:0.85rem; color:#475569;">Physique-Chimie S4 P1 • Caractérisation des solutions aqueuses & pH</p>
+
+      <div style="margin: 14px 0; padding:12px; background:#F8FAFC; border-radius:10px; border:1px solid #E2E8F0; text-align:left;">
+        <div class="input-field-group no-print">
+          <label style="font-weight:700;">Nom & Prénom de l'Apprenti(e) :</label>
+          <input type="text" id="certifNomPrenom" placeholder="Ex : Léa PAYET" oninput="updateCertifName(this.value)" />
+        </div>
+        <p style="font-size:0.95rem; margin-top:6px;">
+          Apprenti(e) : <strong id="displayName" style="color:var(--cma-bordeaux);">[Saisir votre Nom & Prénom]</strong>
+        </p>
+        <p style="font-size:0.85rem; color:#475569;">
+          Établissement : <strong>CMA Formation Sainte-Clotilde (Île de La Réunion)</strong>
+        </p>
+        <p style="font-size:0.85rem; color:#475569;">
+          Formation : <strong>CAP Métiers de la Coiffure</strong>
+        </p>
+        <p style="font-size:0.85rem; color:#475569;">
+          Formateur Référent : <strong>Rachel Lamberet-Lezais</strong>
+        </p>
+      </div>
+
+      <div style="display:flex; justify-content:space-around; align-items:center; margin:14px 0; flex-wrap:wrap; gap:8px;">
+        <div>
+          <span style="font-size:0.75rem; color:#64748B;">SOCLE CAP CHIMIE</span>
+          <p id="certifCapScore" style="font-size:1.3rem; font-weight:900; color:#166534;">0 %</p>
+        </div>
+        <div>
+          <span style="font-size:0.75rem; color:#64748B;">BADGE MÉTIER</span>
+          <div id="certifBadgeIcon">
+            <span class="badge-capsule" style="background:#E2E8F0; color:#64748B;">En cours</span>
+          </div>
+        </div>
+        <div>
+          <span style="font-size:0.75rem; color:#64748B;">DATE DE VALIDATION</span>
+          <p id="certifDate" style="font-size:0.9rem; font-weight:700;">--/--/----</p>
+        </div>
+      </div>
+
+      <p id="certifCapStatusMsg" style="font-size:0.85rem; font-weight:700; color:#64748B; margin: 8px 0;">
+        ⚠️ Validez le Niveau 1 (Socle CAP) à 100 % pour officialiser cette attestation.
+      </p>
+
+      <button class="action-btn no-print" onclick="window.print()" style="margin-top:14px;">
+        🖨️ Imprimer ou Sauvegarder en PDF
+      </button>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- LOGIQUE JAVASCRIPT PUR SANS BALISES LATEX DYNAMIQUES                     -->
+  <!-- ========================================================================= -->
+  <script>
+    let level1Completed = false;
+    let level2Completed = false;
+    let level3Completed = false;
+    let evaluationCompleted = false;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const today = new Date();
+      document.getElementById("certifDate").innerText = today.toLocaleDateString("fr-FR");
+    });
+
+    function switchStep(stepNum) {
+      document.querySelectorAll(".step-section").forEach(s => s.classList.remove("active"));
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+
+      document.getElementById(`step${stepNum}`).classList.add("active");
+      document.querySelectorAll(".nav-btn")[stepNum - 1].classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+    }
+
+    function updateProgress() {
+      let score = 0;
+      if (level1Completed) score += 100;
+      if (level2Completed) score += 50;
+      if (level3Completed) score += 50;
+
+      const percent = Math.min(100, Math.round((score / 100) * 100));
+      document.getElementById("globalProgressBar").style.width = percent + "%";
+      document.getElementById("scoreBadgeView").innerHTML = `Score Total : <strong>${score}</strong> pts`;
+
+      if (level1Completed) {
+        document.getElementById("capStatusText").innerText = "100% (Validé 🎉)";
+        document.getElementById("capMainBadgeUnlocked").style.display = "block";
+        document.getElementById("certifCapScore").innerText = "100 %";
+        document.getElementById("certifBadgeIcon").innerHTML = `
+          <span class="badge-capsule badge-cap-gold">✂️ Expert Soin Capillaire & pH</span>
+        `;
+        document.getElementById("certifCapStatusMsg").innerHTML = "✅ Objectif CAP 100 % Validé et Certifié !";
+        document.getElementById("certifCapStatusMsg").style.color = "#166534";
+      }
+    }
+
+    function updateCertifName(val) {
+      document.getElementById("displayName").innerText = val.trim() ? val.trim().toUpperCase() : "[Saisir votre Nom & Prénom]";
+    }
+
+    // -------------------------------------------------------------------------
+    // ÉTAPE 1 : INVESTIGATION DU SALON
+    // -------------------------------------------------------------------------
+    function checkStep1Investigation() {
+      const phNeutre = parseFloat(document.getElementById("s1_phNeutre").value);
+      const seuilAcide = parseFloat(document.getElementById("s1_seuilAcide").value);
+      const nbAcides = parseFloat(document.getElementById("s1_nbAcides").value);
+      const phOuvrant = parseFloat(document.getElementById("s1_phOuvrant").value);
+      const phFermant = parseFloat(document.getElementById("s1_phFermant").value);
+
+      const fb = document.getElementById("feedbackStep1");
+      fb.classList.add("show");
+
+      const okNeutre = Math.abs(phNeutre - 7) < 0.1;
+      const okSeuil = Math.abs(seuilAcide - 7) < 0.1;
+      const okNb = (nbAcides === 2); // B (5.5) et D (3.5)
+      const okOuvrant = Math.abs(phOuvrant - 9.8) < 0.1;
+      const okFermant = Math.abs(phFermant - 3.5) < 0.1;
+
+      if (okNeutre && okSeuil && okNb && okOuvrant && okFermant) {
+        fb.className = "feedback-box show correct";
+        fb.innerHTML = `
+          ✨ <strong>Parfaitement analysé !</strong><br>
+          • <strong>Neutralité :</strong> <em>pH = 7</em>.<br>
+          • <strong>Solutions acides du salon :</strong> 2 solutions (Shampooing doux à <em>pH = 5,5</em> et Soin fermant à <em>pH = 3,5</em>).<br>
+          • <strong>Décolorant :</strong> <em>pH = 9,8</em> (milieu alcalin riche en ions OH− qui écarte les écailles pour décolorer le cortex).<br>
+          • <strong>Soin fermant :</strong> <em>pH = 3,5</em> (très acide, il resserre les cuticules et redonne tout son éclat au cheveu).
+        `;
+      } else {
+        fb.className = "feedback-box show incorrect";
+        fb.innerHTML = `
+          ⚠️ <strong>Certaines données demandent vérification :</strong><br>
+          • L'eau pure neutre a un <em>pH = 7</em>.<br>
+          • Une solution est acide si <em>pH < 7</em> (Solutions B à 5,5 et D à 3,5, soit <strong>2 solutions</strong>).<br>
+          • Le décolorant basique qui ouvre les écailles est à <strong>9,8</strong> et le soin fermant au vinaigre est à <strong>3,5</strong>.
+        `;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // ÉTAPE 2 : SIMULATEUR DE pH ET CUTICULES
+    // -------------------------------------------------------------------------
+    function updatePhSim(val) {
+      const ph = parseFloat(val);
+      document.getElementById("simPhDisplay").innerText = `pH = ${ph.toFixed(1).replace('.', ',')}`;
+
+      const natText = document.getElementById("simNatureText");
+      const ionText = document.getElementById("simIonDominant");
+      const cutText = document.getElementById("simCuticleText");
+      const effText = document.getElementById("simHairEffect");
+      const verdict = document.getElementById("simVerdictBox");
+
+      if (ph < 6.8) {
+        natText.innerText = (ph >= 4.5 && ph <= 5.8) ? "Acide (Physiologique)" : "Solution Acide";
+        natText.style.color = "#DC2626";
+        ionText.innerText = "Ions oxonium H3O+ majoritaires";
+        cutText.innerText = "Écailles refermées & lisses";
+        effText.innerText = "Surface lustrée, lumière réfléchie";
+        verdict.style.background = "#DCFCE7";
+        verdict.style.color = "#166534";
+        verdict.innerHTML = (ph >= 4.5 && ph <= 5.8) 
+          ? "🌿 <strong>pH physiologique du cheveu :</strong> film hydrolipidique protecteur préservé et cuticule étanche."
+          : "💧 <strong>Soin acide :</strong> resserre activement les écailles de kératine après une coloration.";
+      } else if (ph >= 6.8 && ph <= 7.2) {
+        natText.innerText = "Solution Neutre";
+        natText.style.color = "#10B981";
+        ionText.innerText = "Équilibre strict : [H3O+] = [OH−]";
+        cutText.innerText = "Écailles au repos";
+        effText.innerText = "Pas d'action chimique marquante";
+        verdict.style.background = "#EFF6FF";
+        verdict.style.color = "#1E40AF";
+        verdict.innerHTML = "⚖️ <strong>Zone neutre (pH = 7) :</strong> eau de rinçage pure sans modification de structure.";
+      } else {
+        natText.innerText = "Solution Basique / Alcaline";
+        natText.style.color = "#7C3AED";
+        ionText.innerText = "Ions hydroxyde OH− majoritaires";
+        cutText.innerText = "Écailles écartées & gonflées";
+        effText.innerText = "Pénétration active dans le cortex";
+        verdict.style.background = "#FEF3C7";
+        verdict.style.color = "#92400E";
+        verdict.innerHTML = "⚡ <strong>Milieu alcalin (pH > 7) :</strong> rupture des liaisons cuticulaires, écailles grandes ouvertes.";
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // ÉTAPE 3 : ENTRAÎNEMENT GAMIFIÉ
+    // -------------------------------------------------------------------------
+    function validateLevel1() {
+      const e1_acides = parseFloat(document.getElementById("n1_ex1_acides").value);
+      const e1_basiques = parseFloat(document.getElementById("n1_ex1_basiques").value);
+      const e2_papier = parseFloat(document.getElementById("n1_ex2_papier").value);
+      const e2_phmetre = parseFloat(document.getElementById("n1_ex2_phmetre").value);
+      const e3_neutre = parseFloat(document.getElementById("n1_ex3_neutre").value);
+      const e4_ecart = parseFloat(document.getElementById("n1_ex4_ecart").value);
+      const e5_ouvrant = parseFloat(document.getElementById("n1_ex5_ouvrant").value);
+
+      const fb = document.getElementById("feedbackN1");
+      fb.classList.add("show");
+
+      // Réponses attendues :
+      // 1.1: 4.2 et 6.8 => 2 acides ; 11.5 et 10.0 => 2 basiques
+      // 1.2: papier = 1 unité ; phmètre = 0.1
+      // 1.3: 7 ou 7.0
+      // 1.4: 7.0 - 5.5 = 1.5
+      // 1.5: 11
+      const ok1 = (e1_acides === 2 && e1_basiques === 2);
+      const ok2 = (e2_papier === 1 && Math.abs(e2_phmetre - 0.1) < 0.05);
+      const ok3 = (Math.abs(e3_neutre - 7) < 0.1);
+      const ok4 = (Math.abs(e4_ecart - 1.5) < 0.1);
+      const ok5 = (Math.abs(e5_ouvrant - 11) < 0.1);
+
+      if (ok1 && ok2 && ok3 && ok4 && ok5) {
+        level1Completed = true;
+        fb.className = "feedback-box show correct";
+        fb.innerHTML = `
+          🎉 <strong>BRAVO ! SOCLE CAP VALIDÉ À 100 % !</strong><br>
+          Vous maîtrisez l'échelle de pH et la distinction entre papier pH et sonde électronique. Votre attestation officielle est débloquée ci-dessous et le Niveau 2 est ouvert !
+        `;
+        document.getElementById("cardLevel2").classList.remove("locked");
+        document.getElementById("lockBanner2").style.display = "none";
+        updateProgress();
+      } else {
+        fb.className = "feedback-box show incorrect";
+        fb.innerHTML = `
+          Courage ! Revérifiez calmement :<br>
+          • Ex 1.1 : <em>pH < 7</em> pour 4,2 et 6,8 (<strong>2</strong>) ; <em>pH > 7</em> pour 11,5 et 10,0 (<strong>2</strong>).<br>
+          • Ex 1.2 : Le papier pH s'évalue à l'unité (<strong>1</strong>) et le pH-mètre au dixième (<strong>0,1</strong>).<br>
+          • Ex 1.3 : La neutralité exacte est à <strong>7</strong>.<br>
+          • Ex 1.4 : <em>7,0 − 5,5 = 1,5</em> unité de pH.<br>
+          • Ex 1.5 : Le produit alcalin qui ouvre les écailles est à <strong>11</strong>.
+        `;
+      }
+    }
+
+    function validateLevel2() {
+      const e1_delta = parseFloat(document.getElementById("n2_ex1_delta").value);
+      const e2_ecart = parseFloat(document.getElementById("n2_ex2_ecart").value);
+      const e2_limite = parseFloat(document.getElementById("n2_ex2_limite").value);
+      const e3_plusAcide = parseFloat(document.getElementById("n2_ex3_plusAcide").value);
+      const e3_alcalin = parseFloat(document.getElementById("n2_ex3_alcalin").value);
+      const e4_ecart = parseFloat(document.getElementById("n2_ex4_ecart").value);
+
+      const fb = document.getElementById("feedbackN2");
+      fb.classList.add("show");
+
+      // Réponses :
+      // 2.1: 9.5 - 3.5 = 6
+      // 2.2: 8.35 - 7.00 = 1.35 ; limite = 7
+      // 2.3: plus acide = 4.5 ; alcalin = 8.5
+      // 2.4: 14 - 12.5 = 1.5
+      const ok1 = Math.abs(e1_delta - 6) < 0.1;
+      const ok2 = Math.abs(e2_ecart - 1.35) < 0.1 && Math.abs(e2_limite - 7) < 0.1;
+      const ok3 = Math.abs(e3_plusAcide - 4.5) < 0.1 && Math.abs(e3_alcalin - 8.5) < 0.1;
+      const ok4 = Math.abs(e4_ecart - 1.5) < 0.1;
+
+      if (ok1 && ok2 && ok3 && ok4) {
+        level2Completed = true;
+        fb.className = "feedback-box show correct";
+        fb.innerHTML = `
+          ⭐ <strong>SUPERBE ! NIVEAU 2 (AVANCÉ) VALIDÉ !</strong><br>
+          +50 points Bonus obtenus. Vous maîtrisez le comportement des produits en atelier. Le défi Expert est ouvert !
+        `;
+        document.getElementById("cardLevel3").classList.remove("locked");
+        document.getElementById("lockBanner3").style.display = "none";
+        updateProgress();
+      } else {
+        fb.className = "feedback-box show incorrect";
+        fb.innerHTML = `
+          Vérifiez vos calculs de dépassement :<br>
+          • 2.1 : Variation : <em>9,5 − 3,5 = 6</em>.<br>
+          • 2.2 : Écart : <em>8,35 − 7,00 = 1,35</em>. Lors d'une dilution infinie à l'eau pure, la limite neutre est <strong>7</strong>.<br>
+          • 2.3 : Plus acide : <strong>4,5</strong> ; Alcalin ouvrant : <strong>8,5</strong>.<br>
+          • 2.4 : Écart à l'échelle max : <em>14,0 − 12,5 = 1,5</em>.
+        `;
+      }
+    }
+
+    function validateLevel3() {
+      const e1_facteur = parseFloat(document.getElementById("n3_ex1_facteur").value);
+      const e2_depassement = parseFloat(document.getElementById("n3_ex2_depassement").value);
+      const e2_cible = parseFloat(document.getElementById("n3_ex2_cible").value);
+
+      const fb = document.getElementById("feedbackN3");
+      fb.classList.add("show");
+
+      // 3.1: 10^3 = 1000
+      // 3.2: 10.2 - 8.5 = 1.7 ; cible neutre = 7
+      const ok1 = (e1_facteur === 1000);
+      const ok2 = Math.abs(e2_depassement - 1.7) < 0.1;
+      const ok3 = Math.abs(e2_cible - 7) < 0.1;
+
+      if (ok1 && ok2 && ok3) {
+        level3Completed = true;
+        fb.className = "feedback-box show correct";
+        fb.innerHTML = `
+          🏆 <strong>FÉLICITATIONS ! MAÎTRISE EXPERTE VALIDÉE !</strong><br>
+          Vous comprenez parfaitement l'échelle logarithmique et les impératifs écologiques de traitement des effluents en salon réunionnais !
+        `;
+        updateProgress();
+      } else {
+        fb.className = "feedback-box show incorrect";
+        fb.innerHTML = `
+          Attention aux relations d'échelle :<br>
+          • 3.1 : 3 unités de pH d'écart correspondent à un facteur <em>10 × 10 × 10 = 1 000</em>.<br>
+          • 3.2 : Dépassement de la norme max (8,5) : <em>10,2 − 8,5 = 1,7</em> unité. La cible de neutralité parfaite est <strong>7</strong>.
+        `;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // ÉTAPE 4 : ÉVALUATION FORMELLE
+    // -------------------------------------------------------------------------
+    function validateEvaluation() {
+      const pNeutre = parseFloat(document.getElementById("eval_pNeutre").value);
+      const pAlcalin = parseFloat(document.getElementById("eval_pAlcalin").value);
+      const pAcide = parseFloat(document.getElementById("eval_pAcide").value);
+      const ecart3 = parseFloat(document.getElementById("eval_ecart3").value);
+      const ecart1 = parseFloat(document.getElementById("eval_ecart1").value);
+
+      const fb = document.getElementById("feedbackEval");
+      fb.classList.add("show");
+
+      // P1 = 3.8, P2 = 7.0, P3 = 9.6
+      // Neutre = 7.0 ; Alcalin = 9.6 ; Acide = 3.8
+      // ecart3 = 9.6 - 5.5 = 4.1
+      // ecart1 = 5.5 - 3.8 = 1.7
+      const okA = (Math.abs(pNeutre - 7) < 0.1 && Math.abs(pAlcalin - 9.6) < 0.1 && Math.abs(pAcide - 3.8) < 0.1);
+      const okB = (Math.abs(ecart3 - 4.1) < 0.1 && Math.abs(ecart1 - 1.7) < 0.1);
+
+      if (okA && okB) {
+        evaluationCompleted = true;
+        fb.className = "feedback-box show correct";
+        fb.innerHTML = `
+          ✅ <strong>Évaluation Formelle Réussie avec brio (Score : 8/8) !</strong><br>
+          • Produit 2 : Neutre (<em>pH = 7,0</em>)<br>
+          • Produit 3 : Basique (<em>pH = 9,6</em>), gonfle la cuticule (écart : +4,1)<br>
+          • Produit 1 : Acide (<em>pH = 3,8</em>), resserre les écailles kératiniques (écart : −1,7).
+        `;
+      } else {
+        fb.className = "feedback-box show incorrect";
+        fb.innerHTML = `
+          ⚠️ <strong>Certaines valeurs sont inexactes :</strong><br>
+          • Neutre : <strong>7,0</strong> | Alcalin : <strong>9,6</strong> | Acide : <strong>3,8</strong><br>
+          • Écart Produit 3 : <em>9,6 − 5,5 = 4,1</em><br>
+          • Écart Produit 1 : <em>5,5 − 3,8 = 1,7</em>.
+        `;
+      }
+    }
+  </script>
+<script src="../../assets/aides.js"></script>
+</body>
+</html>
