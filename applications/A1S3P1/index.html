@@ -1,0 +1,2486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S3 P1 - Atomes, ions et molécules en coiffure | CAP Métiers de la Coiffure - CMA Sainte-Clotilde</title>
+
+  <!-- MathJax v3 pour le rendu chimique et mathématique -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        enableMenu: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    /* Charte graphique officielle CMA Formation */
+    :root {
+      --cma-bordeaux: #A50F23;
+      --cma-bordeaux-dark: #7F0B1A;
+      --cma-corail: #EE3C3D;
+      --cma-corail-light: #FEE2E2;
+      --cma-bg: #F8FAFC;
+      --cma-card-bg: #FFFFFF;
+      --cma-text: #1E293B;
+      --cma-text-muted: #64748B;
+      --cma-border: #E2E8F0;
+      --cma-success: #16A34A;
+      --cma-success-bg: #DCFCE7;
+      --cma-warning: #D97706;
+      --cma-warning-bg: #FEF3C7;
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 14px rgba(165, 15, 35, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--cma-bg);
+      color: var(--cma-text);
+      line-height: 1.5;
+      font-size: 15px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Puces officielles CMA Formation */
+    .icon-bullet {
+      height: 18px;
+      width: 18px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+
+    /* Header principal conforme aux directives CMA */
+    .app-header {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 20px;
+      padding-top: 14px;
+      padding-left: 16px;
+      padding-right: 16px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 100%);
+      border-bottom: 1px solid var(--cma-border);
+    }
+
+    .header-content {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .app-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .header-titles {
+      flex: 1;
+    }
+
+    .header-titles h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      line-height: 1.25;
+    }
+
+    .header-titles p {
+      font-size: 0.82rem;
+      color: var(--cma-text-muted);
+      margin-top: 3px;
+    }
+
+    /* Ruban officiel répété au bord inférieur du header */
+    .cma-wave-border {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: 14px;
+      margin: 0;
+      border: 0;
+      background-image: url("ruban_vague.png");
+      background-repeat: repeat-x;
+      background-size: 102.941176px 102.941176px;
+      background-position: left -46.941176px;
+    }
+
+    /* Barre de progression compacte de 8px */
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background-color: #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cma-corail) 0%, var(--cma-bordeaux) 100%);
+      transition: width 0.4s ease;
+    }
+
+    /* Onglets de navigation tactiles Mobile-First */
+    .nav-container {
+      max-width: 960px;
+      margin: 12px auto 6px auto;
+      padding: 0 12px;
+      width: 100%;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-btn {
+      flex: 1 0 auto;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1.5px solid var(--cma-border);
+      background: #FFFFFF;
+      color: var(--cma-text);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--cma-corail);
+      color: var(--cma-bordeaux);
+    }
+
+    .nav-btn.active {
+      background: var(--cma-bordeaux);
+      color: #FFFFFF;
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 2px 8px rgba(165, 15, 35, 0.3);
+    }
+
+    /* Conteneur principal */
+    .main-container {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 12px 14px 40px 14px;
+      flex: 1;
+    }
+
+    .step-section {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .step-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cartes & Éléments de présentation */
+    .card {
+      background: var(--cma-card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--cma-border);
+      padding: 18px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-callout {
+      background: #F1F5F9;
+      border-left: 4px solid var(--cma-corail);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 14px;
+      font-size: 0.93rem;
+    }
+
+    .info-callout strong {
+      color: var(--cma-bordeaux);
+    }
+
+    /* Champs de saisie Mobile-First conformes */
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .cma-input {
+      font-size: 16px;
+      height: 44px;
+      padding: 8px 12px;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 8px;
+      color: var(--cma-text);
+      background: #FFFFFF;
+      min-width: 140px;
+      flex: 1;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .cma-input:focus {
+      outline: none;
+      border-color: var(--cma-corail);
+      box-shadow: 0 0 0 3px rgba(238, 60, 61, 0.15);
+    }
+
+    .input-unit {
+      font-weight: 600;
+      color: var(--cma-text-muted);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--cma-bordeaux);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--cma-bordeaux-dark);
+    }
+
+    .btn-corail {
+      background: var(--cma-corail);
+      color: #FFFFFF;
+    }
+
+    .btn-corail:hover {
+      background: #D92B2C;
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: 6px 14px;
+      font-size: 0.88rem;
+    }
+
+    /* Retours pédagogiques bienveillants */
+    .feedback-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background: var(--cma-success-bg);
+      border: 1px solid var(--cma-success);
+      color: #065F46;
+    }
+
+    .feedback-box.incorrect {
+      display: block;
+      background: #FEE2E2;
+      border: 1px solid #EF4444;
+      color: #991B1B;
+    }
+
+    .feedback-box.hint {
+      display: block;
+      background: var(--cma-warning-bg);
+      border: 1px solid var(--cma-warning);
+      color: #92400E;
+    }
+
+    /* Accordéons pour le cours */
+    .accordion-item {
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .accordion-header {
+      padding: 14px 16px;
+      min-height: 48px;
+      background: #FFFFFF;
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .accordion-header::after {
+      content: '+';
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--cma-corail);
+    }
+
+    .accordion-item.open .accordion-header::after {
+      content: '−';
+    }
+
+    .accordion-body {
+      padding: 14px 16px;
+      border-top: 1px solid var(--cma-border);
+      background: #FDFDFE;
+      display: none;
+      font-size: 0.93rem;
+    }
+
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* Tableaux adaptatifs */
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: 1px solid var(--cma-border);
+    }
+
+    .cma-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+      min-width: 480px;
+    }
+
+    .cma-table th {
+      background: #F8FAFC;
+      color: var(--cma-bordeaux);
+      font-weight: 700;
+      padding: 10px;
+      border-bottom: 2px solid var(--cma-border);
+    }
+
+    .cma-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--cma-border);
+      background: #FFFFFF;
+    }
+
+    /* Simulateur interactif de construction moléculaire & cuticules */
+    .sim-wrapper {
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid var(--cma-border);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 680px) {
+      .sim-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .atom-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .atom-btn {
+      min-width: 50px;
+      min-height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--cma-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s;
+    }
+
+    .atom-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .atom-H { background: #3B82F6; } /* Bleu Hydrogène */
+    .atom-O { background: #EF4444; } /* Rouge Oxygène */
+    .atom-N { background: #10B981; } /* Vert Azote */
+    .atom-S { background: #F59E0B; } /* Jaune Soufre */
+    .atom-C { background: #475569; } /* Gris Carbone */
+
+    .molecule-display-box {
+      min-height: 140px;
+      border: 2px dashed var(--cma-border);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #F8FAFC;
+      text-align: center;
+    }
+
+    .hair-cuticle-canvas {
+      width: 100%;
+      height: 180px;
+      background: #FFFDFD;
+      border: 1px solid var(--cma-border);
+      border-radius: 8px;
+      display: block;
+    }
+
+    /* Entraînement gamifié */
+    .score-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .score-card {
+      background: #FFFFFF;
+      border: 1px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .score-card.cap-highlight {
+      border-color: #86EFAC;
+      background: #F0FDF4;
+    }
+
+    .score-card-title {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--cma-text-muted);
+    }
+
+    .score-card-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      margin-top: 2px;
+    }
+
+    .level-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .level-card.active-lvl {
+      border-color: var(--cma-bordeaux);
+      box-shadow: 0 0 0 2px rgba(165, 15, 35, 0.1);
+    }
+
+    .level-card.locked {
+      background: #F1F5F9;
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
+
+    .level-pill {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .pill-l1 { background: #DCFCE7; color: #15803D; }
+    .pill-l2 { background: #FEF3C7; color: #B45309; }
+    .pill-l3 { background: #EDE9FE; color: #6D28D9; }
+
+    .exercise-box {
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exercise-box.locked-exercise {
+      display: none;
+    }
+
+    .exercise-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--cma-text-muted);
+    }
+
+    .badge-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .tag-cap { background: var(--cma-corail-light); color: var(--cma-bordeaux); }
+    .tag-bonus { background: #FEF3C7; color: #B45309; }
+    .tag-expert { background: #EDE9FE; color: #6D28D9; }
+
+    .q-item {
+      padding: 12px;
+      border-radius: 8px;
+      background: #F8FAFC;
+      border: 1px solid var(--cma-border);
+      margin-bottom: 12px;
+    }
+
+    .q-item.completed {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+    }
+
+    .q-title {
+      font-weight: 600;
+      font-size: 0.94rem;
+      margin-bottom: 8px;
+      color: var(--cma-text);
+    }
+
+    /* Badges */
+    .badge-shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .cma-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--cma-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .cma-badge.unlocked {
+      border-color: #F59E0B;
+      background: #FFFBEB;
+      color: #92400E;
+    }
+
+    .cma-badge.locked {
+      opacity: 0.5;
+      background: #F1F5F9;
+      color: #94A3B8;
+    }
+
+    /* Attestation officielle */
+    .attestation-sheet {
+      background: #FFFFFF;
+      border: 3px double var(--cma-bordeaux);
+      border-radius: 14px;
+      padding: 24px 20px;
+      margin: 16px 0;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .att-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-bottom: 2px solid var(--cma-corail);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      gap: 10px;
+    }
+
+    .att-logo {
+      max-height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .att-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .att-sub {
+      font-size: 0.88rem;
+      color: var(--cma-text-muted);
+      font-weight: 600;
+    }
+
+    .att-learner {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--cma-bordeaux);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .att-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 16px 0;
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid var(--cma-border);
+    }
+
+    @media (min-width: 600px) {
+      .att-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .att-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--cma-border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .att-sig-block {
+      text-align: right;
+      font-size: 0.85rem;
+    }
+
+    .att-sig-name {
+      font-weight: 700;
+      color: var(--cma-bordeaux);
+      margin-top: 4px;
+    }
+
+    /* Impression / Export PDF */
+    @media print {
+      body {
+        background: #FFFFFF;
+        color: #000000;
+      }
+      .app-header, .progress-track, .nav-container, .step-section:not(#step-4), .no-print, .btn, .input-row, input, select {
+        display: none !important;
+      }
+      #step-4 {
+        display: block !important;
+      }
+      .main-container {
+        padding: 0;
+        max-width: 100%;
+      }
+      .attestation-sheet {
+        border: 2px solid #A50F23;
+        box-shadow: none;
+        page-break-inside: avoid;
+        margin: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- En-tête principal officiel CMA Formation -->
+  <header class="app-header">
+    <div class="header-content">
+      <img src="logo.png" alt="Logo CMA Formation" class="app-logo" onerror="this.src='https://placehold.co/120x48/A50F23/ffffff?text=CMA+Formation'">
+      <div class="header-titles">
+        <h1>Atomes, ions et molécules dans les produits capillaires</h1>
+        <p>Physique-Chimie | CAP Métiers de la Coiffure | Année 1 - S3 P1 | CMA Formation Sainte-Clotilde (Rachel Lamberet-Lezais)</p>
+      </div>
+    </div>
+    <!-- Ruban officiel répété sur toute la largeur -->
+    <div class="cma-wave-border"></div>
+  </header>
+
+  <!-- Barre de progression générale compacte (8px) -->
+  <div class="progress-track" aria-label="Progression de la séance">
+    <div class="progress-bar-fill" id="globalProgressBar"></div>
+  </div>
+
+  <!-- Barre d'onglets tactiles Mobile-First -->
+  <div class="nav-container">
+    <nav class="nav-tabs" role="tablist">
+      <button class="nav-btn active" onclick="switchStep(1)" id="tab-step-1" role="tab" aria-selected="true">
+        <span>1.</span> Découverte
+      </button>
+      <button class="nav-btn" onclick="switchStep(2)" id="tab-step-2" role="tab" aria-selected="false">
+        <span>2.</span> Cours & Simulateur
+      </button>
+      <button class="nav-btn" onclick="switchStep(3)" id="tab-step-3" role="tab" aria-selected="false">
+        <span>3.</span> Entraînement
+      </button>
+      <button class="nav-btn" onclick="switchStep(4)" id="tab-step-4" role="tab" aria-selected="false">
+        <span>4.</span> Bilan & Attestation
+      </button>
+    </nav>
+  </div>
+
+  <!-- Conteneur principal SPA -->
+  <main class="main-container">
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 1 — DÉCOUVERTE                      -->
+    <!-- ========================================== -->
+    <section id="step-1" class="step-section active">
+      <div class="card">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Mise en situation : Formulation chimique au salon de Sainte-Clotilde
+        </h2>
+        <div class="info-callout">
+          <strong>Contexte professionnel réunionnais :</strong> Au salon « Kréol Color » à Sainte-Clotilde, Sarah, apprentie en CAP Coiffure, prépare une coloration permanente d'oxydation pour une cliente.<br><br>
+          Le protocole technique nécessite le mélange d'une <strong>crème colorante alcaline</strong> contenant de l'<strong>ammoniac ($NH_3$)</strong> produisant des <strong>ions ammonium ($NH_4^+$)</strong> et d'un oxydant à base d'<strong>eau oxygénée (peroxyde d'hydrogène $H_2O_2$)</strong>.<br>
+          Pour adapter le dosage à la texture des cheveux locaux (épais, frisés ou fragilisés par le soleil tropical), Sarah lit attentivement la liste des ingrédients (INCI) qui mentionne différentes entités chimiques : $H_2O$, $H_2O_2$, $NH_3$, $NH_4^+$, $OH^-$, $S_2O_8^{2-}$.<br>
+          Sarah s'interroge sur la nature microscopique de ces espèces : lesquelles sont des atomes isolés, des molécules neutres ou des ions porteurs de charges électriques ?
+        </div>
+        <p style="font-weight: 600; color: var(--cma-bordeaux); margin-bottom: 8px;">
+          Problématique professionnelle :
+        </p>
+        <p style="font-size: 0.93rem; color: var(--cma-text); margin-bottom: 14px;">
+          Comment différencier un atome, une molécule et un ion à partir de leur formule chimique, et comment ces entités microscopiques interagissent-elles dans les produits de décoloration et de teinture pour ouvrir les écailles et oxyder la mélanine ?
+        </p>
+
+        <!-- Tableau des entités chimiques de l'atelier -->
+        <div class="table-scroll">
+          <table class="cma-table">
+            <thead>
+              <tr>
+                <th>Espèce chimique</th>
+                <th>Eau oxygénée</th>
+                <th>Ammoniac</th>
+                <th>Ion ammonium</th>
+                <th>Ion persulfate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Formule chimique</strong></td>
+                <td>$H_2O_2$</td>
+                <td>$NH_3$</td>
+                <td>$NH_4^+$</td>
+                <td>$S_2O_8^{2-}$</td>
+              </tr>
+              <tr>
+                <td><strong>Nature microscopique</strong></td>
+                <td>Molécule neutre (oxydant)</td>
+                <td>Molécule neutre (volatils)</td>
+                <td>Cation (+1) alcalinisant</td>
+                <td>Anion (-2) décolorant</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Schéma d'investigation : Écailles de kératine & pH -->
+      <div class="card">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Microscopie : Impact du pH et des ions sur la fibre capillaire
+        </h3>
+        <p style="font-size: 0.88rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Les agents alcalins ($NH_4^+$, $OH^-$) à pH basique (9 à 11) écartent les écailles de kératine pour permettre au peroxyde d'hydrogène ($H_2O_2$) d'oxyder les pigments mélaniques du cortex. Les soins acides (pH 3,5 à 5,5) referment les écailles.
+        </p>
+
+        <div style="background: #FFFDFD; border: 1.5px solid var(--cma-border); border-radius: 10px; padding: 14px; text-align: center;">
+          <canvas id="introHairCanvas" width="500" height="130" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"></canvas>
+          <div style="display: flex; justify-content: space-around; font-size: 0.78rem; font-weight: bold; margin-top: 8px; color: var(--cma-bordeaux);">
+            <span>pH 3-4 (Écailles lisses fermées)</span>
+            <span>pH 7 (Neutre)</span>
+            <span>pH 9-11 (Écailles très ouvertes / Écartement)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questions d'investigation -->
+      <div class="card">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Questions d'investigation
+        </h3>
+
+        <!-- Q1 -->
+        <div class="q-item" id="block-disc-1">
+          <div class="q-title">1. [C1 - S'approprier] Identifier les 3 éléments chimiques constituant l'eau oxygénée ($H_2O_2$) et l'ammoniac ($NH_3$) à l'aide de leurs symboles (H, O, N) :</div>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="disc_q1" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc1()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-1"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-item" id="block-disc-2">
+          <div class="q-title">2. [C2 - Analyser] Indiquer la différence fondamentale entre une molécule électriquement neutre ($H_2O_2$) et un ion ($NH_4^+$) :</div>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="disc_q2" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc2()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-2"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-item" id="block-disc-3">
+          <div class="q-title">3. [C3 - Réaliser] Donner le nombre total d'atomes présents dans une molécule d'eau oxygénée ($H_2O_2$) :</div>
+          <div class="input-row">
+            <span class="input-unit">Nombre total d'atomes =</span>
+            <input type="text" inputmode="numeric" class="cma-input" id="disc_q3" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc3()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-3"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-item" id="block-disc-4">
+          <div class="q-title">4. [C4 - Communiquer] Pourquoi la présence d'ions ($NH_4^+$, $OH^-$) en solution dans les crèmes de coloration est-elle indispensable pour la pénétration des colorants ?</div>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="disc_q4" placeholder="Votre résultat...">
+            <button class="btn btn-primary btn-sm" onclick="checkDisc4()">Valider</button>
+          </div>
+          <div class="feedback-box" id="fb-disc-4"></div>
+        </div>
+
+        <div style="text-align: right; margin-top: 14px;">
+          <button class="btn btn-corail" onclick="switchStep(2)">Passer au Cours & Simulateur de Molécules →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 2 — COURS ET SIMULATEUR INTERACTIF   -->
+    <!-- ========================================== -->
+    <section id="step-2" class="step-section">
+      <div class="card">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Synthèse de cours : Atomes, ions et molécules dans les produits capillaires
+        </h2>
+
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            1. L'Atome : Brique élémentaire neutre
+          </div>
+          <div class="accordion-body">
+            <p>• L'<strong>atome</strong> est la plus petite unité constituante de la matière. Il est <strong>électriquement neutre</strong> (autant de protons positifs dans le noyau que d'électrons négatifs en périphérie).</p>
+            <p>• Représenté par un <strong>symbole chimique officiel</strong> universel (une lettre majuscule, parfois suivie d'une minuscule) :</p>
+            <ul style="padding-left: 20px; margin: 8px 0;">
+              <li><strong>Hydrogène :</strong> $\text{H}$</li>
+              <li><strong>Oxygène :</strong> $\text{O}$</li>
+              <li><strong>Azote :</strong> $\text{N}$ (de l'anglais Nitrogen)</li>
+              <li><strong>Carbone :</strong> $\text{C}$</li>
+              <li><strong>Soufre :</strong> $\text{S}$ (présent dans la kératine du cheveu)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            2. La Molécule : Assemblage d'atomes neutre
+          </div>
+          <div class="accordion-body">
+            <p>• Une <strong>molécule</strong> est formée d'au moins deux atomes reliés entre eux par des liaisons chimiques covalentes. Elle est <strong>globalement neutre</strong> (aucune charge électrique).</p>
+            <p>• Les nombres en indice bas précisent le décompte exact de chaque atome :</p>
+            <ul style="padding-left: 20px; margin: 8px 0;">
+              <li><strong>Eau ($H_2O$) :</strong> 2 atomes d'hydrogène ($H$) + 1 atome d'oxygène ($O$).</li>
+              <li><strong>Eau oxygénée / Peroxyde d'hydrogène ($H_2O_2$) :</strong> 2 atomes d'hydrogène ($H$) + 2 atomes d'oxygène ($O$).</li>
+              <li><strong>Ammoniac ($NH_3$) :</strong> 1 atome d'azote ($N$) + 3 atomes d'hydrogène ($H$).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            3. L'Ion : Atome ou groupement chargé électriquement
+          </div>
+          <div class="accordion-body">
+            <p>• Un <strong>ion</strong> est un atome ou un groupement d'atomes ayant <strong>perdu</strong> ou <strong>gagné</strong> un ou plusieurs électrons :</p>
+            <ul style="padding-left: 20px; margin: 8px 0;">
+              <li><strong>Cations (ions positifs, perte d'électrons) :</strong>
+                <br>• Ion ammonium : $NH_4^+$ (charge $+1$)
+                <br>• Ion oxonium / hydronium : $H_3O^+$ (charge $+1$)
+                <br>• Ion sodium : $Na^+$ (charge $+1$)
+              </li>
+              <li style="margin-top: 6px;"><strong>Anions (ions négatifs, gain d'électrons) :</strong>
+                <br>• Ion hydroxyde : $OH^-$ (charge $-1$)
+                <br>• Ion persulfate : $S_2O_8^{2-}$ (charge $-2$, gain de 2 électrons)
+                <br>• Ion chlorure : $Cl^-$ (charge $-1$)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            4. Applications professionnelles en Coiffure à La Réunion
+          </div>
+          <div class="accordion-body">
+            <p>• <strong>Écartement des cuticules :</strong> En milieu basique généré par les ions ammonium $NH_4^+$ et hydroxyde $OH^-$, la kératine gonfle et les écailles s'écartent.</p>
+            <p>• <strong>Éclaircissement de la mélanine :</strong> Le peroxyde d'hydrogène ($H_2O_2$) pénètre au cœur du cortex pour oxyder les grains de mélanine foncée caractéristiques des chevelures réunionnaises.</p>
+            <p>• <strong>Fixation et permanente :</strong> L'acide thioglycolique rompt les ponts disulfures ($-S-S-$), puis le fixateur oxydant ($H_2O_2$) reforme les ponts dans la nouvelle géométrie imposée par les bigoudis.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulateur interactif : Constructeur Moléculaire & Écailles -->
+      <div class="card">
+        <h3 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Simulateur interactif : Constructeur d'entités chimiques & Écailles de kératine
+        </h3>
+        <p style="font-size: 0.88rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Cliquez sur les atomes pour composer une espèce chimique du salon. Observez sa formule, son état de charge et la réaction microscopique des écailles du cheveu.
+        </p>
+
+        <div class="sim-wrapper">
+          <div class="sim-grid">
+            <!-- Panneau de construction -->
+            <div>
+              <div style="font-weight: 700; color: var(--cma-bordeaux); font-size: 0.92rem;">
+                1. Palette d'atomes à ajouter au réacteur :
+              </div>
+              <div class="atom-palette">
+                <button type="button" class="atom-btn atom-H" onclick="addSimAtom('H')">H</button>
+                <button type="button" class="atom-btn atom-O" onclick="addSimAtom('O')">O</button>
+                <button type="button" class="atom-btn atom-N" onclick="addSimAtom('N')">N</button>
+                <button type="button" class="atom-btn atom-S" onclick="addSimAtom('S')">S</button>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+                <button class="btn btn-sm btn-primary" onclick="setSimPreset('H2O2')">Preset $H_2O_2$</button>
+                <button class="btn btn-sm btn-primary" onclick="setSimPreset('NH3')">Preset $NH_3$</button>
+                <button class="btn btn-sm btn-primary" onclick="setSimPreset('NH4')">Preset $NH_4^+$</button>
+                <button class="btn btn-sm btn-primary" onclick="setSimPreset('H2O')">Preset $H_2O$</button>
+                <button class="btn btn-sm btn-corail" onclick="resetSimAtoms()">Réinitialiser</button>
+              </div>
+
+              <!-- Zone de formule résultante -->
+              <div class="molecule-display-box" style="margin-top: 14px;">
+                <div style="font-size: 0.8rem; color: var(--cma-text-muted);">Formule brute assemblée :</div>
+                <div id="simFormulaDisplay" style="font-size: 1.6rem; font-weight: 800; color: var(--cma-bordeaux); margin: 6px 0;">--</div>
+                <div id="simNatureDisplay" style="font-size: 0.9rem; font-weight: 700; color: var(--cma-text);">Sélectionnez des atomes</div>
+                <div id="simDetailsDisplay" style="font-size: 0.8rem; color: var(--cma-text-muted); margin-top: 4px;">Composition : vide</div>
+              </div>
+            </div>
+
+            <!-- Visualiseur des écailles de kératine -->
+            <div>
+              <div style="font-weight: 700; color: var(--cma-bordeaux); font-size: 0.92rem; margin-bottom: 6px;">
+                2. Réaction des cuticules du cheveu :
+              </div>
+              <canvas id="hairSimCanvas" class="hair-cuticle-canvas" width="400" height="180"></canvas>
+              <div id="cuticleStateText" style="margin-top: 10px; padding: 10px; border-radius: 8px; background: #F8FAFC; border: 1px solid var(--cma-border); font-size: 0.88rem;">
+                <strong>État des écailles :</strong> Position neutre au repos.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 14px;">
+          <button class="btn btn-corail" onclick="switchStep(3)">Accéder aux Entraînements Gamifiés →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 3 — ENTRAÎNEMENT GAMIFIÉ             -->
+    <!-- ========================================== -->
+    <section id="step-3" class="step-section">
+
+      <!-- Barre de score différenciée -->
+      <div class="score-banner">
+        <div class="score-card cap-highlight">
+          <div class="score-card-title">Socle CAP (Niveau 1)</div>
+          <div class="score-card-val" id="capProgressTxt">0%</div>
+        </div>
+        <div class="score-card">
+          <div class="score-card-title">Bonus Élite / Dépassement</div>
+          <div class="score-card-val" id="bonusScoreTxt">+0 pts</div>
+        </div>
+      </div>
+
+      <!-- Sélecteurs de niveaux -->
+      <div class="level-card active-lvl" id="hdr-lvl-1" onclick="switchLvlTab(1)">
+        <div>
+          <span class="level-pill pill-l1">NIVEAU 1 🟢</span>
+          <div style="font-weight: 700; margin-top: 4px;">Débutant / Socle CAP (4 Exercices complets)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Valide 100% du socle CAP et débloque le diplôme numérique</div>
+        </div>
+        <span id="badge-status-1" style="font-weight: bold; color: var(--cma-bordeaux);">En cours</span>
+      </div>
+
+      <div class="level-card locked" id="hdr-lvl-2" onclick="switchLvlTab(2)">
+        <div>
+          <span class="level-pill pill-l2">NIVEAU 2 🟡</span>
+          <div style="font-weight: 700; margin-top: 4px;">Avancé / Dépassement (4 Exercices)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Ions ammonium, persulfate, dégradation $H_2O_2$ à La Réunion, ponts disulfures</div>
+        </div>
+        <span id="badge-status-2" style="font-size: 0.82rem; color: var(--cma-text-muted);">🔒 Verrouillé</span>
+      </div>
+
+      <div class="level-card locked" id="hdr-lvl-3" onclick="switchLvlTab(3)">
+        <div>
+          <span class="level-pill pill-l3">NIVEAU 3 🔴</span>
+          <div style="font-weight: 700; margin-top: 4px;">Expert / Excellence (3 Situations complexes)</div>
+          <div style="font-size: 0.78rem; color: var(--cma-text-muted);">Calculs molaires $M(H_2O_2)=34\text{ g/mol}$, MEA sans odeur, modélisation PhET</div>
+        </div>
+        <span id="badge-status-3" style="font-size: 0.82rem; color: var(--cma-text-muted);">🔒 Verrouillé</span>
+      </div>
+
+      <!-- ================= NIVEAU 1 ================= -->
+      <div id="cnt-lvl-1">
+
+        <!-- Ex 1.1 -->
+        <div class="exercise-box" id="exbox-m1-1">
+          <div class="exercise-meta">
+            <span>Exercice 1.1 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Identification des symboles atomiques usuels en salon
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Associer chaque nom d'élément chimique à son symbole officiel (Symboles : C, H, O, S, N).
+          </p>
+
+          <div class="q-item" id="q-m1-1-1">
+            <div class="q-title">1. Oxygène $\rightarrow$</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_1_o" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_o()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-o"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-1-2">
+            <div class="q-title">2. Azote $\rightarrow$</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_1_n" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_n()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-n"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-1-3">
+            <div class="q-title">3. Hydrogène $\rightarrow$</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_1_h" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_h()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-h"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-1-4">
+            <div class="q-title">4. Carbone $\rightarrow$ et Soufre $\rightarrow$</div>
+            <div class="input-row">
+              <span class="input-unit">Carbone :</span>
+              <input type="text" class="cma-input" id="ex1_1_c" placeholder="Votre résultat..." style="max-width: 100px;">
+              <span class="input-unit">; Soufre :</span>
+              <input type="text" class="cma-input" id="ex1_1_s" placeholder="Votre résultat..." style="max-width: 100px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_1_cs()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-1-cs"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-2">
+          <div class="exercise-meta">
+            <span>Exercice 1.2 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Décomposition atomique de l'eau oxygénée ($H_2O_2$)
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            La molécule de peroxyde d'hydrogène a pour formule $H_2O_2$.
+          </p>
+
+          <div class="q-item" id="q-m1-2-1">
+            <div class="q-title">1. Indiquer les deux types d'atomes qui composent cette molécule :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_2_types" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_2_types()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-2-types"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-2-2">
+            <div class="q-title">2. Préciser le nombre total d'atomes présents dans une molécule de $H_2O_2$ :</div>
+            <div class="input-row">
+              <span class="input-unit">Nombre d'atomes =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex1_2_nb" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_2_nb()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-2-nb"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-2-3">
+            <div class="q-title">3. Cette espèce chimique est-elle électriquement neutre ou chargée ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_2_charge" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_2_charge()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-2-charge"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-3">
+          <div class="exercise-meta">
+            <span>Exercice 1.3 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Classification : Atome, Molécule ou Ion
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Indiquer pour chaque espèce chimique sa catégorie exacte (Atome, Molécule ou Ion) :
+          </p>
+
+          <div class="q-item" id="q-m1-3-1">
+            <div class="q-title">a) $H_2O$ et b) $Na^+$</div>
+            <div class="input-row">
+              <span class="input-unit">$H_2O$ :</span>
+              <input type="text" class="cma-input" id="ex1_3_h2o" placeholder="Votre résultat..." style="max-width: 140px;">
+              <span class="input-unit">; $Na^+$ :</span>
+              <input type="text" class="cma-input" id="ex1_3_na" placeholder="Votre résultat..." style="max-width: 140px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_3_ab()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-3-ab"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-3-2">
+            <div class="q-title">c) $\text{O}$ et d) $NH_4^+$</div>
+            <div class="input-row">
+              <span class="input-unit">$\text{O}$ :</span>
+              <input type="text" class="cma-input" id="ex1_3_o" placeholder="Votre résultat..." style="max-width: 140px;">
+              <span class="input-unit">; $NH_4^+$ :</span>
+              <input type="text" class="cma-input" id="ex1_3_nh4" placeholder="Votre résultat..." style="max-width: 140px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_3_cd()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-3-cd"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-3-3">
+            <div class="q-title">e) $OH^-$ et f) $NH_3$</div>
+            <div class="input-row">
+              <span class="input-unit">$OH^-$ :</span>
+              <input type="text" class="cma-input" id="ex1_3_oh" placeholder="Votre résultat..." style="max-width: 140px;">
+              <span class="input-unit">; $NH_3$ :</span>
+              <input type="text" class="cma-input" id="ex1_3_nh3" placeholder="Votre résultat..." style="max-width: 140px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_3_ef()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-3-ef"></div>
+          </div>
+        </div>
+
+        <!-- Ex 1.4 -->
+        <div class="exercise-box locked-exercise" id="exbox-m1-4">
+          <div class="exercise-meta">
+            <span>Exercice 1.4 / 1.4</span>
+            <span class="badge-tag tag-cap">Socle CAP</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Composition de l'ammoniac ($NH_3$)
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Le gaz d'ammoniac a pour formule chimique $NH_3$.
+          </p>
+
+          <div class="q-item" id="q-m1-4-1">
+            <div class="q-title">1. Nommer les atomes présents dans cette molécule :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex1_4_noms" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_4_noms()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-4-noms"></div>
+          </div>
+
+          <div class="q-item" id="q-m1-4-2">
+            <div class="q-title">2. Donner le nombre d'atomes d'hydrogène ($H$) et d'azote ($N$) :</div>
+            <div class="input-row">
+              <span class="input-unit">Atomes de H :</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex1_4_h" placeholder="Votre résultat..." style="max-width: 100px;">
+              <span class="input-unit">; Atome de N :</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex1_4_n" placeholder="Votre résultat..." style="max-width: 100px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx1_4_counts()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex1-4-counts"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= NIVEAU 2 ================= -->
+      <div id="cnt-lvl-2" style="display: none;">
+
+        <!-- Ex 2.1 -->
+        <div class="exercise-box" id="exbox-m2-1">
+          <div class="exercise-meta">
+            <span>Exercice 2.1 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Transformation de l'ammoniac en ion ammonium
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            En solution aqueuse dans les crèmes de coloration : $NH_3 + H_2O \rightleftharpoons NH_4^+ + OH^-$.
+          </p>
+
+          <div class="q-item" id="q-m2-1-1">
+            <div class="q-title">1. Identifier la formule de l'ion ammonium et celle de l'ion hydroxyde :</div>
+            <div class="input-row">
+              <span class="input-unit">Ammonium :</span>
+              <input type="text" class="cma-input" id="ex2_1_form_nh4" placeholder="Votre résultat..." style="max-width: 130px;">
+              <span class="input-unit">; Hydroxyde :</span>
+              <input type="text" class="cma-input" id="ex2_1_form_oh" placeholder="Votre résultat..." style="max-width: 130px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_1_forms()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-1-forms"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-1-2">
+            <div class="q-title">2. Préciser le signe de la charge de chaque ion ($NH_4^+$ et $OH^-$) :</div>
+            <div class="input-row">
+              <span class="input-unit">Charge $NH_4^+$ :</span>
+              <input type="text" class="cma-input" id="ex2_1_ch_nh4" placeholder="positive ou négative ?" style="max-width: 130px;">
+              <span class="input-unit">; Charge $OH^-$ :</span>
+              <input type="text" class="cma-input" id="ex2_1_ch_oh" placeholder="positive ou négative ?" style="max-width: 130px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_1_charges()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-1-charges"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-1-3">
+            <div class="q-title">3. Le nombre total d'atomes d'hydrogène ($H$) à gauche ($NH_3 + H_2O$) et à droite ($NH_4^+ + OH^-$) est-il conservé ? Combien y en a-t-il ?</div>
+            <div class="input-row">
+              <span class="input-unit">Nombre total d'atomes H =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_1_nb_h" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_1_nb_h()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-1-nb_h"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-2">
+          <div class="exercise-meta">
+            <span>Exercice 2.2 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Composition des poudres décolorantes aux persulfates
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Les poudres décolorantes rapides contiennent du persulfate d'ammonium de formule $(NH_4)_2S_2O_8$.
+          </p>
+
+          <div class="q-item" id="q-m2-2-1">
+            <div class="q-title">1. Relever les 4 éléments chimiques présents dans $(NH_4)_2S_2O_8$ (symboles) :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_2_elem" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_2_elem()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-2-elem"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-2-2">
+            <div class="q-title">2. Dénombrer le nombre total de chaque type d'atome dans $(NH_4)_2S_2O_8$ :</div>
+            <div class="input-row">
+              <span class="input-unit">N =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_2_n" placeholder="N" style="max-width: 60px;">
+              <span class="input-unit">; H =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_2_h" placeholder="H" style="max-width: 60px;">
+              <span class="input-unit">; S =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_2_s" placeholder="S" style="max-width: 60px;">
+              <span class="input-unit">; O =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_2_o" placeholder="O" style="max-width: 60px;">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_2_counts()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-2-counts"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-2-3">
+            <div class="q-title">3. Dans l'anion persulfate $S_2O_8^{2-}$, combien d'électrons ont été gagnés ?</div>
+            <div class="input-row">
+              <span class="input-unit">Électrons gagnés =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_2_elec" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_2_elec()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-2-elec"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-3">
+          <div class="exercise-meta">
+            <span>Exercice 2.3 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Dégradation de l'eau oxygénée sous climat chaud réunionnais
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Sous l'effet de la chaleur ($>30^\circ\text{C}$) et de la lumière : $2\,H_2O_2 \rightarrow 2\,H_2O + O_2$.
+          </p>
+
+          <div class="q-item" id="q-m2-3-1">
+            <div class="q-title">1. Quel gaz est libéré lors de la décomposition de l'eau oxygénée ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_3_gaz" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_3_gaz()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-3-gaz"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-3-2">
+            <div class="q-title">2. Vérifier la conservation : combien d'atomes d'oxygène ($O$) au total à gauche et à droite ?</div>
+            <div class="input-row">
+              <span class="input-unit">Atomes d'oxygène =</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex2_3_o" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_3_o()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-3-o"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-3-3">
+            <div class="q-title">3. Pourquoi les flacons d'oxydant doivent-ils être conservés au frais et à l'abri de la lumière à Sainte-Clotilde ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_3_stock" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_3_stock()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-3-stock"></div>
+          </div>
+        </div>
+
+        <!-- Ex 2.4 -->
+        <div class="exercise-box locked-exercise" id="exbox-m2-4">
+          <div class="exercise-meta">
+            <span>Exercice 2.4 / 2.4</span>
+            <span class="badge-tag tag-bonus">Bonus Élite</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Les ponts disulfures de la kératine du cheveu
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            La structure du cheveu repose sur des acides aminés riches en soufre (cystéine) formant des liaisons pont disulfure ($-S-S-$).
+          </p>
+
+          <div class="q-item" id="q-m2-4-1">
+            <div class="q-title">1. Quel type d'action chimique (réduction ou oxydation) permet de rompre ces ponts lors d'une permanente ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_4_rupture" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_4_rupture()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-4-rupture"></div>
+          </div>
+
+          <div class="q-item" id="q-m2-4-2">
+            <div class="q-title">2. Quel réactif chimique ($H_2O_2$) reforme les ponts disulfures lors de la fixation ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex2_4_fixateur" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx2_4_fixateur()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex2-4-fixateur"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= NIVEAU 3 ================= -->
+      <div id="cnt-lvl-3" style="display: none;">
+
+        <!-- Ex 3.1 -->
+        <div class="exercise-box" id="exbox-m3-1">
+          <div class="exercise-meta">
+            <span>Exercice 3.1 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Bilan microscopique et calculs molaires dans un bol de coloration
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Un bol technique contient <strong>60 g</strong> d'oxydant à <strong>9%</strong> de peroxyde d'hydrogène ($H_2O_2$).<br>
+            Données atomiques : $M(H) = 1\text{ g/mol}$ ; $M(O) = 16\text{ g/mol}$.
+          </p>
+
+          <div class="q-item" id="q-m3-1-1">
+            <div class="q-title">1. Calculer la masse molaire moléculaire $M(H_2O_2)$ en g/mol :</div>
+            <div class="input-row">
+              <span class="input-unit">$M(H_2O_2) =$</span>
+              <input type="text" inputmode="numeric" class="cma-input" id="ex3_1_molaire" placeholder="Votre résultat...">
+              <span class="input-unit">g/mol</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_1_molaire()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-1-molaire"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-1-2">
+            <div class="q-title">2. Calculer la masse exacte $m$ de $H_2O_2$ pur dans le bol ($60 \times 0,09$) :</div>
+            <div class="input-row">
+              <span class="input-unit">$m =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex3_1_masse" placeholder="Votre résultat...">
+              <span class="input-unit">g</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_1_masse()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-1-masse"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-1-3">
+            <div class="q-title">3. En déduire la quantité de matière $n = \frac{m}{M}$ en moles de $H_2O_2$ (arrondir au centième) :</div>
+            <div class="input-row">
+              <span class="input-unit">$n =$</span>
+              <input type="text" inputmode="decimal" class="cma-input" id="ex3_1_moles" placeholder="Votre résultat...">
+              <span class="input-unit">mol</span>
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_1_moles()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-1-moles"></div>
+          </div>
+        </div>
+
+        <!-- Ex 3.2 -->
+        <div class="exercise-box locked-exercise" id="exbox-m3-2">
+          <div class="exercise-meta">
+            <span>Exercice 3.2 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Analyse comparative des agents alcalinisants (Ammoniaque vs MEA)
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            Les colorations modernes dites « sans ammoniaque » utilisent la MonoÉthanolAmine (MEA) de formule $C_2H_7NO$.
+          </p>
+
+          <div class="q-item" id="q-m3-2-1">
+            <div class="q-title">1. Quels atomes composent la MEA ($C_2H_7NO$) ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_2_atomes" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_2_atomes()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-2-atomes"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-2-2">
+            <div class="q-title">2. Pourquoi la MEA ne dégage-t-elle pas d'odeur piquante par rapport au gaz ammoniac ($NH_3$) ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_2_odeur" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_2_odeur()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-2-odeur"></div>
+          </div>
+        </div>
+
+        <!-- Ex 3.3 -->
+        <div class="exercise-box locked-exercise" id="exbox-m3-3">
+          <div class="exercise-meta">
+            <span>Exercice 3.3 / 3.3</span>
+            <span class="badge-tag tag-expert">Expert / Excellence</span>
+          </div>
+          <h4 style="color: var(--cma-bordeaux); margin-bottom: 8px;">
+            <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+            Modélisation PhET et liaison peroxyde fragile
+          </h4>
+          <p style="font-size: 0.92rem; margin-bottom: 12px;">
+            La structure géométrique de l'eau oxygénée comporte un enchaînement $H-O-O-H$.
+          </p>
+
+          <div class="q-item" id="q-m3-3-1">
+            <div class="q-title">1. Nommer la liaison fragile entre les deux atomes d'oxygène qui confère à $H_2O_2$ son pouvoir oxydant :</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_3_liaison" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_3_liaison()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-3-liaison"></div>
+          </div>
+
+          <div class="q-item" id="q-m3-3-2">
+            <div class="q-title">2. Que libère cette rupture de liaison pour éclaircir les pigments mélaniques du cheveu ?</div>
+            <div class="input-row">
+              <input type="text" class="cma-input" id="ex3_3_libere" placeholder="Votre résultat...">
+              <button class="btn btn-primary btn-sm" onclick="checkEx3_3_libere()">Valider</button>
+            </div>
+            <div class="feedback-box" id="fb-ex3-3-libere"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ÉTAPE 4 — BILAN ET ATTESTATION OFFICIELLE  -->
+    <!-- ========================================== -->
+    <section id="step-4" class="step-section">
+      <div class="card no-print">
+        <h2 class="card-title">
+          <img src="fleche_rouge.png" alt="" class="icon-bullet" onerror="this.style.display='none'">
+          Bilan de compétences & Attestation officielle CMA Formation
+        </h2>
+        <p style="font-size: 0.93rem; color: var(--cma-text-muted); margin-bottom: 12px;">
+          Félicitations pour vos apprentissages en chimie appliquée à la coiffure ! Renseignez votre nom ci-dessous pour actualiser et imprimer votre attestation officielle de compétences.
+        </p>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 6px;">
+            Nom et Prénom de l'apprenant(e) :
+          </label>
+          <div class="input-row">
+            <input type="text" class="cma-input" id="studentNameInput" placeholder="Votre résultat..." oninput="updateStudentName(this.value)">
+            <button class="btn btn-corail" onclick="window.print()">
+              🖨️ Imprimer / Exporter en PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="badge-shelf">
+          <div class="cma-badge" id="badge-stat-cap">
+            <span>⚗️</span>
+            <span>Chimiste Capillaire Certifié (Socle CAP)</span>
+          </div>
+          <div class="cma-badge locked" id="badge-stat-bonus">
+            <span>⭐</span>
+            <span>Spécialiste Réactions Tropicales & Persulfates</span>
+          </div>
+          <div class="cma-badge locked" id="badge-stat-master">
+            <span>🏆</span>
+            <span>Expert Formulation, Moles & Modélisation PhET</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attestation officielle imprimable -->
+      <div class="attestation-sheet" id="attestationPrintArea">
+        <div class="att-header">
+          <img src="logo.png" alt="Logo CMA Formation" class="att-logo" onerror="this.src='https://placehold.co/120x48/A50F23/ffffff?text=CMA+Formation'">
+          <div>
+            <h2 class="att-title">Attestation Pédagogique de Réussite</h2>
+            <div class="att-sub">CMA Formation de Sainte-Clotilde • Île de La Réunion</div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.95rem; line-height: 1.6; color: var(--cma-text);">
+          <p>La direction pédagogique et le pôle Sciences Appliquées attestent que l'apprenant(e) :</p>
+          <p style="text-align: center; margin: 12px 0;">
+            <span class="att-learner" id="attestationLearnerDisplay">APPRENANT(E) EN FORMATION</span>
+          </p>
+          <p>
+            a suivi et validé avec succès l'ensemble du protocole d'apprentissage sur la distinction microscopique entre <strong>atomes, molécules et ions</strong>, l'interprétation des formules chimiques du peroxyde d'hydrogène ($H_2O_2$), de l'ammoniac ($NH_3$) et des ions ammonium ($NH_4^+$), ainsi que le mécanisme d'action des réactifs sur les cuticules de kératine en climat tropical réunionnais.
+          </p>
+
+          <div class="att-grid">
+            <div>
+              <strong>Séance :</strong> S3 P1 - Atomes, ions et molécules en coiffure<br>
+              <strong>Diplôme :</strong> CAP Métiers de la Coiffure (Gr. 1)<br>
+              <strong>Date d'évaluation :</strong> <span id="currentDateDisplay"></span>
+            </div>
+            <div>
+              <strong>Socle CAP validé :</strong> <span id="attSocleScore" style="color: var(--cma-bordeaux); font-weight: bold;">0%</span><br>
+              <strong>Points Bonus Dépassement :</strong> <span id="attBonusScore" style="color: var(--cma-corail); font-weight: bold;">0 pts</span><br>
+              <strong>Statut :</strong> <span id="attStatusBadge" style="font-weight: bold;">En cours d'acquisition</span>
+            </div>
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--cma-text-muted); margin-top: 10px;">
+            <strong>Compétences attestées :</strong> C1 (S'approprier les symboles et formules chimiques usuels), C2 (Analyser la neutralité électrique et la structure des entités), C3 (Réaliser des bilans microscopiques et calculs de quantité de matière molaire), C4 (Communiquer sur le rôle des ions et des réactifs oxydants).
+          </p>
+        </div>
+
+        <div class="att-footer">
+          <div style="font-size: 0.8rem; color: var(--cma-text-muted);">
+            Attestation pédagogique de réussite de séance • Document numérique d'atelier
+          </div>
+          <div class="att-sig-block">
+            <div>Formatrice Référente Physique-Chimie :</div>
+            <div class="att-sig-name">Rachel Lamberet-Lezais</div>
+            <div style="font-size: 0.78rem; color: var(--cma-text-muted);">CMA Formation Sainte-Clotilde</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* État réactif de l'application */
+    const appState = {
+      currentStep: 1,
+      learnerName: "APPRENANT(E) EN FORMATION",
+      disc: { q1: false, q2: false, q3: false, q4: false },
+      lvl1: {
+        '1-1-o': false, '1-1-n': false, '1-1-h': false, '1-1-cs': false,
+        '1-2-types': false, '1-2-nb': false, '1-2-charge': false,
+        '1-3-ab': false, '1-3-cd': false, '1-3-ef': false,
+        '1-4-noms': false, '1-4-counts': false
+      },
+      lvl2: {
+        '2-1-forms': false, '2-1-charges': false, '2-1-nb_h': false,
+        '2-2-elem': false, '2-2-counts': false, '2-2-elec': false,
+        '2-3-gaz': false, '2-3-o': false, '2-3-stock': false,
+        '2-4-rupture': false, '2-4-fixateur': false
+      },
+      lvl3: {
+        '3-1-molaire': false, '3-1-masse': false, '3-1-moles': false,
+        '3-2-atomes': false, '3-2-odeur': false,
+        '3-3-liaison': false, '3-3-libere': false
+      },
+      unlockedLvl2: false,
+      unlockedLvl3: false,
+      simAtoms: { H: 0, O: 0, N: 0, S: 0 }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById('currentDateDisplay').textContent = today.toLocaleDateString('fr-FR', options);
+
+      drawIntroHairCanvas();
+      drawHairSimCanvas('neutral');
+      updateProgressBar();
+    });
+
+    function switchStep(stepNumber) {
+      appState.currentStep = stepNumber;
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById(`tab-step-${i}`);
+        const sec = document.getElementById(`step-${i}`);
+        if (tab && sec) {
+          if (i === stepNumber) {
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            sec.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
+            sec.classList.remove('active');
+          }
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+    }
+
+    function toggleAccordion(header) {
+      header.parentElement.classList.toggle('open');
+    }
+
+    function updateStudentName(val) {
+      const trimmed = val.trim();
+      const display = document.getElementById('attestationLearnerDisplay');
+      if (trimmed.length > 0) {
+        display.textContent = trimmed.toUpperCase();
+        appState.learnerName = trimmed;
+      } else {
+        display.textContent = "APPRENANT(E) EN FORMATION";
+        appState.learnerName = "APPRENANT(E) EN FORMATION";
+      }
+    }
+
+    function parseInputNumber(valStr) {
+      if (!valStr) return null;
+      const clean = valStr.toString().trim().replace(',', '.');
+      const num = parseFloat(clean);
+      return isNaN(num) ? null : num;
+    }
+
+    function setFeedback(elemId, type, message) {
+      const fb = document.getElementById(elemId);
+      if (!fb) return;
+      fb.className = `feedback-box ${type}`;
+      fb.innerHTML = message;
+    }
+
+    function showCustomModal(msg) {
+      const existing = document.getElementById('cma-dialog-box');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'cma-dialog-box';
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.width = '100vw';
+      modal.style.height = '100vh';
+      modal.style.backgroundColor = 'rgba(0, 0, 0, 0.45)';
+      modal.style.display = 'flex';
+      modal.style.alignItems = 'center';
+      modal.style.justifyContent = 'center';
+      modal.style.zIndex = '9999';
+      modal.style.padding = '16px';
+
+      modal.innerHTML = `
+        <div style="background: white; border-radius: 12px; max-width: 380px; width: 100%; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-left: 6px solid #A50F23;">
+          <h3 style="color: #A50F23; margin-bottom: 10px; font-size: 1.1rem;">Information CMA Formation</h3>
+          <p style="font-size: 0.95rem; color: #1E293B; line-height: 1.5; margin-bottom: 16px;">${msg}</p>
+          <div style="text-align: right;">
+            <button class="btn btn-primary btn-sm" onclick="document.getElementById('cma-dialog-box').remove()">Compris</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function updateProgressBar() {
+      const totalL1 = Object.keys(appState.lvl1).length;
+      let countL1 = 0;
+      for (const k in appState.lvl1) if (appState.lvl1[k]) countL1++;
+
+      const pctCap = Math.round((countL1 / totalL1) * 100);
+      document.getElementById('capProgressTxt').textContent = `${pctCap}%`;
+      document.getElementById('attSocleScore').textContent = `${pctCap}%`;
+
+      if (pctCap >= 100 && !appState.unlockedLvl2) {
+        appState.unlockedLvl2 = true;
+        document.getElementById('hdr-lvl-2').classList.remove('locked');
+        document.getElementById('badge-status-2').textContent = 'Disponible !';
+        document.getElementById('badge-status-1').textContent = '✅ Validé (100%)';
+        document.getElementById('badge-stat-cap').classList.add('unlocked');
+        document.getElementById('attStatusBadge').textContent = 'Socle CAP Validé avec Félicitations';
+        document.getElementById('attStatusBadge').style.color = 'var(--cma-success)';
+      }
+
+      let bonus = 0;
+      for (const k in appState.lvl2) if (appState.lvl2[k]) bonus += 10;
+      for (const k in appState.lvl3) if (appState.lvl3[k]) bonus += 15;
+
+      document.getElementById('bonusScoreTxt').textContent = `+${bonus} pts`;
+      document.getElementById('attBonusScore').textContent = `+${bonus} pts`;
+
+      const totalL2 = Object.keys(appState.lvl2).length;
+      let countL2 = 0;
+      for (const k in appState.lvl2) if (appState.lvl2[k]) countL2++;
+
+      if (countL2 === totalL2 && !appState.unlockedLvl3) {
+        appState.unlockedLvl3 = true;
+        document.getElementById('hdr-lvl-3').classList.remove('locked');
+        document.getElementById('badge-status-3').textContent = 'Disponible !';
+        document.getElementById('badge-status-2').textContent = '✅ Validé (Bonus max)';
+        document.getElementById('badge-stat-bonus').classList.remove('locked');
+        document.getElementById('badge-stat-bonus').classList.add('unlocked');
+      }
+
+      const totalL3 = Object.keys(appState.lvl3).length;
+      let countL3 = 0;
+      for (const k in appState.lvl3) if (appState.lvl3[k]) countL3++;
+
+      if (countL3 === totalL3) {
+        document.getElementById('badge-status-3').textContent = '✅ Maîtrise totale !';
+        document.getElementById('badge-stat-master').classList.remove('locked');
+        document.getElementById('badge-stat-master').classList.add('unlocked');
+      }
+
+      const globalPct = Math.min(100, Math.round((countL1 + countL2 + countL3) / (totalL1 + totalL2 + totalL3) * 100));
+      document.getElementById('globalProgressBar').style.width = `${globalPct}%`;
+    }
+
+    function switchLvlTab(lvl) {
+      if (lvl === 2 && !appState.unlockedLvl2) {
+        showCustomModal("Le Niveau 2 🟡 est verrouillé. Vous devez d'abord valider les 4 exercices du Niveau 1 🟢 (Socle CAP à 100%) !");
+        return;
+      }
+      if (lvl === 3 && !appState.unlockedLvl3) {
+        showCustomModal("Le Niveau 3 🔴 est verrouillé. Vous devez d'abord réussir l'ensemble des défis du Niveau 2 🟡 !");
+        return;
+      }
+
+      const tabs = [1, 2, 3];
+      tabs.forEach(l => {
+        const hdr = document.getElementById(`hdr-lvl-${l}`);
+        const cnt = document.getElementById(`cnt-lvl-${l}`);
+        if (hdr && cnt) {
+          if (l === lvl) {
+            hdr.classList.add('active-lvl');
+            cnt.style.display = 'block';
+          } else {
+            hdr.classList.remove('active-lvl');
+            cnt.style.display = 'none';
+          }
+        }
+      });
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+    }
+
+    /* ================= DÉCOUVERTE ================= */
+    function checkDisc1() {
+      const v = document.getElementById('disc_q1').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-1', 'hint', 'Renseignez les 3 éléments chimiques.'); return; }
+      if (v.includes('hydrog') && v.includes('oxyg') && v.includes('azote')) {
+        setFeedback('fb-disc-1', 'correct', 'Exact ! H = <strong>Hydrogène</strong>, O = <strong>Oxygène</strong> et N = <strong>Azote</strong>.');
+        document.getElementById('block-disc-1').classList.add('completed');
+        appState.disc.q1 = true;
+      } else {
+        setFeedback('fb-disc-1', 'incorrect', 'Indiquez les noms : Hydrogène (H), Oxygène (O) et Azote (N).');
+      }
+    }
+
+    function checkDisc2() {
+      const v = document.getElementById('disc_q2').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-2', 'hint', 'Précisez la différence de charge.'); return; }
+      if ((v.includes('neutre') || v.includes('zéro') || v.includes('sans charge')) && (v.includes('charg') || v.includes('positif') || v.includes('négatif') || v.includes('électron'))) {
+        setFeedback('fb-disc-2', 'correct', 'Très bien ! Une molécule est <strong>électriquement neutre</strong> (charge globale nulle), tandis qu\'un ion possède une <strong>charge électrique</strong> positive (perte d\'électrons) ou négative (gain d\'électrons).');
+        document.getElementById('block-disc-2').classList.add('completed');
+        appState.disc.q2 = true;
+      } else {
+        setFeedback('fb-disc-2', 'incorrect', 'Une molécule est neutre, alors qu\'un ion porte une charge électrique.');
+      }
+    }
+
+    function checkDisc3() {
+      const v = parseInputNumber(document.getElementById('disc_q3').value);
+      if (v === null) { setFeedback('fb-disc-3', 'hint', 'Nombre total d\'atomes dans H2O2.'); return; }
+      if (v === 4) {
+        setFeedback('fb-disc-3', 'correct', 'Parfait ! 2 atomes d\'hydrogène ($H$) + 2 atomes d\'oxygène ($O$) = <strong>4 atomes au total</strong>.');
+        document.getElementById('block-disc-3').classList.add('completed');
+        appState.disc.q3 = true;
+      } else {
+        setFeedback('fb-disc-3', 'incorrect', 'Dans H2O2 : 2 atomes H + 2 atomes O = 4 atomes.');
+      }
+    }
+
+    function checkDisc4() {
+      const v = document.getElementById('disc_q4').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-disc-4', 'hint', 'Expliquez l\'effet sur les écailles ou cuticules.'); return; }
+      if (v.includes('ouvr') || v.includes('écart') || v.includes('gonfl') || v.includes('cuticul') || v.includes('écaill') || v.includes('pénétr')) {
+        setFeedback('fb-disc-4', 'correct', 'Excellente explication ! Les ions créent un milieu alcalin qui fait gonfler la kératine et <strong>écarte les écailles (cuticules)</strong>, permettant aux colorants et à l\'eau oxygénée de pénétrer au cortex.');
+        document.getElementById('block-disc-4').classList.add('completed');
+        appState.disc.q4 = true;
+      } else {
+        setFeedback('fb-disc-4', 'incorrect', 'Les ions alcalins permettent d\'ouvrir et d\'écarter les écailles du cheveu.');
+      }
+    }
+
+    /* ================= NIVEAU 1 ================= */
+    function checkEx1_1_o() {
+      const v = document.getElementById('ex1_1_o').value.trim().toUpperCase();
+      if (v === 'O') {
+        setFeedback('fb-ex1-1-o', 'correct', 'Exact : Oxygène = <strong>O</strong>.');
+        appState.lvl1['1-1-o'] = true;
+        document.getElementById('q-m1-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-1-o', 'incorrect', 'Le symbole de l\'Oxygène est O.'); }
+    }
+
+    function checkEx1_1_n() {
+      const v = document.getElementById('ex1_1_n').value.trim().toUpperCase();
+      if (v === 'N') {
+        setFeedback('fb-ex1-1-n', 'correct', 'Exact : Azote = <strong>N</strong> (Nitrogen).');
+        appState.lvl1['1-1-n'] = true;
+        document.getElementById('q-m1-1-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-1-n', 'incorrect', 'Le symbole de l\'Azote est N.'); }
+    }
+
+    function checkEx1_1_h() {
+      const v = document.getElementById('ex1_1_h').value.trim().toUpperCase();
+      if (v === 'H') {
+        setFeedback('fb-ex1-1-h', 'correct', 'Exact : Hydrogène = <strong>H</strong>.');
+        appState.lvl1['1-1-h'] = true;
+        document.getElementById('q-m1-1-3').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-1-h', 'incorrect', 'Le symbole de l\'Hydrogène est H.'); }
+    }
+
+    function checkEx1_1_cs() {
+      const c = document.getElementById('ex1_1_c').value.trim().toUpperCase();
+      const s = document.getElementById('ex1_1_s').value.trim().toUpperCase();
+      if (c === 'C' && s === 'S') {
+        setFeedback('fb-ex1-1-cs', 'correct', 'Bravo ! Carbone = <strong>C</strong> et Soufre = <strong>S</strong>.');
+        appState.lvl1['1-1-cs'] = true;
+        document.getElementById('q-m1-1-4').classList.add('completed');
+        document.getElementById('exbox-m1-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-1-cs', 'incorrect', 'Carbone = C ; Soufre = S.'); }
+    }
+
+    function checkEx1_2_types() {
+      const v = document.getElementById('ex1_2_types').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex1-2-types', 'hint', 'Nommez les deux types d\'atomes.'); return; }
+      if ((v.includes('hydrog') || v.includes('h')) && (v.includes('oxyg') || v.includes('o'))) {
+        setFeedback('fb-ex1-2-types', 'correct', 'Exact : l\'<strong>Hydrogène</strong> et l\'<strong>Oxygène</strong>.');
+        appState.lvl1['1-2-types'] = true;
+        document.getElementById('q-m1-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-2-types', 'incorrect', 'Ce sont l\'Hydrogène et l\'Oxygène.'); }
+    }
+
+    function checkEx1_2_nb() {
+      const v = parseInputNumber(document.getElementById('ex1_2_nb').value);
+      if (v === 4) {
+        setFeedback('fb-ex1-2-nb', 'correct', 'Exact : 2 atomes H + 2 atomes O = <strong>4 atomes au total</strong>.');
+        appState.lvl1['1-2-nb'] = true;
+        document.getElementById('q-m1-2-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-2-nb', 'incorrect', '2 + 2 = 4 atomes.'); }
+    }
+
+    function checkEx1_2_charge() {
+      const v = document.getElementById('ex1_2_charge').value.trim().toLowerCase();
+      if (v.includes('neutre') || v.includes('pas de charge') || v.includes('nulle')) {
+        setFeedback('fb-ex1-2-charge', 'correct', 'Exact : $H_2O_2$ est une molécule <strong>électriquement neutre</strong>.');
+        appState.lvl1['1-2-charge'] = true;
+        document.getElementById('q-m1-2-3').classList.add('completed');
+        document.getElementById('exbox-m1-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-2-charge', 'incorrect', 'L\'eau oxygénée est électriquement neutre.'); }
+    }
+
+    function checkEx1_3_ab() {
+      const h = document.getElementById('ex1_3_h2o').value.trim().toLowerCase();
+      const n = document.getElementById('ex1_3_na').value.trim().toLowerCase();
+      if (h.includes('molécul') && (n.includes('ion') || n.includes('cation'))) {
+        setFeedback('fb-ex1-3-ab', 'correct', 'Correct : $H_2O$ est une <strong>Molécule</strong> ; $Na^+$ est un <strong>Ion</strong> (Cation).');
+        appState.lvl1['1-3-ab'] = true;
+        document.getElementById('q-m1-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-3-ab', 'incorrect', 'H2O = Molécule ; Na+ = Ion.'); }
+    }
+
+    function checkEx1_3_cd() {
+      const o = document.getElementById('ex1_3_o').value.trim().toLowerCase();
+      const nh4 = document.getElementById('ex1_3_nh4').value.trim().toLowerCase();
+      if (o.includes('atome') && (nh4.includes('ion') || nh4.includes('cation'))) {
+        setFeedback('fb-ex1-3-cd', 'correct', 'Correct : $\\text{O}$ est un <strong>Atome</strong> ; $NH_4^+$ est un <strong>Ion</strong> (Cation polyatomique).');
+        appState.lvl1['1-3-cd'] = true;
+        document.getElementById('q-m1-3-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-3-cd', 'incorrect', 'O = Atome ; NH4+ = Ion.'); }
+    }
+
+    function checkEx1_3_ef() {
+      const oh = document.getElementById('ex1_3_oh').value.trim().toLowerCase();
+      const nh3 = document.getElementById('ex1_3_nh3').value.trim().toLowerCase();
+      if ((oh.includes('ion') || oh.includes('anion')) && nh3.includes('molécul')) {
+        setFeedback('fb-ex1-3-ef', 'correct', 'Correct : $OH^-$ est un <strong>Ion</strong> (Anion) ; $NH_3$ est une <strong>Molécule</strong>.');
+        appState.lvl1['1-3-ef'] = true;
+        document.getElementById('q-m1-3-3').classList.add('completed');
+        document.getElementById('exbox-m1-4').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-3-ef', 'incorrect', 'OH- = Ion ; NH3 = Molécule.'); }
+    }
+
+    function checkEx1_4_noms() {
+      const v = document.getElementById('ex1_4_noms').value.trim().toLowerCase();
+      if (v.includes('azote') && v.includes('hydrog')) {
+        setFeedback('fb-ex1-4-noms', 'correct', 'Exact : l\'<strong>Azote</strong> ($N$) et l\'<strong>Hydrogène</strong> ($H$).');
+        appState.lvl1['1-4-noms'] = true;
+        document.getElementById('q-m1-4-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex1-4-noms', 'incorrect', 'Atomes présents : Azote et Hydrogène.'); }
+    }
+
+    function checkEx1_4_counts() {
+      const h = parseInputNumber(document.getElementById('ex1_4_h').value);
+      const n = parseInputNumber(document.getElementById('ex1_4_n').value);
+      if (h === 3 && n === 1) {
+        setFeedback('fb-ex1-4-counts', 'correct', 'Bravo ! $NH_3$ contient <strong>3 atomes d\'hydrogène</strong> et <strong>1 atome d\'azote</strong>. SOCLE CAP VALIDÉ À 100% !');
+        appState.lvl1['1-4-counts'] = true;
+        document.getElementById('q-m1-4-2').classList.add('completed');
+        updateProgressBar();
+        showCustomModal("Félicitations ! Vous avez validé l'intégralité du Niveau 1 🟢 (Socle CAP à 100%). Votre Attestation Officielle CMA Formation est débloquée et le Niveau 2 🟡 est accessible !");
+      } else { setFeedback('fb-ex1-4-counts', 'incorrect', 'Dans NH3 : 3 atomes H et 1 atome N.'); }
+    }
+
+    /* ================= NIVEAU 2 ================= */
+    function checkEx2_1_forms() {
+      const nh4 = document.getElementById('ex2_1_form_nh4').value.trim().replace(/\s+/g, '');
+      const oh = document.getElementById('ex2_1_form_oh').value.trim().replace(/\s+/g, '');
+      if ((nh4.includes('NH4') || nh4.includes('nh4')) && (oh.includes('OH') || oh.includes('oh'))) {
+        setFeedback('fb-ex2-1-forms', 'correct', 'Exact : ion ammonium = <strong>$NH_4^+$</strong> ; ion hydroxyde = <strong>$OH^-$</strong>.');
+        appState.lvl2['2-1-forms'] = true;
+        document.getElementById('q-m2-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-1-forms', 'incorrect', 'Formules : NH4+ et OH-.'); }
+    }
+
+    function checkEx2_1_charges() {
+      const c1 = document.getElementById('ex2_1_ch_nh4').value.trim().toLowerCase();
+      const c2 = document.getElementById('ex2_1_ch_oh').value.trim().toLowerCase();
+      if ((c1.includes('posit') || c1.includes('+')) && (c2.includes('négat') || c2.includes('-'))) {
+        setFeedback('fb-ex2-1-charges', 'correct', 'Correct : $NH_4^+$ est un ion <strong>positif (+1, cation)</strong> et $OH^-$ est un ion <strong>négatif (-1, anion)</strong>.');
+        appState.lvl2['2-1-charges'] = true;
+        document.getElementById('q-m2-1-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-1-charges', 'incorrect', 'NH4+ est positif (+) et OH- est négatif (-).'); }
+    }
+
+    function checkEx2_1_nb_h() {
+      const v = parseInputNumber(document.getElementById('ex2_1_nb_h').value);
+      if (v === 5) {
+        setFeedback('fb-ex2-1-nb_h', 'correct', 'Exact : $3 + 2 = 5$ atomes H à gauche et $4 + 1 = 5$ atomes H à droite. Le nombre d\'atomes est parfaitement conservé.');
+        appState.lvl2['2-1-nb_h'] = true;
+        document.getElementById('q-m2-1-3').classList.add('completed');
+        document.getElementById('exbox-m2-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-1-nb_h', 'incorrect', 'Il y a 5 atomes H au total (3+2 = 4+1 = 5).'); }
+    }
+
+    function checkEx2_2_elem() {
+      const v = document.getElementById('ex2_2_elem').value.trim().toUpperCase();
+      if (v.includes('N') && v.includes('H') && v.includes('S') && v.includes('O')) {
+        setFeedback('fb-ex2-2-elem', 'correct', 'Exact : <strong>N</strong> (Azote), <strong>H</strong> (Hydrogène), <strong>S</strong> (Soufre) et <strong>O</strong> (Oxygène).');
+        appState.lvl2['2-2-elem'] = true;
+        document.getElementById('q-m2-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-2-elem', 'incorrect', 'Les 4 éléments sont N, H, S et O.'); }
+    }
+
+    function checkEx2_2_counts() {
+      const n = parseInputNumber(document.getElementById('ex2_2_n').value);
+      const h = parseInputNumber(document.getElementById('ex2_2_h').value);
+      const s = parseInputNumber(document.getElementById('ex2_2_s').value);
+      const o = parseInputNumber(document.getElementById('ex2_2_o').value);
+      if (n === 2 && h === 8 && s === 2 && o === 8) {
+        setFeedback('fb-ex2-2-counts', 'correct', 'Bravo ! $(NH_4)_2S_2O_8$ contient <strong>2 N, 8 H, 2 S et 8 O</strong>, soit 20 atomes au total.');
+        appState.lvl2['2-2-counts'] = true;
+        document.getElementById('q-m2-2-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-2-counts', 'incorrect', 'Décompte : N = 2, H = 8 (2x4), S = 2, O = 8.'); }
+    }
+
+    function checkEx2_2_elec() {
+      const v = parseInputNumber(document.getElementById('ex2_2_elec').value);
+      if (v === 2) {
+        setFeedback('fb-ex2-2-elec', 'correct', 'Exact : la charge étant $^{2-}$, l\'ion a <strong>gagné 2 électrons</strong> négatifs.');
+        appState.lvl2['2-2-elec'] = true;
+        document.getElementById('q-m2-2-3').classList.add('completed');
+        document.getElementById('exbox-m2-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-2-elec', 'incorrect', 'La charge 2- correspond à un gain de 2 électrons.'); }
+    }
+
+    function checkEx2_3_gaz() {
+      const v = document.getElementById('ex2_3_gaz').value.trim().toLowerCase();
+      if (v.includes('dioxyg') || v.includes('oxyg') || v.includes('o2')) {
+        setFeedback('fb-ex2-3-gaz', 'correct', 'Exact : dégagement de gaz <strong>dioxygène ($O_2$)</strong>.');
+        appState.lvl2['2-3-gaz'] = true;
+        document.getElementById('q-m2-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-3-gaz', 'incorrect', 'C\'est le gaz dioxygène (O2).'); }
+    }
+
+    function checkEx2_3_o() {
+      const v = parseInputNumber(document.getElementById('ex2_3_o').value);
+      if (v === 4) {
+        setFeedback('fb-ex2-3-o', 'correct', 'Exact : $2 \\times 2 = 4$ atomes d\'oxygène dans les réactifs, et $2\\times 1 + 2 = 4$ atomes dans les produits.');
+        appState.lvl2['2-3-o'] = true;
+        document.getElementById('q-m2-3-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-3-o', 'incorrect', '2x2 = 4 atomes d\'oxygène.'); }
+    }
+
+    function checkEx2_3_stock() {
+      const v = document.getElementById('ex2_3_stock').value.trim().toLowerCase();
+      if (!v) { setFeedback('fb-ex2-3-stock', 'hint', 'Justifiez le stockage sous climat tropical.'); return; }
+      if (v.includes('dégrad') || v.includes('décompos') || v.includes('perdre') || v.includes('efficacité') || v.includes('explos') || v.includes('press') || v.includes('gonfl')) {
+        setFeedback('fb-ex2-3-stock', 'correct', 'Très bien : la chaleur accélère la décomposition en $O_2$, ce qui ferait <strong>perdre son pouvoir éclaircissant</strong> au produit et pourrait faire gonfler ou éclater les flacons.');
+        appState.lvl2['2-3-stock'] = true;
+        document.getElementById('q-m2-3-3').classList.add('completed');
+        document.getElementById('exbox-m2-4').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-3-stock', 'incorrect', 'Pour éviter la décomposition prématurée du produit et la surpression dans le flacon.'); }
+    }
+
+    function checkEx2_4_rupture() {
+      const v = document.getElementById('ex2_4_rupture').value.trim().toLowerCase();
+      if (v.includes('réduct') || v.includes('reduct')) {
+        setFeedback('fb-ex2-4-rupture', 'correct', 'Exact : c\'est une <strong>réduction</strong> chimique par l\'acide thioglycolique.');
+        appState.lvl2['2-4-1'] = true;
+        document.getElementById('q-m2-4-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-4-rupture', 'incorrect', 'C\'est une réduction.'); }
+    }
+
+    function checkEx2_4_fixateur() {
+      const v = document.getElementById('ex2_4_fixateur').value.trim().toLowerCase();
+      if (v.includes('oxyd') || v.includes('peroxyde') || v.includes('eau oxygén') || v.includes('h2o2')) {
+        setFeedback('fb-ex2-4-fixateur', 'correct', 'Bravo ! C\'est une <strong>oxydation</strong> par le peroxyde d\'hydrogène ($H_2O_2$) qui reconstitue les ponts disulfures. NIVEAU 2 VALIDÉ !');
+        appState.lvl2['2-4-2'] = true;
+        document.getElementById('q-m2-4-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex2-4-fixateur', 'incorrect', 'C\'est une réaction d\'oxydation (eau oxygénée / H2O2).'); }
+    }
+
+    /* ================= NIVEAU 3 ================= */
+    function checkEx3_1_molaire() {
+      const v = parseInputNumber(document.getElementById('ex3_1_molaire').value);
+      if (v === 34) {
+        setFeedback('fb-ex3-1-molaire', 'correct', 'Exact : $M(H_2O_2) = 2\\times 1 + 2\\times 16 = 2 + 32 = \\mathbf{34\\text{ g/mol}}$.');
+        appState.lvl3['3-1-molaire'] = true;
+        document.getElementById('q-m3-1-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-1-molaire', 'incorrect', '2*1 + 2*16 = 34 g/mol.'); }
+    }
+
+    function checkEx3_1_masse() {
+      const v = parseInputNumber(document.getElementById('ex3_1_masse').value);
+      if (Math.abs(v - 5.4) < 0.05) {
+        setFeedback('fb-ex3-1-masse', 'correct', 'Exact : $m = 60\\text{ g} \\times 0,09 = \\mathbf{5,4\\text{ g}}$ de peroxyde pur.');
+        appState.lvl3['3-1-masse'] = true;
+        document.getElementById('q-m3-1-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-1-masse', 'incorrect', '60 * 0,09 = 5,4 g.'); }
+    }
+
+    function checkEx3_1_moles() {
+      const v = parseInputNumber(document.getElementById('ex3_1_moles').value);
+      if (Math.abs(v - 0.16) < 0.02) {
+        setFeedback('fb-ex3-1-moles', 'correct', 'Bravo ! $n = \\frac{m}{M} = \\frac{5,4}{34} \\approx \\mathbf{0,16\\text{ mol}}$ de $H_2O_2$ prête à réagir sur la mélanine.');
+        appState.lvl3['3-1-moles'] = true;
+        document.getElementById('q-m3-1-3').classList.add('completed');
+        document.getElementById('exbox-m3-2').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-1-moles', 'incorrect', '5,4 / 34 ≈ 0,16 mol.'); }
+    }
+
+    function checkEx3_2_atomes() {
+      const v = document.getElementById('ex3_2_atomes').value.trim().toUpperCase();
+      if (v.includes('C') && v.includes('H') && v.includes('N') && v.includes('O')) {
+        setFeedback('fb-ex3-2-atomes', 'correct', 'Exact : Carbone (C), Hydrogène (H), Azote (N) et Oxygène (O).');
+        appState.lvl3['3-2-atomes'] = true;
+        document.getElementById('q-m3-2-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-2-atomes', 'incorrect', 'Les atomes sont C, H, N et O.'); }
+    }
+
+    function checkEx3_2_odeur() {
+      const v = document.getElementById('ex3_2_odeur').value.trim().toLowerCase();
+      if (v.includes('volatil') || v.includes('lourd') || v.includes('grosse') || v.includes('évapor') || v.includes('vapeur') || v.includes('masse')) {
+        setFeedback('fb-ex3-2-odeur', 'correct', 'Excellente analyse : la MEA est une molécule beaucoup plus lourde et <strong>moins volatile</strong> que l\'ammoniac ($NH_3$), elle ne passe donc pratiquement pas sous forme de gaz dans l\'air du salon.');
+        appState.lvl3['3-2-odeur'] = true;
+        document.getElementById('q-m3-2-2').classList.add('completed');
+        document.getElementById('exbox-m3-3').classList.remove('locked-exercise');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-2-odeur', 'incorrect', 'La MEA est une molécule plus grosse et beaucoup moins volatile que NH3.'); }
+    }
+
+    function checkEx3_3_liaison() {
+      const v = document.getElementById('ex3_3_liaison').value.trim().toLowerCase();
+      if (v.includes('peroxyde') || v.includes('o-o') || v.includes('oxygène-oxygène') || v.includes('dioxy')) {
+        setFeedback('fb-ex3-3-liaison', 'correct', 'Exact : la <strong>liaison peroxyde ($-O-O-$)</strong>, liaison simple covalente particulièrement instable.');
+        appState.lvl3['3-3-1'] = true;
+        document.getElementById('q-m3-3-1').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-3-liaison', 'incorrect', 'C\'est la liaison peroxyde (-O-O-).'); }
+    }
+
+    function checkEx3_3_libere() {
+      const v = document.getElementById('ex3_3_libere').value.trim().toLowerCase();
+      if (v.includes('oxyg') || v.includes('radical') || v.includes('radicaux') || v.includes('o') || v.includes('oxyd')) {
+        setFeedback('fb-ex3-3-libere', 'correct', 'Bravo ! La rupture libère de l\'<strong>oxygène actif (radicaux libres)</strong> qui décolore et détruit les pigments mélaniques du cortex. NIVEAU 3 EXPERT COMPLÉTÉ AVEC SUCCÈS !');
+        appState.lvl3['3-3-2'] = true;
+        document.getElementById('q-m3-3-2').classList.add('completed');
+        updateProgressBar();
+      } else { setFeedback('fb-ex3-3-libere', 'incorrect', 'Elle libère de l\'oxygène actif (radicaux oxydants).'); }
+    }
+
+    /* ================= DESSIN CANVAS ÉCAILLES INTRODUCTION ================= */
+    function drawIntroHairCanvas() {
+      const canvas = document.getElementById('introHairCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Section 1 : pH 3-4 (Écailles fermées)
+      drawCuticleSection(ctx, 60, 20, 24, 80, 2, '#16A34A');
+      // Section 2 : pH 7 (Neutre)
+      drawCuticleSection(ctx, 230, 20, 28, 80, 8, '#D97706');
+      // Section 3 : pH 10 (Écailles écartées)
+      drawCuticleSection(ctx, 400, 20, 36, 80, 20, '#A50F23');
+    }
+
+    function drawCuticleSection(ctx, x, y, width, height, flare, color) {
+      // Tige centrale (cortex)
+      ctx.fillStyle = '#FED7AA';
+      ctx.fillRect(x - width/2, y, width, height);
+      ctx.strokeStyle = '#EA580C';
+      ctx.strokeRect(x - width/2, y, width, height);
+
+      // Écailles superposées de bas en haut
+      const steps = 6;
+      for (let i = 0; i < steps; i++) {
+        const sy = y + height - (i * 12) - 10;
+        ctx.fillStyle = color;
+
+        // Écaille gauche
+        ctx.beginPath();
+        ctx.moveTo(x - width/2, sy);
+        ctx.lineTo(x - width/2 - flare, sy - 8);
+        ctx.lineTo(x - width/2, sy - 14);
+        ctx.closePath();
+        ctx.fill();
+
+        // Écaille droite
+        ctx.beginPath();
+        ctx.moveTo(x + width/2, sy);
+        ctx.lineTo(x + width/2 + flare, sy - 8);
+        ctx.lineTo(x + width/2, sy - 14);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    /* ================= LOGIQUE SIMULATEUR MOLECULAIRE ================= */
+    function addSimAtom(atom) {
+      appState.simAtoms[atom]++;
+      renderSimMolecule();
+    }
+
+    function resetSimAtoms() {
+      appState.simAtoms = { H: 0, O: 0, N: 0, S: 0 };
+      renderSimMolecule();
+    }
+
+    function setSimPreset(preset) {
+      resetSimAtoms();
+      if (preset === 'H2O2') { appState.simAtoms.H = 2; appState.simAtoms.O = 2; }
+      else if (preset === 'NH3') { appState.simAtoms.N = 1; appState.simAtoms.H = 3; }
+      else if (preset === 'NH4') { appState.simAtoms.N = 1; appState.simAtoms.H = 4; }
+      else if (preset === 'H2O') { appState.simAtoms.H = 2; appState.simAtoms.O = 1; }
+      renderSimMolecule();
+    }
+
+    function renderSimMolecule() {
+      const { H, O, N, S } = appState.simAtoms;
+      const formDisplay = document.getElementById('simFormulaDisplay');
+      const natDisplay = document.getElementById('simNatureDisplay');
+      const detDisplay = document.getElementById('simDetailsDisplay');
+      const stateText = document.getElementById('cuticleStateText');
+
+      if (H === 0 && O === 0 && N === 0 && S === 0) {
+        formDisplay.innerHTML = '--';
+        natDisplay.innerHTML = 'Réacteur vide';
+        detDisplay.innerHTML = 'Ajoutez des atomes ci-dessus';
+        drawHairSimCanvas('neutral');
+        stateText.innerHTML = '<strong>État des cuticules :</strong> Position neutre au repos.';
+        return;
+      }
+
+      // Construction de la formule brute
+      let formulaHTML = '';
+      if (N > 0) formulaHTML += `N${N > 1 ? `<sub>${N}</sub>` : ''}`;
+      if (H > 0) formulaHTML += `H${H > 1 ? `<sub>${H}</sub>` : ''}`;
+      if (S > 0) formulaHTML += `S${S > 1 ? `<sub>${S}</sub>` : ''}`;
+      if (O > 0) formulaHTML += `O${O > 1 ? `<sub>${O}</sub>` : ''}`;
+
+      formDisplay.innerHTML = formulaHTML;
+      detDisplay.innerHTML = `Atomes présents : H:${H}, O:${O}, N:${N}, S:${S}`;
+
+      // Identification de l'entité
+      if (H === 2 && O === 2 && N === 0 && S === 0) {
+        formDisplay.innerHTML = 'H<sub>2</sub>O<sub>2</sub>';
+        natDisplay.innerHTML = '🧴 Eau oxygénée (Molécule neutre, Oxydant)';
+        drawHairSimCanvas('oxydant');
+        stateText.innerHTML = '<strong>Action de $H_2O_2$ :</strong> L\'eau oxygénée pénètre dans le cortex pour décolorer la mélanine naturelle.';
+      } else if (N === 1 && H === 3 && O === 0 && S === 0) {
+        formDisplay.innerHTML = 'NH<sub>3</sub>';
+        natDisplay.innerHTML = '💨 Ammoniac (Molécule neutre, Base volatile)';
+        drawHairSimCanvas('alcalin');
+        stateText.innerHTML = '<strong>Action de $NH_3$ :</strong> Alcalinise le milieu, gonfle la kératine et <strong>ouvre les cuticules</strong>.';
+      } else if (N === 1 && H === 4 && O === 0 && S === 0) {
+        formDisplay.innerHTML = 'NH<sub>4</sub><sup>+</sup>';
+        natDisplay.innerHTML = '⚡ Ion ammonium (Cation +1, alcalinisant)';
+        drawHairSimCanvas('alcalin');
+        stateText.innerHTML = '<strong>Action de $NH_4^+$ :</strong> Écartement maximal des écailles de kératine.';
+      } else if (H === 2 && O === 1 && N === 0 && S === 0) {
+        formDisplay.innerHTML = 'H<sub>2</sub>O';
+        natDisplay.innerHTML = '💧 Eau pure (Molécule neutre, Solvant universel)';
+        drawHairSimCanvas('neutral');
+        stateText.innerHTML = '<strong>Action de $H_2O$ :</strong> Hydratation et support des réactions chimiques.';
+      } else if (H === 1 && O === 1 && N === 0 && S === 0) {
+        formDisplay.innerHTML = 'OH<sup>−</sup>';
+        natDisplay.innerHTML = '⚡ Ion hydroxyde (Anion -1, Base forte)';
+        drawHairSimCanvas('alcalin');
+        stateText.innerHTML = '<strong>Action de $OH^-$ :</strong> pH fortement alcalin, gonflement intense de la fibre capillaire.';
+      } else {
+        natDisplay.innerHTML = '🔬 Assemblage chimique en cours';
+        drawHairSimCanvas('neutral');
+        stateText.innerHTML = '<strong>État :</strong> Mélange en atelier.';
+      }
+    }
+
+    function drawHairSimCanvas(mode) {
+      const canvas = document.getElementById('hairSimCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const midX = canvas.width / 2;
+      const stemWidth = mode === 'alcalin' ? 50 : 38;
+      const flare = mode === 'alcalin' ? 24 : (mode === 'oxydant' ? 14 : 5);
+      const color = mode === 'alcalin' ? '#A50F23' : (mode === 'oxydant' ? '#D97706' : '#16A34A');
+
+      // Fibre de cheveux (cortex)
+      ctx.fillStyle = mode === 'oxydant' ? '#FEF08A' : '#FED7AA'; // cortex éclairci si oxydant
+      ctx.fillRect(midX - stemWidth/2, 10, stemWidth, 160);
+      ctx.strokeStyle = '#EA580C';
+      ctx.strokeRect(midX - stemWidth/2, 10, stemWidth, 160);
+
+      // Pigments mélaniques représentés dans le cortex
+      if (mode !== 'oxydant') {
+        ctx.fillStyle = '#78350F';
+        for (let py = 30; py < 150; py += 18) {
+          ctx.beginPath();
+          ctx.arc(midX - 8, py, 3.5, 0, Math.PI * 2);
+          ctx.arc(midX + 8, py + 8, 3.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      } else {
+        // Pigments décolorés (plus clairs et rares)
+        ctx.fillStyle = '#D97706';
+        ctx.beginPath();
+        ctx.arc(midX, 60, 2.5, 0, Math.PI * 2);
+        ctx.arc(midX - 4, 110, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Écailles cuticulaires le long de la tige
+      const count = 9;
+      for (let i = 0; i < count; i++) {
+        const y = 160 - (i * 16);
+        ctx.fillStyle = color;
+
+        // Cuticule gauche
+        ctx.beginPath();
+        ctx.moveTo(midX - stemWidth/2, y);
+        ctx.lineTo(midX - stemWidth/2 - flare, y - 10);
+        ctx.lineTo(midX - stemWidth/2, y - 16);
+        ctx.closePath();
+        ctx.fill();
+
+        // Cuticule droite
+        ctx.beginPath();
+        ctx.moveTo(midX + stemWidth/2, y);
+        ctx.lineTo(midX + stemWidth/2 + flare, y - 10);
+        ctx.lineTo(midX + stemWidth/2, y - 16);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+  </script>
+</body>
+</html>

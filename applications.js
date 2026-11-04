@@ -65,6 +65,17 @@ window.APPLICATIONS = [
     "publication": "2027-01-18T07:50:00+04:00"
   },
   {
+    "code": "A1S3P1",
+    "annee": 1,
+    "semaine": 3,
+    "discipline": "P",
+    "activite": 1,
+    "titre": "Atomes, ions et molécules en coiffure",
+    "description": "Identifier les atomes, les ions et les molécules dans les produits utilisés en salon.",
+    "lien": "./applications/A1S3P1/index.html",
+    "publication": "2027-01-18T07:50:00+04:00"
+  },
+  {
     "code": "A1S4M1",
     "annee": 1,
     "semaine": 4,
