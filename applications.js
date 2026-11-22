@@ -30,7 +30,7 @@ window.APPLICATIONS = [
     "titre": "Calculs et conversions de volumes",
     "description": "Cours, situations professionnelles et entraînements.",
     "lien": "./applications/A1S2M2/index.html",
-    "publication": "2026-11-23T07:50:00+04:00"
+    "publication": "2026-11-27T09:30:00+04:00"
   },
   {
     "code": "A1S2P1",
